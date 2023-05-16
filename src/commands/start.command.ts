@@ -8,6 +8,6 @@ export class StartCommand extends Command {
   }
 
   handle() {
-    this.bot.start((ctx) => ctx.reply('Welcome to the Cost Analyzer Bot'));
+    this.bot.start((ctx) => ctx.reply('Welcome to the Cost Analyzer Bot! Test after change!'));
   }
 }

@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node ./dist/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc-watch --onSuccess \"node ./dist/main.js\""
   },
   "keywords": [],
   "author": "",
@@ -20,8 +18,8 @@
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "nodemon": "^2.0.22",
     "prettier": "2.8.8",
+    "tsc-watch": "^6.0.4",
     "typescript": "^5.0.4"
   },
   "dependencies": {

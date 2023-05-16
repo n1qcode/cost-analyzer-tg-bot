@@ -1,5 +1,6 @@
 import { Telegraf } from "telegraf";
-import config from 'config'
+import config from "config";
+
 import { IBotContext } from "./context/context.interface";
 import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";
@@ -13,19 +14,18 @@ class Bot {
   }
 
   init() {
-    this.commands = [new StartCommand(this.bot)]
-    this.commands.forEach(command => command.handle());
+    this.commands = [new StartCommand(this.bot)];
+    this.commands.forEach((command) => command.handle());
     this.bot.launch();
   }
 
   stop(event: string) {
-    this.bot.stop(event)
+    this.bot.stop(event);
   }
-
 }
 
-const bot = new Bot(config.get('TELEGRAM_TOKEN'));
+const bot = new Bot(config.get("TELEGRAM_TOKEN"));
 bot.init();
 
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+process.once("SIGINT", () => bot.stop("SIGINT"));
+process.once("SIGTERM", () => bot.stop("SIGTERM"));

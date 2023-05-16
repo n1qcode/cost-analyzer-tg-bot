@@ -1,17 +1,21 @@
 import { Telegraf } from "telegraf";
 import config from 'config'
 import { IBotContext } from "./context/context.interface";
+import { Command } from "./commands/command.class";
+import { StartCommand } from "./commands/start.command";
 
 class Bot {
   bot: Telegraf<IBotContext>;
+  commands: Command[] = [];
 
   constructor(private readonly configBot: string) {
     this.bot = new Telegraf<IBotContext>(configBot);
   }
 
   init() {
+    this.commands = [new StartCommand(this.bot)]
+    this.commands.forEach(command => command.handle());
     this.bot.launch();
-    this.bot.start((ctx) => ctx.reply('Welcome to the Cost Analyzer Bot'));
   }
 
   stop(event: string) {

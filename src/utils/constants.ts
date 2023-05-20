@@ -1,9 +1,11 @@
 import config from "config";
 
+import { t } from "../i18n";
+
 export const commands = `
-/start - reboot bot
-/help - help
-/cost - expenses
+/start - ${t("reboot")}
+/help - ${t("help")}
+/cost - ${t("cost")}
 `;
 
 export const API_HOST = `http://${config.get("HOST")}:${config.get(

@@ -121,12 +121,12 @@ export class CostCommand extends Command {
             })
             .then((res) => res.data);
 
-          await ctx.reply(
-            `${t("saved")}: ${t("category")} - ${translator(
+          await ctx.replyWithHTML(
+            `<b>${t("saved")}!</b>\n${t("category")} - ${translator(
               this.chosenCategory
-            )}, ${t("amount")} - ${response.split(":").at(-1)} ${t(
-              "currency"
-            )}.`
+            )}\n<i>${t("amount")}</i> - <u>${response
+              .split(":")
+              .at(-1)}</u> ${t("currency")}.`
           );
         } catch (e) {
           await ctx.reply(`${t("err_add_cost_req")}: ${e}`);

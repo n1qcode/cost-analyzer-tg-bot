@@ -1,6 +1,7 @@
 import { Telegraf } from "telegraf";
 
 import { IBotContext } from "../context/context.interface";
+import { t } from "../i18n";
 
 import { Command } from "./command.class";
 
@@ -10,6 +11,6 @@ export class StartCommand extends Command {
   }
 
   handle() {
-    this.bot.start((ctx) => ctx.reply("Welcome to the Cost Analyzer Bot!"));
+    this.bot.start((ctx) => ctx.reply(t("start")));
   }
 }

@@ -1,3 +1,6 @@
 {
-  "TELEGRAM_TOKEN": "TELEGRAM_TOKEN"
+  "TELEGRAM_TOKEN": "TELEGRAM_TOKEN",
+  "HOST_PORT": 8080,
+  "HOST": "localhost",
+  "LANGUAGE": "EN"
 }

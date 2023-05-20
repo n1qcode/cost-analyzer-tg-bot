@@ -20,6 +20,7 @@ export const RU = {
   category: "Категория",
   amount: "Сумма",
   currency: "руб",
+  total_spent: "Всего потрачено",
   err_see_cost_req: "Ошибка при попытке посмотреть траты",
   err_add_cost_req: "Ошибка при попытке записать трату",
 };

@@ -20,6 +20,7 @@ export const EN = {
   category: "Category",
   amount: "Amount",
   currency: "eur",
+  total_spent: "Total spent",
   err_see_cost_req: "Error while trying see cost",
   err_add_cost_req: "Error when trying to save expense",
 };

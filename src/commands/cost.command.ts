@@ -2,7 +2,6 @@ import { Markup, Telegraf } from "telegraf";
 
 import { IBotContext } from "../context/context.interface";
 import { costService } from "../services/cost.service";
-// import { text1, text2, text3 } from "../utils/constants";
 import translator from "../utils/translator";
 import { t } from "../i18n";
 
@@ -79,14 +78,24 @@ export class CostCommand extends Command {
           .then((res) => res.data);
 
         const columnText: string[] = [`<u><b>${t("today_cost")}</b></u>:`];
+        let amount = 0;
 
         for (const [costKey, costValue] of Object.entries(response[0])) {
           if (/cat/.test(costKey)) {
             columnText.push(
-              `<code>${translator(costKey)}: ${costValue}</code>`
+              `<code>${translator(costKey)}: ${costValue} ${t(
+                "currency"
+              )}.</code>`
             );
+            amount += Number(costValue) as number;
           }
         }
+
+        columnText.push(
+          `<i>${t("total_spent")}</i>: <u><b>${amount} ${t(
+            "currency"
+          )}</b></u>.`
+        );
 
         await ctx.editMessageText(columnText.join("\n"), {
           parse_mode: "HTML",
@@ -115,7 +124,9 @@ export class CostCommand extends Command {
           await ctx.reply(
             `${t("saved")}: ${t("category")} - ${translator(
               this.chosenCategory
-            )}, ${t("amount")} - ${response.split(":").at(-1)} ${t("currency")}`
+            )}, ${t("amount")} - ${response.split(":").at(-1)} ${t(
+              "currency"
+            )}.`
           );
         } catch (e) {
           await ctx.reply(`${t("err_add_cost_req")}: ${e}`);

@@ -10,7 +10,7 @@ export const costService = {
   }) => $api.put("/user/cost/amount", props),
   getDayCostOfUser: async (user_id: number, cost_date: string) =>
     $api(`/user/${user_id}/cost/day/${cost_date}`),
-  getDayCost: async (props: { cost_category: string }) => console.log(props),
+  getDayCost: async (cost_date: string) => $api.get(`/cost/day/${cost_date}`),
   getAllCostOfUser: async (props: { cost_category: string }) =>
     console.log(props),
   getAllCost: async (props: { cost_category: string }) => console.log(props),
@@ -26,4 +26,5 @@ export const costService = {
   getPeriodCostOfUser: async (props: { cost_category: string }) =>
     console.log(props),
   getPeriodCost: async (props: { cost_category: string }) => console.log(props),
+  getCostCategories: async () => $api("/cost/categories"),
 };

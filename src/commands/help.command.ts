@@ -2,6 +2,7 @@ import { Telegraf } from "telegraf";
 
 import { IBotContext } from "../context/context.interface";
 import { commands } from "../utils/constants";
+import accessProtector from "../utils/accessProtector";
 
 import { Command } from "./command.class";
 
@@ -11,6 +12,9 @@ export class HelpCommand extends Command {
   }
 
   handle() {
-    this.bot.help((ctx) => ctx.reply(commands));
+    this.bot.help((ctx) => {
+      if (!accessProtector(ctx)) return;
+      ctx.reply(commands);
+    });
   }
 }

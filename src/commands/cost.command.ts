@@ -4,6 +4,7 @@ import { IBotContext } from "../context/context.interface";
 import { costService } from "../services/cost.service";
 import translator from "../utils/translator";
 import { t } from "../i18n";
+import accessProtector from "../utils/accessProtector";
 
 import { Command } from "./command.class";
 
@@ -24,6 +25,7 @@ export class CostCommand extends Command {
 
   handle() {
     this.bot.command("cost", async (ctx) => {
+      if (!accessProtector(ctx)) return;
       return await ctx.reply(
         t("spend_carefully"),
         Markup.keyboard([

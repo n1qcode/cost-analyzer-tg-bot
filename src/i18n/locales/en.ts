@@ -24,4 +24,5 @@ export const EN = {
   err_see_cost_req: "Error while trying see cost",
   err_add_cost_req: "Error when trying to save expense",
   number_check: "Enter a numeric value!",
+  access_protect: "This bot is not available to you",
 };

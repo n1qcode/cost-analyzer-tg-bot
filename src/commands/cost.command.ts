@@ -93,9 +93,9 @@ export class CostCommand extends Command {
         }
 
         columnText.push(
-          `<i>${t("total_spent")}</i>: <u><b>${amount} ${t(
+          `<i>${t("total_spent")}</i>: <u><b>${amount.toFixed(2)}</b></u> ${t(
             "currency"
-          )}</b></u>.`
+          )}.`
         );
 
         await ctx.editMessageText(columnText.join("\n"), {

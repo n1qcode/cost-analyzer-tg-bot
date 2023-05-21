@@ -23,4 +23,5 @@ export const EN = {
   total_spent: "Total spent",
   err_see_cost_req: "Error while trying see cost",
   err_add_cost_req: "Error when trying to save expense",
+  number_check: "Enter a numeric value!",
 };

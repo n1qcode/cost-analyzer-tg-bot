@@ -20,6 +20,7 @@ export class CostCommand extends Command {
 
   private costCategories: string[] = [];
   private chosenCategory = "";
+  private isCatAdd = false;
 
   handle() {
     this.bot.command("cost", async (ctx) => {
@@ -106,30 +107,40 @@ export class CostCommand extends Command {
     });
 
     this.bot.action(/cat/, async (ctx) => {
+      this.isCatAdd = false;
       this.chosenCategory = ctx.match.input;
       await ctx.editMessageText(`${t("type_amount_cost")}:`);
 
       this.bot.hears(/.*/, async (ctx) => {
-        const spentAmount = +ctx.message.text;
+        if (this.isCatAdd) return;
+        const value = ctx.message.text;
+        const spentAmount = value.includes(",")
+          ? +value.split(",").join(".")
+          : +value;
 
-        try {
-          const response = await costService
-            .addToCostCategory({
-              user_id: 1,
-              cost_category: this.chosenCategory,
-              cost_amount: spentAmount,
-            })
-            .then((res) => res.data);
+        if (Number.isNaN(spentAmount)) {
+          await ctx.reply(t("number_check"));
+        } else {
+          try {
+            const response = await costService
+              .addToCostCategory({
+                user_id: 1,
+                cost_category: this.chosenCategory,
+                cost_amount: spentAmount,
+              })
+              .then((res) => res.data);
 
-          await ctx.replyWithHTML(
-            `<b>${t("saved")}!</b>\n${t("category")} - ${translator(
-              this.chosenCategory
-            )}\n<i>${t("amount")}</i> - <u>${response
-              .split(":")
-              .at(-1)}</u> ${t("currency")}.`
-          );
-        } catch (e) {
-          await ctx.reply(`${t("err_add_cost_req")}: ${e}`);
+            await ctx.replyWithHTML(
+              `<b>${t("saved")}!</b>\n${t("category")} - ${translator(
+                this.chosenCategory
+              )}\n<i>${t("amount")}</i> - <u>${response
+                .split(":")
+                .at(-1)}</u> ${t("currency")}.`
+            );
+            this.isCatAdd = true;
+          } catch (e) {
+            await ctx.reply(`${t("err_add_cost_req")}: ${e}`);
+          }
         }
       });
     });

@@ -22,7 +22,6 @@ class Bot {
       new CostCommand(this.bot),
     ];
     this.commands.forEach((command) => command.handle());
-
     this.bot.launch();
   }
 

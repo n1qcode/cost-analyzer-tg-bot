@@ -11,9 +11,13 @@ import categoriesHandler from "./categoriesHandler";
 
 const addCost = (
   bot: Telegraf<IBotContext>,
-  costState: ICostCommandLocalState,
   activeInputAction: IActiveInputAction
 ) => {
+  const costState: ICostCommandLocalState = {
+    costCategories: [],
+    chosenCategory: "",
+    isCatAdd: false,
+  };
   bot.hears(MAIN_BUTTONS.add_cost, async (ctx) => {
     costState.costCategories = await costService
       .getCostCategories()

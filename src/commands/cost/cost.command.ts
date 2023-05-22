@@ -21,12 +21,6 @@ export class CostCommand extends Command {
     CHOOSE_MONTH: false,
   };
 
-  private readonly costState: ICostCommandLocalState = {
-    costCategories: [],
-    chosenCategory: "",
-    isCatAdd: false,
-  };
-
   handle() {
     this.bot.command("cost", async (ctx) => {
       if (!accessProtector(ctx)) return;
@@ -41,8 +35,8 @@ export class CostCommand extends Command {
       );
     });
 
-    addCost(this.bot, this.costState, this.activeInputAction);
-    seeCost(this.bot, this.costState, this.activeInputAction);
-    addCostCat(this.bot, this.costState, this.activeInputAction);
+    addCost(this.bot, this.activeInputAction);
+    seeCost(this.bot, this.activeInputAction);
+    addCostCat(this.bot, this.activeInputAction);
   }
 }

@@ -6,7 +6,7 @@ import { CostActionEnum } from "../cost.enums";
 import activeInputActionRefresher from "../utils/activeInputActionRefresher";
 import { globalStore } from "../../../main";
 
-const categoriesHandler = (bot: Telegraf<IBotContext>) => {
+export const categoriesHandler = (bot: Telegraf<IBotContext>) => {
   bot.action(/cat/, async (ctx) => {
     activeInputActionRefresher(
       globalStore.activeInputAction,
@@ -17,5 +17,3 @@ const categoriesHandler = (bot: Telegraf<IBotContext>) => {
     await ctx.editMessageText(`${t("type_amount_cost")}:`);
   });
 };
-
-export default categoriesHandler;

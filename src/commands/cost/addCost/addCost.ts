@@ -7,7 +7,7 @@ import translator from "../../../utils/translator";
 import { t } from "../../../i18n";
 import { globalStore } from "../../../main";
 
-import categoriesHandler from "./categoriesHandler";
+import { categoriesHandler } from "./addCost.helpers";
 
 const addCost = (bot: Telegraf<IBotContext>) => {
   bot.hears(MAIN_BUTTONS.add_cost, async (ctx) => {

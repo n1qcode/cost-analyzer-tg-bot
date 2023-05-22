@@ -34,4 +34,11 @@ export const EN = {
   cost_curr_month: "For the current month",
   cost_last_month: "For the last month",
   cost_choose_month: "Enter month",
+  type_year: "Enter year",
+  type_month: "Enter month",
+  no_cost_last_month: "You haven't spent anything in the last month",
+  no_cost_choose_month: "You spent nothing in the specified month",
+  curr_month_cost: "Current month's spending",
+  last_month_cost: "Last month's spending",
+  typed_month_cost: "Spending for the specified month",
 };

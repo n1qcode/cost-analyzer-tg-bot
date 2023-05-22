@@ -34,4 +34,11 @@ export const RU = {
   cost_curr_month: "За текущий месяц",
   cost_last_month: "За последний месяц",
   cost_choose_month: "Указать месяц",
+  type_year: "Введите год",
+  type_month: "Введите месяц",
+  no_cost_last_month: "За последний месяц вы ничего не потратили",
+  no_cost_choose_month: "За указанный месяц вы ничего не потратили",
+  curr_month_cost: "Траты за текущий месяц",
+  last_month_cost: "Траты за последний месяц",
+  typed_month_cost: "Траты за указанный месяц",
 };

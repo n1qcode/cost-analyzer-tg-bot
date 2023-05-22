@@ -5,7 +5,7 @@ import { t } from "../../i18n";
 import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
 
-import monthCost from "./seeCost/monthCost";
+import monthCost from "./seeCost/monthCost/monthCost";
 import todayCost from "./seeCost/todayCost";
 import addCost from "./addCost/addCost";
 import seeCost from "./seeCost/seeCost";

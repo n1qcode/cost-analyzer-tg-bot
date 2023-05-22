@@ -6,7 +6,7 @@ import { t } from "../../../i18n";
 import { ICostCommandLocalState } from "../cost.typings";
 
 import todayCost from "./todayCost";
-import monthCost from "./monthCost";
+import monthCost from "./monthCost/monthCost";
 
 const seeCost = (
   bot: Telegraf<IBotContext>,

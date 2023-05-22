@@ -8,18 +8,12 @@ import { Command } from "../command.class";
 import addCost from "./addCost/addCost";
 import seeCost from "./seeCost/seeCost";
 import addCostCat from "./addCostCat/addCostCat";
-import { IActiveInputAction, ICostCommandLocalState } from "./cost.typings";
 import { MAIN_BUTTONS } from "./utils/constants";
 
 export class CostCommand extends Command {
   constructor(bot: Telegraf<IBotContext>) {
     super(bot);
   }
-  private readonly activeInputAction: IActiveInputAction = {
-    ADD_COST: false,
-    ADD_COST_CAT: false,
-    CHOOSE_MONTH: false,
-  };
 
   handle() {
     this.bot.command("cost", async (ctx) => {
@@ -35,8 +29,8 @@ export class CostCommand extends Command {
       );
     });
 
-    addCost(this.bot, this.activeInputAction);
-    seeCost(this.bot, this.activeInputAction);
-    addCostCat(this.bot, this.activeInputAction);
+    addCost(this.bot);
+    seeCost(this.bot);
+    addCostCat(this.bot);
   }
 }

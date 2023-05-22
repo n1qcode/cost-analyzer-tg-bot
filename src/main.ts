@@ -6,6 +6,7 @@ import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";
 import { HelpCommand } from "./commands/help.command";
 import { CostCommand } from "./commands/cost/cost.command";
+import { Store } from "./store/store";
 
 class Bot {
   bot: Telegraf<IBotContext>;
@@ -32,6 +33,8 @@ class Bot {
 
 const bot = new Bot(config.get("TELEGRAM_TOKEN"));
 bot.init();
+
+export const globalStore = new Store();
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));

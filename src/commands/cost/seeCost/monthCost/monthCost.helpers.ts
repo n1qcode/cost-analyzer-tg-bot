@@ -5,8 +5,8 @@ import { t } from "../../../../i18n";
 import translator from "../../../../utils/translator";
 import { IBotContext } from "../../../../context/context.interface";
 import activeInputActionRefresher from "../../utils/activeInputActionRefresher";
-import { IActiveInputAction } from "../../cost.typings";
 import { CostActionEnum } from "../../cost.enums";
+import { globalStore } from "../../../../main";
 
 const _monthCostRequest = async (year: string, month: string) => {
   const response: Array<object> = await costService
@@ -46,21 +46,12 @@ const _monthCostRequest = async (year: string, month: string) => {
   return columnText;
 };
 
-const monthCostShaper = (
-  bot: Telegraf<IBotContext>,
-  trigger: string,
-  activeInputAction?: IActiveInputAction
-) => {
+const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
   const isEnter = trigger === "cost_choose_month";
   let columnText: string[] = [];
   let isMonthTyped = false;
   let isYearTyped = false;
   bot.action(trigger, async (ctx) => {
-    if (activeInputAction)
-      activeInputActionRefresher(
-        activeInputAction,
-        CostActionEnum.CHOOSE_MONTH
-      );
     isYearTyped = false;
     isMonthTyped = false;
     const isLast = trigger === "cost_last_month";
@@ -111,8 +102,12 @@ const monthCostShaper = (
       month = !isLast ? monthValue : `0${+monthValue - 1}`;
       await _monthCostExecutor();
     } else {
+      activeInputActionRefresher(
+        globalStore.activeInputAction,
+        CostActionEnum.CHOOSE_MONTH
+      );
       await ctx.editMessageText(`${t("type_year")}:`);
-      bot.hears(trigger, async (ctx) => {
+      bot.hears(/.*/, async (ctx) => {
         if (isYearTyped && isMonthTyped) return;
         const isYearValid = /^\d{4}$/;
         const isMonthValid = /^(0?[1-9]|1[0-2])$/;
@@ -124,14 +119,14 @@ const monthCostShaper = (
             isYearTyped = true;
             await ctx.reply(`${t("type_month")}:`);
             return;
-          } else await ctx.reply(t("number_check") + "year");
+          } else await ctx.reply(t("number_check"));
         }
         if (isYearTyped && !isMonthTyped) {
           if (isMonthValid.test(value)) {
             month = value.length === 1 ? "0" + value : value;
             isMonthTyped = true;
             await _monthCostExecutor();
-          } else await ctx.reply(t("number_check") + "month");
+          } else await ctx.reply(t("number_check"));
         }
       });
     }

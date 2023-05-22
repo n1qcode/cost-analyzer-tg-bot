@@ -5,14 +5,11 @@ import { IBotContext } from "../../../context/context.interface";
 import { costService } from "../../../services/cost.service";
 import translator from "../../../utils/translator";
 import { t } from "../../../i18n";
-import { IActiveInputAction, ICostCommandLocalState } from "../cost.typings";
+import { ICostCommandLocalState } from "../cost.typings";
 
 import categoriesHandler from "./categoriesHandler";
 
-const addCost = (
-  bot: Telegraf<IBotContext>,
-  activeInputAction: IActiveInputAction
-) => {
+const addCost = (bot: Telegraf<IBotContext>) => {
   const costState: ICostCommandLocalState = {
     costCategories: [],
     chosenCategory: "",
@@ -31,7 +28,7 @@ const addCost = (
       ]),
     });
   });
-  categoriesHandler(bot, costState, activeInputAction);
+  categoriesHandler(bot, costState);
 };
 
 export default addCost;

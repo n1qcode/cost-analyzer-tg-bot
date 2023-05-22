@@ -98,11 +98,11 @@ export const monthCostExecutor = async () => {
 };
 
 const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
-  globalStore.seeMonthCost.isEnter = trigger === "cost_choose_month";
   bot.action(trigger, async (ctx) => {
     globalStore.seeMonthCost.ctx = ctx;
     globalStore.seeMonthCost.isYearTyped = false;
     globalStore.seeMonthCost.isMonthTyped = false;
+    globalStore.seeMonthCost.isEnter = trigger === "cost_choose_month";
     globalStore.seeMonthCost.isLast = trigger === "cost_last_month";
     globalStore.seeMonthCost.columnText = [];
 

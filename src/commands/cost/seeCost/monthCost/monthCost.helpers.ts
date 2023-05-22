@@ -46,89 +46,82 @@ const _monthCostRequest = async (year: string, month: string) => {
   return columnText;
 };
 
+export const monthCostExecutor = async () => {
+  const ctx = globalStore.seeMonthCost.ctx;
+  try {
+    const costValues = await _monthCostRequest(
+      globalStore.seeMonthCost.year,
+      globalStore.seeMonthCost.month
+    );
+    globalStore.seeMonthCost.columnText.push(...costValues);
+
+    globalStore.seeMonthCost.columnText.unshift(
+      `${
+        globalStore.seeMonthCost.isEnter
+          ? `<b><u>${t("typed_month_cost")}</u>:</b> <i>${
+              globalStore.seeMonthCost.year
+            }.${globalStore.seeMonthCost.month}</i>`
+          : t(
+              globalStore.seeMonthCost.isLast
+                ? "last_month_cost"
+                : "curr_month_cost"
+            )
+      }:`
+    );
+
+    if (globalStore.seeMonthCost.columnText.length > 1) {
+      globalStore.seeMonthCost.isEnter
+        ? await ctx?.reply(globalStore.seeMonthCost.columnText.join("\n"), {
+            parse_mode: "HTML",
+          })
+        : await ctx?.editMessageText(
+            globalStore.seeMonthCost.columnText.join("\n"),
+            {
+              parse_mode: "HTML",
+            }
+          );
+    } else
+      globalStore.seeMonthCost.isEnter
+        ? await ctx?.reply(
+            !globalStore.seeMonthCost.isLast
+              ? t("no_cost_month")
+              : t("no_cost_last_month")
+          )
+        : await ctx?.editMessageText(
+            !globalStore.seeMonthCost.isLast
+              ? t("no_cost_month")
+              : t("no_cost_last_month")
+          );
+  } catch (e) {
+    await ctx?.editMessageText(`${t("err_see_cost_req")}: ${e}`);
+  }
+};
+
 const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
-  const isEnter = trigger === "cost_choose_month";
-  let columnText: string[] = [];
-  let isMonthTyped = false;
-  let isYearTyped = false;
+  globalStore.seeMonthCost.isEnter = trigger === "cost_choose_month";
   bot.action(trigger, async (ctx) => {
-    isYearTyped = false;
-    isMonthTyped = false;
-    const isLast = trigger === "cost_last_month";
-    let year = "";
-    let month = "";
-    columnText = [];
+    globalStore.seeMonthCost.ctx = ctx;
+    globalStore.seeMonthCost.isYearTyped = false;
+    globalStore.seeMonthCost.isMonthTyped = false;
+    globalStore.seeMonthCost.isLast = trigger === "cost_last_month";
+    globalStore.seeMonthCost.columnText = [];
 
-    const _monthCostExecutor = async () => {
-      try {
-        const costValues = await _monthCostRequest(year, month);
-        columnText.push(...costValues);
-
-        columnText.unshift(
-          `${
-            isEnter
-              ? `<b><u>${t(
-                  "typed_month_cost"
-                )}</u>:</b> <i>${year}.${month}</i>`
-              : t(isLast ? "last_month_cost" : "curr_month_cost")
-          }:`
-        );
-
-        if (columnText.length > 1) {
-          isEnter
-            ? ctx.reply(columnText.join("\n"), {
-                parse_mode: "HTML",
-              })
-            : ctx.editMessageText(columnText.join("\n"), {
-                parse_mode: "HTML",
-              });
-        } else
-          isEnter
-            ? ctx.reply(!isLast ? t("no_cost_month") : t("no_cost_last_month"))
-            : ctx.editMessageText(
-                !isLast ? t("no_cost_month") : t("no_cost_last_month")
-              );
-      } catch (e) {
-        await ctx.editMessageText(`${t("err_see_cost_req")}: ${e}`);
-      }
-    };
-
-    if (!isEnter) {
+    if (!globalStore.seeMonthCost.isEnter) {
       const [yearValue, monthValue] = new Date()
         .toISOString()
         .split("T")[0]
         .split("-");
-      year = yearValue;
-      month = !isLast ? monthValue : `0${+monthValue - 1}`;
-      await _monthCostExecutor();
+      globalStore.seeMonthCost.year = yearValue;
+      globalStore.seeMonthCost.month = !globalStore.seeMonthCost.isLast
+        ? monthValue
+        : `0${+monthValue - 1}`;
+      await monthCostExecutor();
     } else {
       activeInputActionRefresher(
         globalStore.activeInputAction,
         CostActionEnum.CHOOSE_MONTH
       );
       await ctx.editMessageText(`${t("type_year")}:`);
-      bot.hears(/.*/, async (ctx) => {
-        if (isYearTyped && isMonthTyped) return;
-        const isYearValid = /^\d{4}$/;
-        const isMonthValid = /^(0?[1-9]|1[0-2])$/;
-        const value = ctx.message.text;
-
-        if (!isYearTyped && !isMonthTyped) {
-          if (isYearValid.test(value)) {
-            year = value;
-            isYearTyped = true;
-            await ctx.reply(`${t("type_month")}:`);
-            return;
-          } else await ctx.reply(t("number_check"));
-        }
-        if (isYearTyped && !isMonthTyped) {
-          if (isMonthValid.test(value)) {
-            month = value.length === 1 ? "0" + value : value;
-            isMonthTyped = true;
-            await _monthCostExecutor();
-          } else await ctx.reply(t("number_check"));
-        }
-      });
     }
   });
 };

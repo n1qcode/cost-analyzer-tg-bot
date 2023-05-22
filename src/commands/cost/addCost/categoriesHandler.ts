@@ -4,17 +4,20 @@ import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { costService } from "../../../services/cost.service";
 import translator from "../../../utils/translator";
-import { ICostCommandLocalState } from "../cost.typings";
+import { IActiveInputAction, ICostCommandLocalState } from "../cost.typings";
+import { CostActionEnum } from "../cost.enums";
+import activeInputActionRefresher from "../utils/activeInputActionRefresher";
 
 const categoriesHandler = (
   bot: Telegraf<IBotContext>,
-  costState: ICostCommandLocalState
+  costState: ICostCommandLocalState,
+  activeInputAction: IActiveInputAction
 ) => {
   bot.action(/cat/, async (ctx) => {
+    activeInputActionRefresher(activeInputAction, CostActionEnum.ADD_COST);
     costState.isCatAdd = false;
     costState.chosenCategory = ctx.match.input;
     await ctx.editMessageText(`${t("type_amount_cost")}:`);
-
     bot.hears(/.*/, async (ctx) => {
       if (costState.isCatAdd) return;
       const value = ctx.message.text;

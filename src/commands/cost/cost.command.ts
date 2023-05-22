@@ -5,19 +5,23 @@ import { t } from "../../i18n";
 import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
 
-import monthCost from "./seeCost/monthCost/monthCost";
-import todayCost from "./seeCost/todayCost";
 import addCost from "./addCost/addCost";
 import seeCost from "./seeCost/seeCost";
 import addCostCat from "./addCostCat/addCostCat";
-import { ICostCommandLocalState } from "./cost.typings";
+import { IActiveInputAction, ICostCommandLocalState } from "./cost.typings";
 import { MAIN_BUTTONS } from "./utils/constants";
 
 export class CostCommand extends Command {
   constructor(bot: Telegraf<IBotContext>) {
     super(bot);
   }
-  private costState: ICostCommandLocalState = {
+  private readonly activeInputAction: IActiveInputAction = {
+    ADD_COST: false,
+    ADD_COST_CAT: false,
+    CHOOSE_MONTH: false,
+  };
+
+  private readonly costState: ICostCommandLocalState = {
     costCategories: [],
     chosenCategory: "",
     isCatAdd: false,
@@ -37,8 +41,8 @@ export class CostCommand extends Command {
       );
     });
 
-    addCost(this.bot, this.costState);
-    seeCost(this.bot, this.costState);
-    addCostCat(this.bot, this.costState);
+    addCost(this.bot, this.costState, this.activeInputAction);
+    seeCost(this.bot, this.costState, this.activeInputAction);
+    addCostCat(this.bot, this.costState, this.activeInputAction);
   }
 }

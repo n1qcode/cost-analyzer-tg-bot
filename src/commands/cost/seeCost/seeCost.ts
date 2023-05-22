@@ -3,14 +3,15 @@ import { Markup, Telegraf } from "telegraf";
 import { MAIN_BUTTONS } from "../utils/constants";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
-import { ICostCommandLocalState } from "../cost.typings";
+import { IActiveInputAction, ICostCommandLocalState } from "../cost.typings";
 
 import todayCost from "./todayCost";
 import monthCost from "./monthCost/monthCost";
 
 const seeCost = (
   bot: Telegraf<IBotContext>,
-  costState: ICostCommandLocalState
+  costState: ICostCommandLocalState,
+  activeInputAction: IActiveInputAction
 ) => {
   bot.hears(MAIN_BUTTONS.see_cost, async (ctx) => {
     ctx.reply(`<b>${t("choose_cat_to_see")}</b>`, {
@@ -26,7 +27,7 @@ const seeCost = (
     });
   });
   todayCost(bot);
-  monthCost(bot);
+  monthCost(bot, activeInputAction);
 };
 
 export default seeCost;

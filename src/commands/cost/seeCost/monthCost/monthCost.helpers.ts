@@ -4,6 +4,9 @@ import { costService } from "../../../../services/cost.service";
 import { t } from "../../../../i18n";
 import translator from "../../../../utils/translator";
 import { IBotContext } from "../../../../context/context.interface";
+import activeInputActionRefresher from "../../utils/activeInputActionRefresher";
+import { IActiveInputAction } from "../../cost.typings";
+import { CostActionEnum } from "../../cost.enums";
 
 const _monthCostRequest = async (year: string, month: string) => {
   const response: Array<object> = await costService
@@ -43,12 +46,21 @@ const _monthCostRequest = async (year: string, month: string) => {
   return columnText;
 };
 
-const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
+const monthCostShaper = (
+  bot: Telegraf<IBotContext>,
+  trigger: string,
+  activeInputAction?: IActiveInputAction
+) => {
   const isEnter = trigger === "cost_choose_month";
   let columnText: string[] = [];
   let isMonthTyped = false;
   let isYearTyped = false;
   bot.action(trigger, async (ctx) => {
+    if (activeInputAction)
+      activeInputActionRefresher(
+        activeInputAction,
+        CostActionEnum.CHOOSE_MONTH
+      );
     isYearTyped = false;
     isMonthTyped = false;
     const isLast = trigger === "cost_last_month";
@@ -100,7 +112,7 @@ const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
       await _monthCostExecutor();
     } else {
       await ctx.editMessageText(`${t("type_year")}:`);
-      bot.hears(/.*/, async (ctx) => {
+      bot.hears(trigger, async (ctx) => {
         if (isYearTyped && isMonthTyped) return;
         const isYearValid = /^\d{4}$/;
         const isMonthValid = /^(0?[1-9]|1[0-2])$/;

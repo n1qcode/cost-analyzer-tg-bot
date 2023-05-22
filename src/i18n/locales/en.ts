@@ -25,4 +25,13 @@ export const EN = {
   err_add_cost_req: "Error when trying to save expense",
   number_check: "Enter a numeric value!",
   access_protect: "This bot is not available to you",
+  no_cost_today: "You haven't spent anything today",
+  no_cost_month: "You spent nothing this month",
+  no_cost_year: "You spent nothing this year",
+  no_cost_season: "You spent nothing this season",
+  no_cost_period: "You spent nothing during the specified period",
+  see_cost_month: "View Monthly Costs",
+  cost_curr_month: "For the current month",
+  cost_last_month: "For the last month",
+  cost_choose_month: "Enter month",
 };

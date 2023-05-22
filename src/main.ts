@@ -5,7 +5,7 @@ import { IBotContext } from "./context/context.interface";
 import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";
 import { HelpCommand } from "./commands/help.command";
-import { CostCommand } from "./commands/cost.command";
+import { CostCommand } from "./commands/cost/cost.command";
 
 class Bot {
   bot: Telegraf<IBotContext>;

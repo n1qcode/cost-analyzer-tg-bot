@@ -12,7 +12,7 @@ const translateCostCategoryInput = async (
   const translation = ctx.message.text;
   const cost_category = globalStore.costState.chosenCategory
     .split("_")
-    .splice(1, 2)
+    .splice(1)
     .join("_");
 
   try {

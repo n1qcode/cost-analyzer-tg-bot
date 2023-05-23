@@ -46,4 +46,5 @@ export const EN = {
   added_new_cost_cat_error: "Error adding new category",
   year_valid: "Invalid year!",
   month_valid: "Invalid month!",
+  update_translation: "Update translation",
 };

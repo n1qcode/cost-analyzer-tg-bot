@@ -46,4 +46,9 @@ export const RU = {
   added_new_cost_cat_error: "Ошибка при добавлении новой категории",
   year_valid: "Некорректно указан год!",
   month_valid: "Некорректно указан месяц!",
+  update_translation: "Изменить перевод категорий",
+  choose_cat_to_translate: "Выберите категорию для изменения",
+  enter_translation: "Введите новый перевод",
+  updated_translation: "Перевод категории обновлен",
+  updated_translation_error: "Ошибка при переводе категории",
 };

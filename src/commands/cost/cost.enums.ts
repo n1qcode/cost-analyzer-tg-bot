@@ -2,4 +2,5 @@ export enum CostActionEnum {
   ADD_COST = "ADD_COST",
   ADD_COST_CAT = "ADD_COST_CAT",
   CHOOSE_MONTH = "CHOOSE_MONTH",
+  TRANSLATE_COST = "TRANSLATE_COST",
 }

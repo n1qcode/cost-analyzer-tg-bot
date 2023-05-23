@@ -2,7 +2,6 @@ import { Telegraf } from "telegraf";
 
 import { costService } from "../../../../services/cost.service";
 import { t } from "../../../../i18n";
-import translator from "../../../../utils/translator";
 import { IBotContext } from "../../../../context/context.interface";
 import activeInputActionRefresher from "../../../../utils/activeInputActionRefresher";
 import { CostActionEnum } from "../../cost.enums";
@@ -11,6 +10,9 @@ import { globalStore } from "../../../../main";
 const _monthCostRequest = async (year: string, month: string) => {
   const response: Array<object> = await costService
     .getMonthCost(year, month)
+    .then((res) => res.data);
+  globalStore.costState.translator = await costService
+    .getTranslationCostCategory()
     .then((res) => res.data);
 
   const columnText: string[] = [];
@@ -30,7 +32,9 @@ const _monthCostRequest = async (year: string, month: string) => {
     for (const [costKey, costValue] of Object.entries(totalCost)) {
       if (/cat/.test(costKey)) {
         columnText.push(
-          `<code>${translator(costKey)}: ${costValue} ${t("currency")}.</code>`
+          `<code>${
+            globalStore.costState.translator[costKey] ?? costKey
+          }: ${costValue} ${t("currency")}.</code>`
         );
         amount += costValue;
       }

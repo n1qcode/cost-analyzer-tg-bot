@@ -3,7 +3,6 @@ import { Context } from "telegraf";
 import { globalStore } from "../../main";
 import { t } from "../../i18n";
 import { costService } from "../../services/cost.service";
-import translator from "../../utils/translator";
 
 import type { Update, Message } from "telegraf/types";
 
@@ -27,11 +26,16 @@ const addToCostCategoryInput = async (
           cost_amount: spentAmount,
         })
         .then((res) => res.data);
+      globalStore.costState.translator = await costService
+        .getTranslationCostCategory()
+        .then((res) => res.data);
 
       await ctx.replyWithHTML(
-        `<b>${t("saved")}!</b>\n${t("category")} - ${translator(
-          globalStore.costState.chosenCategory
-        )}\n<i>${t("amount")}</i> - <u>${response.split(":").at(-1)}</u> ${t(
+        `<b>${t("saved")}!</b>\n${t("category")} - ${
+          globalStore.costState.translator[
+            globalStore.costState.chosenCategory
+          ] ?? globalStore.costState.chosenCategory
+        }\n<i>${t("amount")}</i> - <u>${response.split(":").at(-1)}</u> ${t(
           "currency"
         )}.`
       );

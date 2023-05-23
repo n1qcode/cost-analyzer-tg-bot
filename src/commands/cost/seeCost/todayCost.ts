@@ -3,7 +3,7 @@ import { Telegraf } from "telegraf";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { costService } from "../../../services/cost.service";
-import translator from "../../../utils/translator";
+import { globalStore } from "../../../main";
 
 const todayCost = (bot: Telegraf<IBotContext>) => {
   bot.action("today_cost", async (ctx) => {
@@ -11,6 +11,9 @@ const todayCost = (bot: Telegraf<IBotContext>) => {
       const date = new Date().toISOString().split("T")[0];
       const response: Array<object> = await costService
         .getDayCost(date)
+        .then((res) => res.data);
+      globalStore.costState.translator = await costService
+        .getTranslationCostCategory()
         .then((res) => res.data);
 
       if (response.length) {
@@ -20,9 +23,9 @@ const todayCost = (bot: Telegraf<IBotContext>) => {
         for (const [costKey, costValue] of Object.entries(response[0])) {
           if (/cat/.test(costKey)) {
             columnText.push(
-              `<code>${translator(costKey)}: ${costValue} ${t(
-                "currency"
-              )}.</code>`
+              `<code>${
+                globalStore.costState.translator[costKey] ?? costKey
+              }: ${costValue} ${t("currency")}.</code>`
             );
             amount += Number(costValue) as number;
           }

@@ -9,6 +9,7 @@ import addCost from "./addCost/addCost";
 import seeCost from "./seeCost/seeCost";
 import addCostCat from "./addCostCat/addCostCat";
 import { MAIN_BUTTONS } from "./utils/constants";
+import translateCostCat from "./translateCostCat/translateCostCat";
 
 export class CostCommand extends Command {
   constructor(bot: Telegraf<IBotContext>) {
@@ -23,6 +24,7 @@ export class CostCommand extends Command {
         Markup.keyboard([
           [MAIN_BUTTONS.add_cost, MAIN_BUTTONS.see_cost],
           [MAIN_BUTTONS.add_cost_cat],
+          [MAIN_BUTTONS.translate_cost_cat],
         ])
           .oneTime()
           .resize()
@@ -32,5 +34,6 @@ export class CostCommand extends Command {
     addCost(this.bot);
     seeCost(this.bot);
     addCostCat(this.bot);
+    translateCostCat(this.bot);
   }
 }

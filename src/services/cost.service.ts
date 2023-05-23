@@ -8,6 +8,11 @@ export const costService = {
     cost_category: string;
     cost_amount: number;
   }) => $api.put("/cost/amount", props),
+  updateTranslationCostCategory: async (props: {
+    cost_category: string;
+    translation: string;
+  }) => $api.put("/cost/translation", props),
+  getTranslationCostCategory: async () => $api.get("/cost/translation"),
   getCostCategories: async () => $api.get("/cost/categories"),
   getDayCost: async (cost_date: string) => $api.get(`/cost/day/${cost_date}`),
   getMonthCost: async (year: string, month: string) =>

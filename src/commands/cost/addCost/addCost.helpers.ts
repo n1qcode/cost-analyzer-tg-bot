@@ -7,7 +7,7 @@ import activeInputActionRefresher from "../../../utils/activeInputActionRefreshe
 import { globalStore } from "../../../main";
 
 export const categoriesHandler = (bot: Telegraf<IBotContext>) => {
-  bot.action(/cat/, async (ctx) => {
+  bot.action(/^cat/, async (ctx) => {
     activeInputActionRefresher(CostActionEnum.ADD_COST);
     globalStore.costState.isCatAdd = false;
     globalStore.costState.chosenCategory = ctx.match.input;

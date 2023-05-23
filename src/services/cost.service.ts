@@ -1,10 +1,9 @@
 import $api from "../http";
 
 export const costService = {
-  createCostCategory: (props: { cost_category: string }) =>
+  createCostCategory: (props: { cost_category: string; translation: string }) =>
     $api.post("/cost", props),
   addToCostCategory: async (props: {
-    user_id: number;
     cost_category: string;
     cost_amount: number;
   }) => $api.put("/cost/amount", props),

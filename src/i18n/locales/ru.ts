@@ -41,7 +41,7 @@ export const RU = {
   curr_month_cost: "Траты за текущий месяц",
   last_month_cost: "Траты за последний месяц",
   typed_month_cost: "Траты за указанный месяц",
-  enter_new_cost_cat: "Введите название",
+  enter_new_cost_cat: "Введите название категории",
   added_new_cost_cat: "Добавлена новая категория",
   added_new_cost_cat_error: "Ошибка при добавлении новой категории",
   year_valid: "Некорректно указан год!",
@@ -51,4 +51,5 @@ export const RU = {
   enter_translation: "Введите новый перевод",
   updated_translation: "Перевод категории обновлен",
   updated_translation_error: "Ошибка при переводе категории",
+  enter_new_cost_cat_id: "Введите идентификатор категории",
 };

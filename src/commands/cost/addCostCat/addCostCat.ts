@@ -9,7 +9,7 @@ import { CostActionEnum } from "../cost.enums";
 const addCostCat = (bot: Telegraf<IBotContext>) => {
   bot.hears(MAIN_BUTTONS.add_cost_cat, async (ctx) => {
     activeInputActionRefresher(CostActionEnum.ADD_COST_CAT);
-    await ctx.reply(`${t("enter_new_cost_cat")}:`);
+    await ctx.reply(`${t("enter_new_cost_cat_id")}:`);
   });
 };
 

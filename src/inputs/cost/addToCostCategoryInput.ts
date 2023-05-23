@@ -21,7 +21,6 @@ const addToCostCategoryInput = async (
     try {
       const response = await costService
         .addToCostCategory({
-          user_id: 1,
           cost_category: globalStore.costState.chosenCategory,
           cost_amount: spentAmount,
         })

@@ -1,6 +1,7 @@
 import {
   IActiveInputAction,
   ICostCommandLocalState,
+  ICreateCostCategory,
   ISeeMonthCost,
 } from "../commands/cost/cost.typings";
 
@@ -28,5 +29,11 @@ export class Store implements IStore {
     month: "",
     year: "",
     ctx: null,
+  };
+  createCostCategory: ICreateCostCategory = {
+    isCostNameTyped: false,
+    isCostTranslationTyped: false,
+    cost_category: "",
+    translation: "",
   };
 }

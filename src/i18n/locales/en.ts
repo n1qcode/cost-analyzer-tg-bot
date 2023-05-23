@@ -41,10 +41,12 @@ export const EN = {
   curr_month_cost: "Current month's spending",
   last_month_cost: "Last month's spending",
   typed_month_cost: "Spending for the specified month",
-  enter_new_cost_cat: "Enter name",
+  enter_new_cost_cat: "Enter name of category",
   added_new_cost_cat: "Created new cost category",
   added_new_cost_cat_error: "Error adding new category",
   year_valid: "Invalid year!",
   month_valid: "Invalid month!",
   update_translation: "Update translation",
+  updated_translation_error: "Error during updating category translation",
+  enter_new_cost_cat_id: "Enter category identifier",
 };

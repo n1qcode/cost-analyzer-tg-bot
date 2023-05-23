@@ -23,3 +23,10 @@ export interface ISeeMonthCost {
   isLast: boolean;
   ctx: Context<Update.CallbackQueryUpdate<CallbackQuery>> | null;
 }
+
+export interface ICreateCostCategory {
+  isCostNameTyped: boolean;
+  isCostTranslationTyped: boolean;
+  cost_category: string;
+  translation: string;
+}

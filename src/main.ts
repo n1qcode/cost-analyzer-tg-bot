@@ -11,6 +11,7 @@ import { Store } from "./store/store";
 import { CostActionEnum } from "./commands/cost/cost.enums";
 import addToCostCategoryInput from "./inputs/cost/addToCostCategoryInput";
 import seeChosenMonthCostInput from "./inputs/cost/seeChosenMonthCostInput";
+import addNewCostCategoryInput from "./inputs/cost/addNewCostCategoryInput";
 
 export const globalStore = new Store();
 
@@ -34,12 +35,12 @@ class Bot {
 
   hear() {
     this.bot.on(message("text"), async (ctx) => {
-      if (globalStore.activeInputAction[CostActionEnum.ADD_COST]) {
+      if (globalStore.activeInputAction[CostActionEnum.ADD_COST])
         await addToCostCategoryInput(ctx);
-      }
-      if (globalStore.activeInputAction[CostActionEnum.CHOOSE_MONTH]) {
+      if (globalStore.activeInputAction[CostActionEnum.CHOOSE_MONTH])
         await seeChosenMonthCostInput(ctx);
-      }
+      if (globalStore.activeInputAction[CostActionEnum.ADD_COST_CAT])
+        await addNewCostCategoryInput(ctx);
     });
   }
 

@@ -41,4 +41,7 @@ export const EN = {
   curr_month_cost: "Current month's spending",
   last_month_cost: "Last month's spending",
   typed_month_cost: "Spending for the specified month",
+  enter_new_cost_cat: "Enter name",
+  added_new_cost_cat: "Created new cost category",
+  added_new_cost_cat_error: "Error adding new category",
 };

@@ -41,4 +41,7 @@ export const RU = {
   curr_month_cost: "Траты за текущий месяц",
   last_month_cost: "Траты за последний месяц",
   typed_month_cost: "Траты за указанный месяц",
+  enter_new_cost_cat: "Введите название",
+  added_new_cost_cat: "Добавлена новая категория",
+  added_new_cost_cat_error: "Ошибка при добавлении новой категории",
 };

@@ -44,4 +44,6 @@ export const RU = {
   enter_new_cost_cat: "Введите название",
   added_new_cost_cat: "Добавлена новая категория",
   added_new_cost_cat_error: "Ошибка при добавлении новой категории",
+  year_valid: "Некорректно указан год!",
+  month_valid: "Некорректно указан месяц!",
 };

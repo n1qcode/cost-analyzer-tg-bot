@@ -44,4 +44,6 @@ export const EN = {
   enter_new_cost_cat: "Enter name",
   added_new_cost_cat: "Created new cost category",
   added_new_cost_cat_error: "Error adding new category",
+  year_valid: "Invalid year!",
+  month_valid: "Invalid month!",
 };

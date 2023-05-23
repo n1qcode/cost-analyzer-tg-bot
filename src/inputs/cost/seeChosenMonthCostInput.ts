@@ -27,7 +27,7 @@ const seeChosenMonthCostInput = async (
       globalStore.seeMonthCost.isYearTyped = true;
       await ctx.reply(`${t("type_month")}:`);
       return;
-    } else await ctx.reply(t("number_check"));
+    } else await ctx.reply(t("year_valid"));
   }
   if (
     globalStore.seeMonthCost.isYearTyped &&
@@ -37,7 +37,7 @@ const seeChosenMonthCostInput = async (
       globalStore.seeMonthCost.month = value.length === 1 ? "0" + value : value;
       globalStore.seeMonthCost.isMonthTyped = true;
       await monthCostExecutor();
-    } else await ctx.reply(t("number_check"));
+    } else await ctx.reply(t("month_valid"));
   }
 };
 

@@ -36,4 +36,11 @@ export class Store implements IStore {
     cost_category: "",
     translation: "",
   };
+
+  resetCreateCostCategoryState() {
+    this.createCostCategory.isCostNameTyped = false;
+    this.createCostCategory.isCostTranslationTyped = false;
+    this.createCostCategory.cost_category = "";
+    this.createCostCategory.translation = "";
+  }
 }

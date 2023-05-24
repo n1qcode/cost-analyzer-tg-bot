@@ -37,6 +37,7 @@ const addNewCostCategoryInput = async (
           globalStore.createCostCategory.translation
         }`
       );
+      globalStore.resetCreateCostCategoryState();
     } catch (e) {
       await ctx.reply(`${t("err_add_cost_req")}: ${e}`);
     }

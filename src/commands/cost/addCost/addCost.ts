@@ -19,7 +19,10 @@ const addCost = (bot: Telegraf<IBotContext>) => {
     await ctx.reply(`<b>${t("choose_cat_to_add")}:</b>`, {
       parse_mode: "HTML",
       ...Markup.inlineKeyboard([
-        ...globalStore.costState.costCategories.map((cat: string) => [
+        ...(Array.isArray(globalStore.costState.costCategories)
+          ? globalStore.costState.costCategories
+          : []
+        ).map((cat: string) => [
           Markup.button.callback(
             globalStore.costState.translator[cat] ?? cat,
             cat

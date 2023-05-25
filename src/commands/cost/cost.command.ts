@@ -25,9 +25,7 @@ export class CostCommand extends Command {
           [MAIN_BUTTONS.add_cost, MAIN_BUTTONS.see_cost],
           [MAIN_BUTTONS.add_cost_cat],
           [MAIN_BUTTONS.translate_cost_cat],
-        ])
-          .oneTime()
-          .resize()
+        ]).resize()
       );
     });
 

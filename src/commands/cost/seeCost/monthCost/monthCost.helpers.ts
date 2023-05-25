@@ -3,7 +3,6 @@ import { Telegraf } from "telegraf";
 import { costService } from "../../../../services/cost.service";
 import { t } from "../../../../i18n";
 import { IBotContext } from "../../../../context/context.interface";
-import activeInputActionRefresher from "../../../../utils/activeInputActionRefresher";
 import { CostActionEnum } from "../../cost.enums";
 import { globalStore } from "../../../../main";
 
@@ -121,7 +120,7 @@ const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
         : `0${+monthValue - 1}`;
       await monthCostExecutor();
     } else {
-      activeInputActionRefresher(CostActionEnum.CHOOSE_MONTH);
+      globalStore.activeInputAction[CostActionEnum.CHOOSE_MONTH] = true;
       await ctx.editMessageText(`${t("type_year")}:`);
     }
   });

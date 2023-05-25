@@ -5,11 +5,11 @@ import { IBotContext } from "../../../context/context.interface";
 import { costService } from "../../../services/cost.service";
 import { t } from "../../../i18n";
 import { globalStore } from "../../../main";
-import activeInputActionRefresher from "../../../utils/activeInputActionRefresher";
 import { CostActionEnum } from "../cost.enums";
 
 const translateCostCat = (bot: Telegraf<IBotContext>) => {
   bot.hears(MAIN_BUTTONS.translate_cost_cat, async (ctx) => {
+    globalStore.resetStore();
     globalStore.costState.costCategories = await costService
       .getCostCategories()
       .then((res) => res.data);
@@ -29,7 +29,7 @@ const translateCostCat = (bot: Telegraf<IBotContext>) => {
     });
   });
   bot.action(/^translate/, async (ctx) => {
-    activeInputActionRefresher(CostActionEnum.TRANSLATE_COST);
+    globalStore.activeInputAction[CostActionEnum.TRANSLATE_COST] = true;
     globalStore.costState.isCatAdd = false;
     globalStore.costState.chosenCategory = ctx.match.input;
     await ctx.editMessageText(`${t("enter_translation")}:`);

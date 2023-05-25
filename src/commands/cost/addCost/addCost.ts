@@ -10,6 +10,7 @@ import { categoriesHandler } from "./addCost.helpers";
 
 const addCost = (bot: Telegraf<IBotContext>) => {
   bot.hears(MAIN_BUTTONS.add_cost, async (ctx) => {
+    globalStore.resetStore();
     globalStore.costState.costCategories = await costService
       .getCostCategories()
       .then((res) => res.data);

@@ -37,10 +37,34 @@ export class Store implements IStore {
     translation: "",
   };
 
-  resetCreateCostCategoryState() {
-    this.createCostCategory.isCostNameTyped = false;
-    this.createCostCategory.isCostTranslationTyped = false;
-    this.createCostCategory.cost_category = "";
-    this.createCostCategory.translation = "";
+  resetStore() {
+    this.activeInputAction = {
+      ADD_COST: false,
+      ADD_COST_CAT: false,
+      CHOOSE_MONTH: false,
+      TRANSLATE_COST: false,
+    };
+    this.costState = {
+      costCategories: [],
+      chosenCategory: "",
+      isCatAdd: false,
+      translator: {},
+    };
+    this.seeMonthCost = {
+      columnText: [],
+      isEnter: false,
+      isLast: false,
+      isMonthTyped: false,
+      isYearTyped: false,
+      month: "",
+      year: "",
+      ctx: null,
+    };
+    this.createCostCategory = {
+      isCostNameTyped: false,
+      isCostTranslationTyped: false,
+      cost_category: "",
+      translation: "",
+    };
   }
 }

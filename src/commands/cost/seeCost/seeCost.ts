@@ -3,12 +3,14 @@ import { Markup, Telegraf } from "telegraf";
 import { MAIN_BUTTONS } from "../utils/constants";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
+import { globalStore } from "../../../main";
 
 import todayCost from "./todayCost";
 import monthCost from "./monthCost/monthCost";
 
 const seeCost = (bot: Telegraf<IBotContext>) => {
   bot.hears(MAIN_BUTTONS.see_cost, async (ctx) => {
+    globalStore.resetStore();
     ctx.reply(`<b>${t("choose_cat_to_see")}</b>`, {
       parse_mode: "HTML",
       ...Markup.inlineKeyboard([

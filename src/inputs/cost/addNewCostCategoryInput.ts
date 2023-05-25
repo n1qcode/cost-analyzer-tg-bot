@@ -13,7 +13,10 @@ const addNewCostCategoryInput = async (
     !globalStore.createCostCategory.isCostNameTyped &&
     !globalStore.createCostCategory.isCostTranslationTyped
   ) {
-    globalStore.createCostCategory.cost_category = `cat_${ctx.message.text.toLowerCase()}`;
+    globalStore.createCostCategory.cost_category = `cat_${ctx.message.text
+      .toLowerCase()
+      .split(" ")
+      .join("_")}`;
     globalStore.createCostCategory.isCostNameTyped = true;
     await ctx.reply(`${t("enter_new_cost_cat")}:`);
     return;

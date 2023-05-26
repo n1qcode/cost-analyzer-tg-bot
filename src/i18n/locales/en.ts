@@ -46,7 +46,10 @@ export const EN = {
   added_new_cost_cat_error: "Error adding new category",
   year_valid: "Invalid year!",
   month_valid: "Invalid month!",
-  update_translation: "Update translation",
-  updated_translation_error: "Error during updating category translation",
+  update_translation: "Change names of categories",
+  choose_cat_to_translate: "Select a category to edit",
+  enter_translation: "Enter a new name",
+  updated_translation: "Category name changed",
+  updated_translation_error: "Error during changing category name",
   enter_new_cost_cat_id: "Enter category identifier",
 };

@@ -5,6 +5,8 @@ import { t } from "../../../../i18n";
 import { IBotContext } from "../../../../context/context.interface";
 import { CostActionEnum } from "../../cost.enums";
 import { globalStore } from "../../../../main";
+import costAppearanceShaper from "../../../../utils/costAppearanceShaper";
+import { CostTimeEnum } from "../../../../utils/enums";
 
 const _monthCostRequest = async (year: string, month: string) => {
   const response: Array<object> = await costService
@@ -14,39 +16,12 @@ const _monthCostRequest = async (year: string, month: string) => {
     .getTranslationCostCategory()
     .then((res) => res.data);
 
-  const columnText: string[] = [];
+  let costValues: string[] = [];
 
-  if (response.length) {
-    let amount = 0;
-    const totalCost = response.reduce<Record<string, number>>((accum, curr) => {
-      for (const [costKey, costValue] of Object.entries(curr)) {
-        if (/cat/.test(String(costKey))) {
-          if (!(String(costKey) in accum)) accum[String(costKey)] = +costValue;
-          else accum[String(costKey)] += +costValue;
-        }
-      }
-      return accum;
-    }, {});
+  if (response.length)
+    costValues = costAppearanceShaper(response, CostTimeEnum.MONTH);
 
-    for (const [costKey, costValue] of Object.entries(totalCost)) {
-      if (/cat/.test(costKey)) {
-        columnText.push(
-          `<code>${
-            globalStore.costState.translator[costKey] ?? costKey
-          }: ${costValue} ${t("currency")}.</code>`
-        );
-        amount += costValue;
-      }
-    }
-
-    columnText.push(
-      `<i>${t("total_spent")}</i>: <u><b>${amount.toFixed(2)}</b></u> ${t(
-        "currency"
-      )}.`
-    );
-    return columnText;
-  }
-  return columnText;
+  return costValues;
 };
 
 export const monthCostExecutor = async () => {
@@ -56,9 +31,9 @@ export const monthCostExecutor = async () => {
       globalStore.seeMonthCost.year,
       globalStore.seeMonthCost.month
     );
-    globalStore.seeMonthCost.columnText.push(...costValues);
+    globalStore.seeMonthCost.costValues.push(...costValues);
 
-    globalStore.seeMonthCost.columnText.unshift(
+    globalStore.seeMonthCost.costValues.unshift(
       `${
         globalStore.seeMonthCost.isEnter
           ? `<b><u>${t("typed_month_cost")}</u>:</b> <i>${
@@ -72,13 +47,13 @@ export const monthCostExecutor = async () => {
       }:`
     );
 
-    if (globalStore.seeMonthCost.columnText.length > 1) {
+    if (globalStore.seeMonthCost.costValues.length > 1) {
       globalStore.seeMonthCost.isEnter
-        ? await ctx?.reply(globalStore.seeMonthCost.columnText.join("\n"), {
+        ? await ctx?.reply(globalStore.seeMonthCost.costValues.join("\n"), {
             parse_mode: "HTML",
           })
         : await ctx?.editMessageText(
-            globalStore.seeMonthCost.columnText.join("\n"),
+            globalStore.seeMonthCost.costValues.join("\n"),
             {
               parse_mode: "HTML",
             }
@@ -107,7 +82,7 @@ const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
     globalStore.seeMonthCost.isMonthTyped = false;
     globalStore.seeMonthCost.isEnter = trigger === "cost_choose_month";
     globalStore.seeMonthCost.isLast = trigger === "cost_last_month";
-    globalStore.seeMonthCost.columnText = [];
+    globalStore.seeMonthCost.costValues = [];
 
     if (!globalStore.seeMonthCost.isEnter) {
       const [yearValue, monthValue] = new Date()

@@ -21,7 +21,7 @@ export class Store implements IStore {
     translator: {},
   };
   seeMonthCost: ISeeMonthCost = {
-    columnText: [],
+    costValues: [],
     isEnter: false,
     isLast: false,
     isMonthTyped: false,
@@ -51,7 +51,7 @@ export class Store implements IStore {
       translator: {},
     };
     this.seeMonthCost = {
-      columnText: [],
+      costValues: [],
       isEnter: false,
       isLast: false,
       isMonthTyped: false,

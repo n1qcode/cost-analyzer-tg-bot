@@ -4,6 +4,8 @@ import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { costService } from "../../../services/cost.service";
 import { globalStore } from "../../../main";
+import costAppearanceShaper from "../../../utils/costAppearanceShaper";
+import { CostTimeEnum } from "../../../utils/enums";
 
 const todayCost = (bot: Telegraf<IBotContext>) => {
   bot.action("today_cost", async (ctx) => {
@@ -17,27 +19,9 @@ const todayCost = (bot: Telegraf<IBotContext>) => {
         .then((res) => res.data);
 
       if (response.length) {
-        const columnText: string[] = [`<u><b>${t("today_cost")}</b></u>:`];
-        let amount = 0;
-
-        for (const [costKey, costValue] of Object.entries(response[0])) {
-          if (/cat/.test(costKey)) {
-            columnText.push(
-              `<code>${
-                globalStore.costState.translator[costKey] ?? costKey
-              }: ${costValue} ${t("currency")}.</code>`
-            );
-            amount += Number(costValue) as number;
-          }
-        }
-
-        columnText.push(
-          `<i>${t("total_spent")}</i>: <u><b>${amount.toFixed(2)}</b></u> ${t(
-            "currency"
-          )}.`
-        );
-
-        await ctx.editMessageText(columnText.join("\n"), {
+        const costValues = costAppearanceShaper(response, CostTimeEnum.DAY);
+        costValues.unshift(`<u><b>${t("today_cost")}</b></u>:`);
+        await ctx.editMessageText(costValues.join("\n"), {
           parse_mode: "HTML",
         });
       } else ctx.editMessageText(t("no_cost_today"));

@@ -16,7 +16,7 @@ export type IActiveInputAction = Record<IActiveInputActionVariants, boolean>;
 export interface ISeeMonthCost {
   year: string;
   month: string;
-  columnText: string[];
+  costValues: string[];
   isYearTyped: boolean;
   isMonthTyped: boolean;
   isEnter: boolean;

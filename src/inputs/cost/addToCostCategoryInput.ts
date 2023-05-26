@@ -11,9 +11,13 @@ const addToCostCategoryInput = async (
 ) => {
   if (globalStore.costState.isCatAdd) return;
   const value = ctx.message.text;
-  const spentAmount = value.includes(",")
-    ? +value.split(",").join(".")
-    : +value;
+  const spentAmount = value
+    .split("+")
+    .reduce(
+      (accum, curr) =>
+        accum + (curr.includes(",") ? +curr.split(",").join(".") : +curr),
+      0
+    );
 
   if (Number.isNaN(spentAmount)) {
     await ctx.reply(t("number_check"));

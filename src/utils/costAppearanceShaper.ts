@@ -13,7 +13,10 @@ const costAppearanceShaper = (data: Array<object>, costTime: CostTimeEnum) => {
       for (const [costKey, costValue] of Object.entries(curr)) {
         if (/cat/.test(String(costKey))) {
           if (!(String(costKey) in accum)) accum[String(costKey)] = +costValue;
-          else accum[String(costKey)] += +costValue;
+          else
+            accum[String(costKey)] = +(
+              accum[String(costKey)] + +costValue
+            ).toFixed(2);
         }
       }
       return accum;

@@ -38,7 +38,7 @@ const addToCostCategoryInput = async (
           globalStore.costState.translator[
             globalStore.costState.chosenCategory
           ] ?? globalStore.costState.chosenCategory
-        }\n<i>${t("amount")}</i> - <u>${response.split(":").at(-1)}</u> ${t(
+        }\n<i>${t("amount")}</i> - <u>${+response.split(":").at(-1)}</u> ${t(
           "currency"
         )}.`
       );

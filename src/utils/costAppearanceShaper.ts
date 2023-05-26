@@ -28,14 +28,14 @@ const costAppearanceShaper = (data: Array<object>, costTime: CostTimeEnum) => {
       costNiceAppearance.push(
         `<code>${
           globalStore.costState.translator[costKey] ?? costKey
-        }: ${costValue} ${t("currency")}.</code>`
+        }: ${+costValue} ${t("currency")}.</code>`
       );
       amount += +costValue;
     }
   }
 
   costNiceAppearance.push(
-    `<i>${t("total_spent")}</i>: <u><b>${amount.toFixed(2)}</b></u> ${t(
+    `<i>${t("total_spent")}</i>: <u><b>${+amount.toFixed(2)}</b></u> ${t(
       "currency"
     )}.`
   );

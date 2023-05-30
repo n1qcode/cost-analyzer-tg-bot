@@ -3,6 +3,7 @@ import { Context } from "telegraf";
 import { globalStore } from "../../main";
 import { t } from "../../i18n";
 import { costService } from "../../services/cost.service";
+import Calculator from "../../utils/Calculator/Calculator";
 
 import type { Update, Message } from "telegraf/types";
 
@@ -10,17 +11,10 @@ const addToCostCategoryInput = async (
   ctx: Context<Update.MessageUpdate<Message.TextMessage>>
 ) => {
   if (globalStore.costState.isCatAdd) return;
-  const value = ctx.message.text;
-  const spentAmount = value
-    .split("+")
-    .reduce(
-      (accum, curr) =>
-        accum + (curr.includes(",") ? +curr.split(",").join(".") : +curr),
-      0
-    );
-
-  if (Number.isNaN(spentAmount)) {
-    await ctx.reply(t("number_check"));
+  const sumResult = Calculator.sum(ctx.message.text);
+  const { isCorrect, value: spentAmount, info } = sumResult;
+  if (!isCorrect) {
+    await ctx.replyWithHTML(info);
   } else {
     try {
       const response = await costService

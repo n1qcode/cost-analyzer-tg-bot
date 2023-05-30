@@ -52,4 +52,18 @@ export const EN = {
   updated_translation: "Category name changed",
   updated_translation_error: "Error during changing category name",
   enter_new_cost_cat_id: "Enter category identifier",
+  typed_add_cost_incorrect:
+    "Please enter valid values!\nFor more information, type: /add_cost_help",
+  typed_add_cost_too_big:
+    "the total amount is too big!\nPlease enter valid values!\nFor more information, type: /add_cost_help",
+  add_to_cost: "Detailed information on recording new costs",
+  add_to_cost_help_info:
+    "<b>1.</b> Valid values are numbers with a total complexity of 10 characters, 8 characters before the decimal point and 2 after, are valid\n" +
+    "<i>For example:</i> <code>12345678.99</code>\n" +
+    "This limitation also applies to the total amount of entered values.\n" +
+    "<b>2.</b> You can use both a dot <code>.</code> and a comma <code>,</code> as a separator of the integer and fractional parts of numbers.\n" +
+    "<i>For example:</i> <code>123.45</code> or <code>123.45</code>\n" +
+    "<b>3.</b> When entering costs, you can use the mathematical operators of addition <code>+</code> and multiplication <code>*</code>\n" +
+    "<b>4.</b> Spaces between numbers and operators are optional\n" +
+    "<b>5.</b> All other characters not listed here are invalid.",
 };

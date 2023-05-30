@@ -4,7 +4,7 @@ import {
   ICalcSumResult,
   ICalculator,
   IMathSign,
-  ISeparateChar,
+  IDivideChar,
 } from "./Calculator.interface";
 
 class Calculator implements ICalculator {
@@ -13,7 +13,7 @@ class Calculator implements ICalculator {
 
   readonly #MAX_NUM_REGEX = /^((?!0)\d{1,8}|0|\\d{1,2})($|\.$|\.\d{1,2}$)/;
 
-  readonly #DIVIDE_CHAR: ISeparateChar = {
+  readonly #DIVIDE_CHAR: IDivideChar = {
     DOT: ".",
     COMMA: ",",
   };
@@ -96,7 +96,7 @@ class Calculator implements ICalculator {
       );
     else totalSum = Math.abs(+value);
 
-    result.value = totalSum;
+    result.value = this.roundHalfUp(totalSum);
 
     if (!this.#MAX_NUM_REGEX.test(String(totalSum))) {
       result.info = `<b>${result.value}</b> - ${t("typed_add_cost_too_big")}`;

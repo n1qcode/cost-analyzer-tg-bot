@@ -98,7 +98,7 @@ class Calculator implements ICalculator {
 
     result.value = this.roundHalfUp(totalSum);
 
-    if (!this.#MAX_NUM_REGEX.test(String(totalSum))) {
+    if (!this.#MAX_NUM_REGEX.test(String(result.value))) {
       result.info = `<b>${result.value}</b> - ${t("typed_add_cost_too_big")}`;
       result.isCorrect = false;
     }

@@ -135,7 +135,7 @@ const additionAndMultiplicationData = [
   {
     describe: "addition and multiplication together with negative numbers",
     input: "45.01 * -3,1 + -5.6 + 3,1 + -70*4 + -16,99 + 35,43 + -80,05*2",
-    output: 640.75,
+    output: 0,
   },
 ];
 
@@ -158,12 +158,12 @@ const edgeCasesData = [
   {
     describe: "negative int number",
     input: "-44",
-    output: 44,
+    output: 0,
   },
   {
     describe: "negative float number",
     input: "-44.99",
-    output: 44.99,
+    output: 0,
   },
   {
     describe: "empty",
@@ -911,6 +911,35 @@ const random = [
     input:
       "123,45 * 2.0 + 67.89 * 3,0 + 99,99 * 4.0 + 11.11 * 5,0 + 22,22 * 6.0 + 33.33 * 7,0 + 44,44 * 8,0 + 55.55 * 9,0",
     output: 2128.18,
+  },
+  {
+    describe: "Test case 111",
+    input: "500 - 300",
+    output: 200,
+  },
+  {
+    describe: "Test case 112",
+    input:
+      "123,45 * 2.0 + 67.89 * 3,0 - 10.99 + 99,99 * 4.0 - 10,01 + 11.11 * 5,0 + 22,22 * 6.0 + 33.33 * 7,0 + 44,44 * 8,0 + 55.55 * 9,0",
+    output: 2107.18,
+  },
+  {
+    describe: "Test case 113",
+    input:
+      "105 + 33,1 - 123,45 * 2.0 + 67.89 * 3,0 - 10.99 + 99,99 * 4.0 - 10,01 + 5 + 6 + 7 + 11.11 * 5,0 + 1 + 2 + 3 - 22,22 * 6.0 + 33.33 * 7,0 + 44,44 * 8,0 + 55.55 * 9,0",
+    output: 1508.84,
+  },
+  {
+    describe: "Test case 113",
+    input:
+      "105 + 33,1 + 123,45 * 2.0 + 67.89 * 3,0 + 10.99 + 99,99 * 4.0 + 10,01 + 5 + 6 + 7 + 11.11 * 5,0 + 1 + 2 + 3 + 22,22 * 6.0 + 33.33 * 7,0 + 44,44 * 8,0 + 55.55 * 9,0",
+    output: 2311.28,
+  },
+  {
+    describe: "Test case 113",
+    input:
+      "105 - 33,1 - 123,45 * 2.0 - 67.89 * 3,0 - 10.99 - 99,99 * 4.0 - 10,01 - 5 - 6 - 7 - 11.11 * 5,0 - 1 - 2 - 3 - 22,22 * 6.0 - 33.33 * 7,0 - 44,44 * 8,0 - 55.55 * 9,0",
+    output: 0,
   },
 ];
 

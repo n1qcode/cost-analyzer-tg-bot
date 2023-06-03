@@ -6,6 +6,7 @@ export interface IDivideChar {
 export interface IMathSign {
   MULTI: "*";
   PLUS: "+";
+  MINUS: "-";
 }
 
 export interface ICalcSumResult {

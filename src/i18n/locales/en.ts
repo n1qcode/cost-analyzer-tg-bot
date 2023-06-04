@@ -68,4 +68,5 @@ export const EN = {
     "<b>5.</b> All other characters not listed here are invalid.",
   not_negative_sum:
     "Sum must not be negative!\nFor more information, type:\n/add_cost_help",
+  show_all: "Show all",
 };

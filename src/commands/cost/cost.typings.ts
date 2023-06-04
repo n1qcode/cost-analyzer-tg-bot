@@ -4,6 +4,7 @@ import { CallbackQuery, Update } from "telegraf/types";
 import { CostActionEnum } from "./cost.enums";
 
 export interface ICostCommandLocalState {
+  categoriesByFrequency: string[];
   costCategories: string[];
   chosenCategory: string;
   isCatAdd: boolean;

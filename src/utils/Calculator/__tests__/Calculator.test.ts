@@ -237,9 +237,14 @@ const edgeCasesData = [
     output: 8,
   },
   {
-    describe: "just one float number",
+    describe: "just one float number with dot divider",
     input: "8.88",
     output: 8.88,
+  },
+  {
+    describe: "just one float number with float divider",
+    input: "301,99",
+    output: 301.99,
   },
   {
     describe: "just zero",

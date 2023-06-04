@@ -176,7 +176,7 @@ class Calculator implements ICalculator {
       totalSum = this.#singleReducer(preparedValue, this.#MATH_SIGN.MINUS);
     else if (!isMultiplication && isAddition && isSubtraction)
       totalSum = this.#complexReducer(preparedValue);
-    else totalSum = Math.abs(+value);
+    else totalSum = Math.abs(+preparedValue);
 
     if (totalSum < 0) {
       result.info = `<b>${this.roundHalfUp(totalSum)}</b> - ${t(

@@ -15,6 +15,7 @@ export class Store implements IStore {
     TRANSLATE_COST: false,
   };
   costState: ICostCommandLocalState = {
+    categoriesByFrequency: [],
     costCategories: [],
     chosenCategory: "",
     isCatAdd: false,
@@ -45,6 +46,7 @@ export class Store implements IStore {
       TRANSLATE_COST: false,
     };
     this.costState = {
+      categoriesByFrequency: [],
       costCategories: [],
       chosenCategory: "",
       isCatAdd: false,

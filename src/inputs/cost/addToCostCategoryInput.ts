@@ -28,13 +28,13 @@ const addToCostCategoryInput = async (
         .then((res) => res.data);
 
       await ctx.replyWithHTML(
-        `<b>${t("saved")}!</b>\n${t("category")} - ${
+        `<b>${t("saved")}!</b>\n<i>${t("category")}:</i> ${
           globalStore.costState.translator[
             globalStore.costState.chosenCategory
           ] ?? globalStore.costState.chosenCategory
-        }\n<i>${t("amount")}</i> - <u>${+response.split(":").at(-1)}</u> ${t(
-          "currency"
-        )}.`
+        } <i>+ ${spentAmount} ${t("currency")}.</i>\n<i>${t(
+          "amount"
+        )}:</i> <u>${+response.split(":").at(-1)}</u> ${t("currency")}.`
       );
       globalStore.costState.isCatAdd = true;
     } catch (e) {

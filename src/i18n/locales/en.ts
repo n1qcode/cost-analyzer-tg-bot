@@ -55,7 +55,7 @@ export const EN = {
   typed_add_cost_incorrect:
     "Please enter valid values!\nFor more information, type: /add_cost_help",
   typed_add_cost_too_big:
-    "the total amount is too big!\nPlease enter valid values!\nFor more information, type: /add_cost_help",
+    "the total amount is too big!\nPlease enter valid values!\nFor more information, type:\n/add_cost_help",
   add_to_cost: "Detailed information on recording new costs",
   add_to_cost_help_info:
     "<b>1.</b> Valid values are numbers with a total complexity of 10 characters, 8 characters before the decimal point and 2 after, are valid\n" +

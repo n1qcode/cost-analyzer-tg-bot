@@ -3,5 +3,6 @@
   "HOST_PORT": 8080,
   "HOST": "localhost",
   "LANGUAGE": "EN",
-  "USERS_ACCESS": []
+  "USERS_ACCESS": [],
+  "UPDATE_INFO": ""
 }

@@ -63,7 +63,8 @@ export const EN = {
     "This limitation also applies to the total amount of entered values.\n" +
     "<b>2.</b> You can use both a dot <code>.</code> and a comma <code>,</code> as a separator of the integer and fractional parts of numbers.\n" +
     "<i>For example:</i> <code>123.45</code> or <code>123.45</code>\n" +
-    "<b>3.</b> When entering costs, you can use the mathematical operators of addition <code>+</code> and multiplication <code>*</code>\n" +
+    "<b>3.</b> When entering costs, you can use the mathematical operators:\n addition <code>+</code>\n subtraction <code>-</code>\n multiplication <code>*</code>\n" +
     "<b>4.</b> Spaces between numbers and operators are optional\n" +
     "<b>5.</b> All other characters not listed here are invalid.",
+  not_negative_sum: "Sum must not be negative",
 };

@@ -13,6 +13,7 @@ import addToCostCategoryInput from "./inputs/cost/addToCostCategoryInput";
 import seeChosenMonthCostInput from "./inputs/cost/seeChosenMonthCostInput";
 import addNewCostCategoryInput from "./inputs/cost/addNewCostCategoryInput";
 import translateCostCategoryInput from "./inputs/cost/translateCostCategoryInput";
+import updateInformer from "./features/updateInformer";
 
 export const globalStore = new Store();
 
@@ -32,6 +33,7 @@ class Bot {
     ];
     this.commands.forEach((command) => command.handle());
     this.bot.launch();
+    if (config.get("UPDATE_INFO")) updateInformer(this.bot);
   }
 
   hear() {

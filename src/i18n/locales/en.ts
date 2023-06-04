@@ -53,9 +53,9 @@ export const EN = {
   updated_translation_error: "Error during changing category name",
   enter_new_cost_cat_id: "Enter category identifier",
   typed_add_cost_incorrect:
-    "Please enter valid values!\nFor more information, type: /add_cost_help",
+    "Please enter valid values!\nFor more information, type:\n/add_cost_help",
   typed_add_cost_too_big:
-    "the total amount is too big!\nPlease enter valid values!\nFor more information, type:\n/add_cost_help",
+    "the total amount is too big!\nFor more information, type:\n/add_cost_help",
   add_to_cost: "Detailed information on recording new costs",
   add_to_cost_help_info:
     "<b>1.</b> Valid values are numbers with a total complexity of 10 characters, 8 characters before the decimal point and 2 after, are valid\n" +
@@ -66,5 +66,6 @@ export const EN = {
     "<b>3.</b> When entering costs, you can use the mathematical operators:\n addition <code>+</code>\n subtraction <code>-</code>\n multiplication <code>*</code>\n" +
     "<b>4.</b> Spaces between numbers and operators are optional\n" +
     "<b>5.</b> All other characters not listed here are invalid.",
-  not_negative_sum: "Sum must not be negative",
+  not_negative_sum:
+    "Sum must not be negative!\nFor more information, type:\n/add_cost_help",
 };

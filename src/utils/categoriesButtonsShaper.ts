@@ -11,12 +11,13 @@ const categoriesButtonsShaper = (
   translator: Record<string, string>,
   isAll = false
 ) => {
-  const categories = categoriesByFrequency.slice(0, MAX_HEIGHT_CAT_BUTTONS);
+  let categories = categoriesByFrequency.slice(0, MAX_HEIGHT_CAT_BUTTONS);
   if (
     !isAll
-      ? categories.length !== MAX_HEIGHT_CAT_BUTTONS
+      ? categories.length < MAX_HEIGHT_CAT_BUTTONS
       : categories.length < costCategories.length
-  )
+  ) {
+    if (isAll) categories = categoriesByFrequency.slice();
     categories.push(
       ...costCategories
         .filter((cat) => !categoriesByFrequency.includes(cat))
@@ -25,6 +26,7 @@ const categoriesButtonsShaper = (
           !isAll ? MAX_HEIGHT_CAT_BUTTONS - categories.length : Infinity
         )
     );
+  }
   const categoriesButtons: HideableIKBtn[][] = [];
   let tempCatBtnValue: HideableIKBtn[] = [];
 
@@ -38,14 +40,11 @@ const categoriesButtonsShaper = (
       ]);
       tempCatBtnValue = [];
     }
-    if (index === costCategories.length - 1)
+    if (index === categories.length - 1 && tempCatBtnValue.length)
       categoriesButtons.push([...tempCatBtnValue]);
   });
 
-  if (
-    categoriesButtons.flat().length <
-    costCategories.length - MAX_HEIGHT_CAT_BUTTONS
-  )
+  if (categoriesButtons.flat().length < costCategories.length)
     categoriesButtons.push([
       Markup.button.callback(t("show_all"), "show_all_categories"),
     ]);

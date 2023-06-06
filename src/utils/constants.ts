@@ -13,4 +13,4 @@ export const API_HOST = `http://${config.get("HOST")}:${config.get(
   "HOST_PORT"
 )}/api`;
 
-export const MAX_HEIGHT_CAT_BUTTONS = 16;
+export const MAX_HEIGHT_CAT_BUTTONS = 4;

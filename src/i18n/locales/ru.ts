@@ -69,4 +69,6 @@ export const RU = {
   not_negative_sum:
     "Сумма не должна быть отрицательной!\nЧтобы посмотреть более подробную информацию, введите:\n/add_cost_help",
   show_all: "Показать все",
+  statistics_av_cost_per_day: "Средняя сумма трат в день",
+  statistics_menu: "Вы вошли в меню статистики",
 };

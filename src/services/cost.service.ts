@@ -16,7 +16,7 @@ export const costService = {
   getDayCost: async (cost_date: string) => $api.get(`/cost/day/${cost_date}`),
   getMonthCost: async (year: string, month: string) =>
     $api.get(`/cost/year/${year}/month/${month}`),
-  getAllCost: async (props: { cost_category: string }) => console.log(props),
+  getAllCost: async () => $api.get<Record<string, string>[]>("/cost"),
   getYearCost: async (props: { cost_category: string }) => console.log(props),
   getSeasonCost: async (props: { cost_category: string }) => console.log(props),
   getPeriodCost: async (props: { cost_category: string }) => console.log(props),

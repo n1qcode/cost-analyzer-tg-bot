@@ -69,4 +69,6 @@ export const EN = {
   not_negative_sum:
     "Sum must not be negative!\nFor more information, type:\n/add_cost_help",
   show_all: "Show all",
+  statistics_av_cost_per_day: "Average spend per day",
+  statistics_menu: "You have entered the statistics menu",
 };

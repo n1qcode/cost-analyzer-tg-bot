@@ -7,6 +7,7 @@ import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";
 import { HelpCommand } from "./commands/help.command";
 import { CostCommand } from "./commands/cost/cost.command";
+import { StatisticsCommand } from "./commands/statistics/statistics.command";
 import { Store } from "./store/store";
 import { CostActionEnum } from "./commands/cost/cost.enums";
 import addToCostCategoryInput from "./inputs/cost/addToCostCategoryInput";
@@ -30,6 +31,7 @@ class Bot {
       new StartCommand(this.bot),
       new HelpCommand(this.bot),
       new CostCommand(this.bot),
+      new StatisticsCommand(this.bot),
     ];
     this.commands.forEach((command) => command.handle());
     this.bot.launch();

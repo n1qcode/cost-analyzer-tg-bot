@@ -85,14 +85,18 @@ const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
     globalStore.seeMonthCost.costValues = [];
 
     if (!globalStore.seeMonthCost.isEnter) {
-      const [yearValue, monthValue] = new Date()
-        .toISOString()
-        .split("T")[0]
-        .split("-");
+      const dateOptions = {
+        timeZone: "Europe/Moscow",
+        year: "numeric",
+        month: "2-digit",
+      } as const;
+      const [monthValue, yearValue] = new Date()
+        .toLocaleDateString("ru-RU", dateOptions)
+        .split(".");
       globalStore.seeMonthCost.year = yearValue;
       globalStore.seeMonthCost.month = !globalStore.seeMonthCost.isLast
         ? monthValue
-        : `0${+monthValue - 1}`;
+        : `${+monthValue < 11 ? "0" : ""}${+monthValue - 1}`;
       await monthCostExecutor();
     } else {
       globalStore.activeInputAction[CostActionEnum.CHOOSE_MONTH] = true;

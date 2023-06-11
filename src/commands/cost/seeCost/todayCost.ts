@@ -10,7 +10,17 @@ import { CostTimeEnum } from "../../../utils/enums";
 const todayCost = (bot: Telegraf<IBotContext>) => {
   bot.action("today_cost", async (ctx) => {
     try {
-      const date = new Date().toISOString().split("T")[0];
+      const dateOptions = {
+        timeZone: "Europe/Moscow",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      } as const;
+      const date = new Date()
+        .toLocaleDateString("ru-RU", dateOptions)
+        .split(".")
+        .reverse()
+        .join("-");
       const response: Array<object> = await costService
         .getDayCost(date)
         .then((res) => res.data);

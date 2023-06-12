@@ -19,14 +19,29 @@ export class StatisticsCommand extends Command {
       if (!accessProtector(ctx)) return;
       return await ctx.replyWithHTML(
         `<b>${t("statistics_menu")}!</b>`,
-        Markup.keyboard([[MAIN_BUTTONS.average_cost_per_day]])
-          .oneTime()
-          .resize()
+        Markup.keyboard([[MAIN_BUTTONS.average_cost_per_day]]).resize()
       );
     });
     this.bot.hears(MAIN_BUTTONS.average_cost_per_day, async (ctx) => {
-      const costDays = await costService.getAllCost().then((res) => res.data);
+      const costDays = await costService.getAllCost().then((res) =>
+        res.data.sort((a, b) => {
+          if (a.cost_date < b.cost_date) return -1;
+          if (a.cost_date > b.cost_date) return 1;
+          return 0;
+        })
+      );
       let totalCost = 0;
+
+      const dateOptions = {
+        timeZone: "Europe/Moscow",
+      } as const;
+      const beginDate = new Date(costDays[0].cost_date).getTime();
+      const currDate = new Date().toLocaleDateString("ru-RU", dateOptions);
+      const currDateFormatted = new Date(
+        currDate.split(".").reverse().join(".")
+      ).getTime();
+      const diff = currDateFormatted - beginDate;
+      const costLength = Math.ceil(diff / (1000 * 3600 * 24)) + 1;
 
       for (const dayCost of costDays) {
         totalCost += Object.entries(dayCost).reduce((accum, [key, values]) => {
@@ -35,7 +50,7 @@ export class StatisticsCommand extends Command {
         }, 0);
       }
 
-      const avSpendPerDay = Calculator.roundHalfUp(totalCost / costDays.length);
+      const avSpendPerDay = Calculator.roundHalfUp(totalCost / costLength);
 
       await ctx.replyWithHTML(
         `<i>${t(

@@ -4,9 +4,10 @@ import { t } from "../i18n";
 
 export const commands = `
 /start - ${t("reboot")}
-/help - ${t("help")}
-/cost - ${t("cost")}
+/statistics - ${t("statistics_menu_label")}
+/cost - ${t("cost_menu_label")}
 /add_cost_help - ${t("add_to_cost")}
+/help - ${t("help")}
 `;
 
 export const API_HOST = `http://${config.get("HOST")}:${config.get(

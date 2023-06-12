@@ -2,7 +2,7 @@ export const RU = {
   start: "Добро пожаловать в бот - Хранитель Финансов!",
   reboot: "перезагрузить бота",
   help: "помощь",
-  cost: "траты",
+  cost_menu_label: "меню затрат",
   add_cost: "Записать",
   see_cost: "Посмотреть",
   add_cost_cat: "Добавить категорию затрат",
@@ -71,4 +71,5 @@ export const RU = {
   show_all: "Показать все",
   statistics_av_cost_per_day: "Средняя сумма трат в день",
   statistics_menu: "Вы вошли в меню статистики",
+  statistics_menu_label: "меню статистики",
 };

@@ -2,7 +2,7 @@ export const EN = {
   start: "Welcome to the Cost Analyzer Bot!",
   reboot: "reboot bot",
   help: "help",
-  cost: "cost",
+  cost_menu_label: "cost menu",
   add_cost: "Add cost",
   see_cost: "See cost",
   add_cost_cat: "Add cost category",
@@ -71,4 +71,5 @@ export const EN = {
   show_all: "Show all",
   statistics_av_cost_per_day: "Average spend per day",
   statistics_menu: "You have entered the statistics menu",
+  statistics_menu_label: "statistics menu",
 };

@@ -11,7 +11,12 @@ export const categoriesHandler = (bot: Telegraf<IBotContext>) => {
     globalStore.activeInputAction[CostActionEnum.ADD_COST] = true;
     globalStore.costState.isCatAdd = false;
     globalStore.costState.chosenCategory = ctx.match.input;
-    await ctx.editMessageText(`${t("type_amount_cost")}:`);
+    await ctx.editMessageText(
+      `<i>${t("category")}:</i> <b>${
+        globalStore.costState.translator[ctx.match.input] ?? ctx.match.input
+      }</b>\n${t("type_amount_cost")}:`,
+      { parse_mode: "HTML" }
+    );
   });
   bot.action("show_all_categories", async (ctx) => {
     const categoriesButtons = categoriesButtonsShaper(

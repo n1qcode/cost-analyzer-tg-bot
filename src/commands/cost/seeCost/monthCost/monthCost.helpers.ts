@@ -39,11 +39,11 @@ export const monthCostExecutor = async () => {
           ? `<b><u>${t("typed_month_cost")}</u>:</b> <i>${
               globalStore.seeMonthCost.year
             }.${globalStore.seeMonthCost.month}</i>`
-          : t(
+          : `<u><b>${t(
               globalStore.seeMonthCost.isLast
                 ? "last_month_cost"
                 : "curr_month_cost"
-            )
+            )}</b></u>`
       }:`
     );
 

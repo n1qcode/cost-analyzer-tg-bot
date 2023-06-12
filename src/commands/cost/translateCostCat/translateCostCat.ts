@@ -32,7 +32,16 @@ const translateCostCat = (bot: Telegraf<IBotContext>) => {
     globalStore.activeInputAction[CostActionEnum.TRANSLATE_COST] = true;
     globalStore.costState.isCatAdd = false;
     globalStore.costState.chosenCategory = ctx.match.input;
-    await ctx.editMessageText(`${t("enter_translation")}:`);
+    const clearCatName = ctx.match.input
+      .split("_")
+      .filter((cat) => cat !== "translate")
+      .join("_");
+    await ctx.editMessageText(
+      `<i>${t("category")}:</i> <b>${
+        globalStore.costState.translator[clearCatName] ?? clearCatName
+      }</b>\n${t("enter_translation")}:`,
+      { parse_mode: "HTML" }
+    );
   });
 };
 

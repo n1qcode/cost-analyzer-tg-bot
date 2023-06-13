@@ -72,4 +72,5 @@ export const RU = {
   statistics_av_cost_per_day: "Средняя сумма трат в день",
   statistics_menu: "Вы вошли в меню статистики",
   statistics_menu_label: "меню статистики",
+  get_translation_error: "Не удалось получить перевод для категорий затрат",
 };

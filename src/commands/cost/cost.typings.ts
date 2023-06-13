@@ -8,7 +8,10 @@ export interface ICostCommandLocalState {
   costCategories: string[];
   chosenCategory: string;
   isCatAdd: boolean;
-  translator: Record<string, string>;
+  translator: {
+    isValid: boolean;
+    data: Record<string, string>;
+  };
 }
 export type IActiveInputActionVariants = keyof typeof CostActionEnum;
 

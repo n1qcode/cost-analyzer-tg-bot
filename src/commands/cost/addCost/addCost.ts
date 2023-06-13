@@ -16,9 +16,17 @@ const addCost = (bot: Telegraf<IBotContext>) => {
     globalStore.costState.costCategories = await costService
       .getCostCategories()
       .then((res) => res.data);
-    globalStore.costState.translator = await costService
-      .getTranslationCostCategory()
-      .then((res) => res.data);
+
+    try {
+      const response = await costService
+        .getTranslationCostCategory()
+        .then((res) => res.data);
+      const { isError, payload } = response;
+      if (isError) return {};
+      globalStore.costState.translator = payload;
+    } catch (e) {
+      await ctx.reply(t("get_translation_error"));
+    }
 
     globalStore.costState.categoriesByFrequency = await frequencyService
       .getCategoriesByFrequency()

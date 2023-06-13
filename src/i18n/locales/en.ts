@@ -72,4 +72,5 @@ export const EN = {
   statistics_av_cost_per_day: "Average spend per day",
   statistics_menu: "You have entered the statistics menu",
   statistics_menu_label: "statistics menu",
+  get_translation_error: "Failed to get translation for cost categories",
 };

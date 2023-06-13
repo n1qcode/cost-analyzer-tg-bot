@@ -37,9 +37,9 @@ const translateCostCat = (bot: Telegraf<IBotContext>) => {
       .filter((cat) => cat !== "translate")
       .join("_");
     await ctx.editMessageText(
-      `<i>${t("category")}:</i> <b>${
+      `<i>${t("category")}:</i> <code>${
         globalStore.costState.translator[clearCatName] ?? clearCatName
-      }</b>\n${t("enter_translation")}:`,
+      }</code>\n${t("enter_translation")}:`,
       { parse_mode: "HTML" }
     );
   });

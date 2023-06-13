@@ -16,20 +16,24 @@ const translateCostCategoryInput = async (
     .join("_");
 
   try {
-    await costService
+    const response = await costService
       .updateTranslationCostCategory({
         cost_category,
         translation,
       })
       .then((res) => res.data);
 
+    const { isError, payload } = response;
+
+    if (isError) throw new Error(t("updated_translation_error"));
+
     await ctx.replyWithHTML(
       `<b>${t("updated_translation")}:</b> <i>${
         globalStore.costState.translator[cost_category] ?? cost_category
-      } --> ${translation}</i>`
+      } --> ${payload}</i>`
     );
   } catch (e) {
-    await ctx.reply(`${t("updated_translation_error")}: ${e}`);
+    await ctx.reply(t("updated_translation_error"));
   }
 };
 

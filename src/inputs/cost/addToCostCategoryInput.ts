@@ -37,7 +37,11 @@ const addToCostCategoryInput = async (
           "amount"
         )}:</i> <u>${+(payload ?? 0)}</u> ${t("currency")}.`
       );
+
       globalStore.costState.isCatAdd = true;
+
+      globalStore.costState.categoriesByFrequency.isValid = false;
+      globalStore.costState.categoriesByFrequency.frequency = [];
     } catch (e) {
       console.log(e);
       await ctx.reply(t("err_add_cost_req"));

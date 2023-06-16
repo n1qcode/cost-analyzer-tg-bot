@@ -9,16 +9,27 @@ import costAppearanceShaper from "../../../../utils/costAppearanceShaper";
 import { CostTimeEnum } from "../../../../utils/enums";
 
 const _monthCostRequest = async (year: string, month: string) => {
-  const response: Array<object> = await costService
-    .getMonthCost(year, month)
-    .then((res) => res.data);
+  const ctx = globalStore.seeMonthCost.ctx;
+  try {
+    const response = await costService
+      .getMonthCost(year, month)
+      .then((res) => res.data);
 
-  let costValues: string[] = [];
+    const { payload, error } = response;
 
-  if (response.length)
-    costValues = costAppearanceShaper(response, CostTimeEnum.MONTH);
+    if (error) throw new Error(error);
 
-  return costValues;
+    let costValues: string[] = [];
+
+    if (payload?.length)
+      costValues = costAppearanceShaper(payload, CostTimeEnum.MONTH);
+
+    return costValues;
+  } catch (e) {
+    console.log(e);
+    await ctx?.editMessageText(t("err_see_cost_req"));
+    return [];
+  }
 };
 
 export const monthCostExecutor = async () => {

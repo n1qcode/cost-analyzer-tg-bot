@@ -23,40 +23,53 @@ export class StatisticsCommand extends Command {
       );
     });
     this.bot.hears(MAIN_BUTTONS.average_cost_per_day, async (ctx) => {
-      const costDays = await costService.getAllCost().then((res) =>
-        res.data.sort((a, b) => {
-          if (a.cost_date < b.cost_date) return -1;
-          if (a.cost_date > b.cost_date) return 1;
-          return 0;
-        })
-      );
-      let totalCost = 0;
+      try {
+        const response = await costService.getAllCost().then((res) => res.data);
+        const { payload, error } = response;
 
-      const dateOptions = {
-        timeZone: "Europe/Moscow",
-      } as const;
-      const beginDate = new Date(costDays[0].cost_date).getTime();
-      const currDate = new Date().toLocaleDateString("ru-RU", dateOptions);
-      const currDateFormatted = new Date(
-        currDate.split(".").reverse().join(".")
-      ).getTime();
-      const diff = currDateFormatted - beginDate;
-      const costLength = Math.ceil(diff / (1000 * 3600 * 24)) + 1;
+        if (error) throw new Error(error);
 
-      for (const dayCost of costDays) {
-        totalCost += Object.entries(dayCost).reduce((accum, [key, values]) => {
-          if (/cat/.test(key)) return (accum += +values);
-          return accum;
-        }, 0);
+        const costDays =
+          payload?.sort((a, b) => {
+            if (a.cost_date < b.cost_date) return -1;
+            if (a.cost_date > b.cost_date) return 1;
+            return 0;
+          }) ?? [];
+
+        let totalCost = 0;
+
+        const dateOptions = {
+          timeZone: "Europe/Moscow",
+        } as const;
+        const beginDate = new Date(costDays[0].cost_date).getTime();
+        const currDate = new Date().toLocaleDateString("ru-RU", dateOptions);
+        const currDateFormatted = new Date(
+          currDate.split(".").reverse().join(".")
+        ).getTime();
+        const diff = currDateFormatted - beginDate;
+        const costLength = Math.ceil(diff / (1000 * 3600 * 24)) + 1;
+
+        for (const dayCost of costDays) {
+          totalCost += Object.entries(dayCost).reduce(
+            (accum, [key, values]) => {
+              if (/cat/.test(key)) return (accum += +values);
+              return accum;
+            },
+            0
+          );
+        }
+
+        const avSpendPerDay = Calculator.roundHalfUp(totalCost / costLength);
+
+        await ctx.replyWithHTML(
+          `<i>${t(
+            "statistics_av_cost_per_day"
+          )}</i>: <u><b>${avSpendPerDay}</b></u> ${t("currency")}.`
+        );
+      } catch (e) {
+        console.log(e);
+        await ctx.editMessageText(t("get_cost_categories_error"));
       }
-
-      const avSpendPerDay = Calculator.roundHalfUp(totalCost / costLength);
-
-      await ctx.replyWithHTML(
-        `<i>${t(
-          "statistics_av_cost_per_day"
-        )}</i>: <u><b>${avSpendPerDay}</b></u> ${t("currency")}.`
-      );
     });
   }
 }

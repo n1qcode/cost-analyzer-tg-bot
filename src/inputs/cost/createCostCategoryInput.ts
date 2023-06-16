@@ -39,14 +39,16 @@ const createCostCategoryInput = async (
 
       if (error) throw new Error(error);
 
-      globalStore.costState.translator.isValid = false;
-      globalStore.costState.translator.dictionary = {};
-
       await ctx.replyWithHTML(
         `<b>${t("added_new_cost_cat")}:</b> ${
           globalStore.createCostCategory.translation
         }`
       );
+
+      globalStore.costState.translator.isValid = false;
+      globalStore.costState.translator.dictionary = {};
+      globalStore.costState.costCategories.isValid = false;
+      globalStore.costState.costCategories.categories = [];
     } catch (e) {
       console.log(e);
       await ctx.reply(t("added_new_cost_cat_error"));

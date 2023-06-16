@@ -20,19 +20,24 @@ const todayCost = (bot: Telegraf<IBotContext>) => {
         .split(".")
         .reverse()
         .join("-");
-      const response: Array<object> = await costService
+      const response = await costService
         .getDayCost(date)
         .then((res) => res.data);
 
-      if (response.length) {
-        const costValues = costAppearanceShaper(response, CostTimeEnum.DAY);
+      const { payload, error } = response;
+
+      if (error) throw new Error(error);
+
+      if (payload?.length) {
+        const costValues = costAppearanceShaper(payload, CostTimeEnum.DAY);
         costValues.unshift(`<u><b>${t("today_cost")}</b></u>:`);
         await ctx.editMessageText(costValues.join("\n"), {
           parse_mode: "HTML",
         });
       } else ctx.editMessageText(t("no_cost_today"));
     } catch (e) {
-      await ctx.editMessageText(`${t("err_see_cost_req")}: ${e}`);
+      console.log(e);
+      await ctx.editMessageText(t("err_see_cost_req"));
     }
   });
 };

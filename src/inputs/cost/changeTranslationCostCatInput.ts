@@ -33,6 +33,9 @@ const changeTranslationCostCat = async (
         cost_category
       } --> ${payload}</i>`
     );
+
+    globalStore.costState.costCategories.isValid = false;
+    globalStore.costState.costCategories.categories = [];
   } catch (e) {
     console.log(e);
     await ctx.reply(t("updated_translation_error"));

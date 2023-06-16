@@ -5,11 +5,11 @@ import { t } from "../../i18n";
 import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
 
+import { MAIN_BUTTONS } from "./utils/constants";
 import addCost from "./addCost/addCost";
 import seeCost from "./seeCost/seeCost";
 import createCostCat from "./createCostCat/createCostCat";
-import { MAIN_BUTTONS } from "./utils/constants";
-import translateCostCat from "./translateCostCat/translateCostCat";
+import changeTranslationCostCat from "./changeTranslationCostCat/changeTranslationCostCat";
 
 export class CostCommand extends Command {
   constructor(bot: Telegraf<IBotContext>) {
@@ -38,6 +38,6 @@ export class CostCommand extends Command {
     addCost(this.bot);
     seeCost(this.bot);
     createCostCat(this.bot);
-    translateCostCat(this.bot);
+    changeTranslationCostCat(this.bot);
   }
 }

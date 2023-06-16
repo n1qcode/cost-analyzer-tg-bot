@@ -6,7 +6,7 @@ import { globalStore } from "../../main";
 
 import type { Update, Message } from "telegraf/types";
 
-const translateCostCategoryInput = async (
+const changeTranslationCostCat = async (
   ctx: Context<Update.MessageUpdate<Message.TextMessage>>
 ) => {
   const translation = ctx.message.text;
@@ -23,18 +23,20 @@ const translateCostCategoryInput = async (
       })
       .then((res) => res.data);
 
-    const { isError, payload } = response;
+    const { error, payload } = response;
 
-    if (isError) throw new Error(t("updated_translation_error"));
+    if (error) throw new Error(error);
 
     await ctx.replyWithHTML(
       `<b>${t("updated_translation")}:</b> <i>${
-        globalStore.costState.translator[cost_category] ?? cost_category
+        globalStore.costState.translator.dictionary[cost_category] ??
+        cost_category
       } --> ${payload}</i>`
     );
   } catch (e) {
+    console.log(e);
     await ctx.reply(t("updated_translation_error"));
   }
 };
 
-export default translateCostCategoryInput;
+export default changeTranslationCostCat;

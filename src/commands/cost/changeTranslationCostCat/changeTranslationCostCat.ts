@@ -7,21 +7,41 @@ import { t } from "../../../i18n";
 import { globalStore } from "../../../main";
 import { CostActionEnum } from "../cost.enums";
 
-const translateCostCat = (bot: Telegraf<IBotContext>) => {
+const changeTranslationCostCat = (bot: Telegraf<IBotContext>) => {
   bot.hears(MAIN_BUTTONS.translate_cost_cat, async (ctx) => {
     globalStore.resetStore();
-    globalStore.costState.costCategories = await costService
-      .getCostCategories()
-      .then((res) => res.data);
-    globalStore.costState.translator = await costService
-      .getTranslationCostCategory()
-      .then((res) => res.data);
+    try {
+      const response = await costService
+        .getCostCategories()
+        .then((res) => res.data);
+      const { payload, error } = response;
+      if (error) throw new Error(error);
+      globalStore.costState.costCategories = payload ?? [];
+    } catch (e) {
+      console.log(e);
+      await ctx.reply(t("get_cost_categories_error"));
+    }
+
+    try {
+      const response = await costService
+        .getTranslationCostCategory()
+        .then((res) => res.data);
+      const { payload, error } = response;
+      if (error) throw new Error(error);
+      globalStore.costState.translator = {
+        isValid: true,
+        dictionary: payload ?? {},
+      };
+    } catch (e) {
+      console.log(e);
+      await ctx.reply(t("get_translation_error"));
+    }
     await ctx.reply(`<b>${t("choose_cat_to_translate")}:</b>`, {
       parse_mode: "HTML",
       ...Markup.inlineKeyboard([
         ...globalStore.costState.costCategories.map((cat: string) => [
           Markup.button.callback(
-            globalStore.costState.translator[cat] ?? cat,
+            globalStore.costState.translator.dictionary[cat] ?? cat,
             `translate_${cat}`
           ),
         ]),
@@ -38,11 +58,12 @@ const translateCostCat = (bot: Telegraf<IBotContext>) => {
       .join("_");
     await ctx.editMessageText(
       `<i>${t("category")}:</i> <code>${
-        globalStore.costState.translator[clearCatName] ?? clearCatName
+        globalStore.costState.translator.dictionary[clearCatName] ??
+        clearCatName
       }</code>\n${t("enter_translation")}:`,
       { parse_mode: "HTML" }
     );
   });
 };
 
-export default translateCostCat;
+export default changeTranslationCostCat;

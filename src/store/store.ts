@@ -48,9 +48,12 @@ export class Store implements IStore {
     this.costState = {
       chosenCategory: "",
       isCatAdd: false,
-      categoriesByFrequency: { isValid: false, frequency: [] },
-      costCategories: { isValid: false, categories: [] },
-      translator: { isValid: false, dictionary: {} },
+      categoriesByFrequency: this.costState.categoriesByFrequency,
+      costCategories: this.costState.costCategories,
+      translator: this.costState.translator,
+      // categoriesByFrequency: { isValid: false, frequency: [] },
+      // costCategories: { isValid: false, categories: [] },
+      // translator: { isValid: false, dictionary: {} },
     };
     this.seeMonthCost = {
       costValues: [],

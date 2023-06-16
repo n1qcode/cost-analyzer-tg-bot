@@ -2,13 +2,11 @@ import { Context, Markup, Telegraf } from "telegraf";
 
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
-import { globalStore } from "../../../main";
 
 import todayCost from "./todayCost";
 import monthCost from "./monthCost/monthCost";
 
 const seeCost = async (bot: Telegraf<IBotContext>, ctx: Context) => {
-  globalStore.resetStore();
   ctx.reply(`<b>${t("choose_cat_to_see")}</b>`, {
     parse_mode: "HTML",
     ...Markup.inlineKeyboard([

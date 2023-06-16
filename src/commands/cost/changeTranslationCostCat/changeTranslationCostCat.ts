@@ -4,16 +4,11 @@ import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { globalStore } from "../../../main";
 import { CostActionEnum } from "../cost.enums";
-import CostAssistant from "../utils/costAssistent";
 
 const changeTranslationCostCat = async (
   bot: Telegraf<IBotContext>,
   ctx: Context
 ) => {
-  globalStore.resetStore();
-  await CostAssistant.getCostCategories(ctx);
-  await CostAssistant.getTranslation(ctx);
-
   await ctx.reply(`<b>${t("choose_cat_to_translate")}:</b>`, {
     parse_mode: "HTML",
     ...Markup.inlineKeyboard([

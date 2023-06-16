@@ -4,16 +4,10 @@ import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { globalStore } from "../../../main";
 import categoriesButtonsShaper from "../../../utils/categoriesButtonsShaper";
-import CostAssistant from "../utils/costAssistent";
 
 import { categoriesHandler } from "./addCost.helpers";
 
 const addCost = async (bot: Telegraf<IBotContext>, ctx: Context) => {
-  globalStore.resetStore();
-  await CostAssistant.getCostCategories(ctx);
-  await CostAssistant.getTranslation(ctx);
-  await CostAssistant.getFrequency(ctx);
-
   const categoriesButtons = categoriesButtonsShaper(
     globalStore.costState.categoriesByFrequency.frequency,
     globalStore.costState.costCategories.categories,

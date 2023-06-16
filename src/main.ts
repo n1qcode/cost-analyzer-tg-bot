@@ -12,7 +12,7 @@ import { Store } from "./store/store";
 import { CostActionEnum } from "./commands/cost/cost.enums";
 import addToCostCategoryInput from "./inputs/cost/addToCostCategoryInput";
 import seeChosenMonthCostInput from "./inputs/cost/seeChosenMonthCostInput";
-import addNewCostCategoryInput from "./inputs/cost/addNewCostCategoryInput";
+import createCostCategoryInput from "./inputs/cost/createCostCategoryInput";
 import translateCostCategoryInput from "./inputs/cost/translateCostCategoryInput";
 import updateInformer from "./features/updateInformer";
 
@@ -45,7 +45,7 @@ class Bot {
       if (globalStore.activeInputAction[CostActionEnum.CHOOSE_MONTH])
         await seeChosenMonthCostInput(ctx);
       if (globalStore.activeInputAction[CostActionEnum.ADD_COST_CAT])
-        await addNewCostCategoryInput(ctx);
+        await createCostCategoryInput(ctx);
       if (globalStore.activeInputAction[CostActionEnum.TRANSLATE_COST])
         await translateCostCategoryInput(ctx);
     });

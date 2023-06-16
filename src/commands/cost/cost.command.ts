@@ -7,7 +7,7 @@ import { Command } from "../command.class";
 
 import addCost from "./addCost/addCost";
 import seeCost from "./seeCost/seeCost";
-import addCostCat from "./addCostCat/addCostCat";
+import createCostCat from "./createCostCat/createCostCat";
 import { MAIN_BUTTONS } from "./utils/constants";
 import translateCostCat from "./translateCostCat/translateCostCat";
 
@@ -37,7 +37,7 @@ export class CostCommand extends Command {
 
     addCost(this.bot);
     seeCost(this.bot);
-    addCostCat(this.bot);
+    createCostCat(this.bot);
     translateCostCat(this.bot);
   }
 }

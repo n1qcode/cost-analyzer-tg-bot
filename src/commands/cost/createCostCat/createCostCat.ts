@@ -6,7 +6,7 @@ import { t } from "../../../i18n";
 import { CostActionEnum } from "../cost.enums";
 import { globalStore } from "../../../main";
 
-const addCostCat = (bot: Telegraf<IBotContext>) => {
+const createCostCat = (bot: Telegraf<IBotContext>) => {
   bot.hears(MAIN_BUTTONS.add_cost_cat, async (ctx) => {
     globalStore.resetStore();
     globalStore.activeInputAction[CostActionEnum.ADD_COST_CAT] = true;
@@ -14,4 +14,4 @@ const addCostCat = (bot: Telegraf<IBotContext>) => {
   });
 };
 
-export default addCostCat;
+export default createCostCat;

@@ -6,7 +6,7 @@ import { globalStore } from "../../main";
 
 import type { Update, Message } from "telegraf/types";
 
-const addNewCostCategoryInput = async (
+const createCostCategoryInput = async (
   ctx: Context<Update.MessageUpdate<Message.TextMessage>>
 ) => {
   if (
@@ -28,12 +28,19 @@ const addNewCostCategoryInput = async (
     globalStore.createCostCategory.translation = ctx.message.text;
     globalStore.createCostCategory.isCostTranslationTyped = true;
     try {
-      await costService
+      const response = await costService
         .createCostCategory({
           cost_category: globalStore.createCostCategory.cost_category,
           translation: globalStore.createCostCategory.translation,
         })
         .then((res) => res.data);
+
+      const { error } = response;
+
+      if (error) throw new Error(error);
+
+      globalStore.costState.translator.isValid = false;
+      globalStore.costState.translator.dictionary = {};
 
       await ctx.replyWithHTML(
         `<b>${t("added_new_cost_cat")}:</b> ${
@@ -41,9 +48,10 @@ const addNewCostCategoryInput = async (
         }`
       );
     } catch (e) {
-      await ctx.reply(`${t("err_add_cost_req")}: ${e}`);
+      console.log(e);
+      await ctx.reply(t("added_new_cost_cat_error"));
     }
   }
 };
 
-export default addNewCostCategoryInput;
+export default createCostCategoryInput;

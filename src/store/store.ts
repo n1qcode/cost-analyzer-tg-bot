@@ -15,11 +15,11 @@ export class Store implements IStore {
     TRANSLATE_COST: false,
   };
   costState: ICostCommandLocalState = {
-    categoriesByFrequency: [],
-    costCategories: [],
+    categoriesByFrequency: { isValid: false, frequency: [] },
+    costCategories: { isValid: false, categories: [] },
     chosenCategory: "",
     isCatAdd: false,
-    translator: {},
+    translator: { isValid: false, dictionary: {} },
   };
   seeMonthCost: ISeeMonthCost = {
     costValues: [],
@@ -46,11 +46,11 @@ export class Store implements IStore {
       TRANSLATE_COST: false,
     };
     this.costState = {
-      categoriesByFrequency: [],
-      costCategories: [],
       chosenCategory: "",
       isCatAdd: false,
-      translator: {},
+      categoriesByFrequency: { isValid: false, frequency: [] },
+      costCategories: { isValid: false, categories: [] },
+      translator: { isValid: false, dictionary: {} },
     };
     this.seeMonthCost = {
       costValues: [],

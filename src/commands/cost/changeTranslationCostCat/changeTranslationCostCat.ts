@@ -1,52 +1,29 @@
-import { Markup, Telegraf } from "telegraf";
+import { Context, Markup, Telegraf } from "telegraf";
 
-import { MAIN_BUTTONS } from "../utils/constants";
 import { IBotContext } from "../../../context/context.interface";
-import { costService } from "../../../services/cost.service";
 import { t } from "../../../i18n";
 import { globalStore } from "../../../main";
 import { CostActionEnum } from "../cost.enums";
+import CostAssistant from "../utils/costAssistent";
 
-const changeTranslationCostCat = (bot: Telegraf<IBotContext>) => {
-  bot.hears(MAIN_BUTTONS.translate_cost_cat, async (ctx) => {
-    globalStore.resetStore();
-    try {
-      const response = await costService
-        .getCostCategories()
-        .then((res) => res.data);
-      const { payload, error } = response;
-      if (error) throw new Error(error);
-      globalStore.costState.costCategories = payload ?? [];
-    } catch (e) {
-      console.log(e);
-      await ctx.reply(t("get_cost_categories_error"));
-    }
+const changeTranslationCostCat = async (
+  bot: Telegraf<IBotContext>,
+  ctx: Context
+) => {
+  globalStore.resetStore();
+  await CostAssistant.getCostCategories(ctx);
+  await CostAssistant.getTranslation(ctx);
 
-    try {
-      const response = await costService
-        .getTranslationCostCategory()
-        .then((res) => res.data);
-      const { payload, error } = response;
-      if (error) throw new Error(error);
-      globalStore.costState.translator = {
-        isValid: true,
-        dictionary: payload ?? {},
-      };
-    } catch (e) {
-      console.log(e);
-      await ctx.reply(t("get_translation_error"));
-    }
-    await ctx.reply(`<b>${t("choose_cat_to_translate")}:</b>`, {
-      parse_mode: "HTML",
-      ...Markup.inlineKeyboard([
-        ...globalStore.costState.costCategories.map((cat: string) => [
-          Markup.button.callback(
-            globalStore.costState.translator.dictionary[cat] ?? cat,
-            `translate_${cat}`
-          ),
-        ]),
+  await ctx.reply(`<b>${t("choose_cat_to_translate")}:</b>`, {
+    parse_mode: "HTML",
+    ...Markup.inlineKeyboard([
+      ...globalStore.costState.costCategories.categories.map((cat: string) => [
+        Markup.button.callback(
+          globalStore.costState.translator.dictionary[cat] ?? cat,
+          `translate_${cat}`
+        ),
       ]),
-    });
+    ]),
   });
   bot.action(/^translate/, async (ctx) => {
     globalStore.activeInputAction[CostActionEnum.TRANSLATE_COST] = true;

@@ -1,4 +1,5 @@
 import { Markup, Telegraf } from "telegraf";
+import { message } from "telegraf/filters";
 
 import { IBotContext } from "../../context/context.interface";
 import { t } from "../../i18n";
@@ -23,8 +24,8 @@ export class CostCommand extends Command {
         t("spend_carefully"),
         Markup.keyboard([
           [MAIN_BUTTONS.add_cost, MAIN_BUTTONS.see_cost],
-          [MAIN_BUTTONS.add_cost_cat],
-          [MAIN_BUTTONS.translate_cost_cat],
+          [MAIN_BUTTONS.create_cost_cat],
+          [MAIN_BUTTONS.change_translation_cost_cat],
         ]).resize()
       );
     });
@@ -35,9 +36,23 @@ export class CostCommand extends Command {
       );
     });
 
-    addCost(this.bot);
-    seeCost(this.bot);
-    createCostCat(this.bot);
-    changeTranslationCostCat(this.bot);
+    this.bot.on(message("text"), async (ctx) => {
+      switch (ctx.message.text) {
+        case MAIN_BUTTONS.add_cost:
+          await addCost(this.bot, ctx);
+          break;
+        case MAIN_BUTTONS.see_cost:
+          await seeCost(this.bot, ctx);
+          break;
+        case MAIN_BUTTONS.create_cost_cat:
+          await createCostCat(this.bot, ctx);
+          break;
+        case MAIN_BUTTONS.change_translation_cost_cat:
+          await changeTranslationCostCat(this.bot, ctx);
+          break;
+        default:
+          break;
+      }
+    });
   }
 }

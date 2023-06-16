@@ -27,7 +27,7 @@ const costAppearanceShaper = (data: Array<object>, costTime: CostTimeEnum) => {
     if (/cat/.test(costKey) && +costValue) {
       costNiceAppearance.push(
         `<code>${
-          globalStore.costState.translator[costKey] ?? costKey
+          globalStore.costState.translator.dictionary[costKey] ?? costKey
         }: ${+costValue} ${t("currency")}.</code>`
       );
       amount += +costValue;

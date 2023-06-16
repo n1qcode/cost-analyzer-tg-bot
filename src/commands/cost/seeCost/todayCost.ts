@@ -3,7 +3,6 @@ import { Telegraf } from "telegraf";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { costService } from "../../../services/cost.service";
-import { globalStore } from "../../../main";
 import costAppearanceShaper from "../../../utils/costAppearanceShaper";
 import { CostTimeEnum } from "../../../utils/enums";
 
@@ -23,9 +22,6 @@ const todayCost = (bot: Telegraf<IBotContext>) => {
         .join("-");
       const response: Array<object> = await costService
         .getDayCost(date)
-        .then((res) => res.data);
-      globalStore.costState.translator = await costService
-        .getTranslationCostCategory()
         .then((res) => res.data);
 
       if (response.length) {

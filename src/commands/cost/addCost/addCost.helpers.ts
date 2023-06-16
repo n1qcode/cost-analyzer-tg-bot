@@ -21,8 +21,8 @@ export const categoriesHandler = (bot: Telegraf<IBotContext>) => {
   });
   bot.action("show_all_categories", async (ctx) => {
     const categoriesButtons = categoriesButtonsShaper(
-      globalStore.costState.categoriesByFrequency,
-      globalStore.costState.costCategories,
+      globalStore.costState.categoriesByFrequency.frequency,
+      globalStore.costState.costCategories.categories,
       globalStore.costState.translator.dictionary,
       true
     );

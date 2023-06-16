@@ -2,8 +2,10 @@ import $api from "../http";
 import { IHttpResponse } from "../http/http.interface";
 
 export const costService = {
-  createCostCategory: (props: { cost_category: string; translation: string }) =>
-    $api.post<IHttpResponse>("/cost", props),
+  createCostCategory: async (props: {
+    cost_category: string;
+    translation: string;
+  }) => $api.post<IHttpResponse>("/cost", props),
   addToCostCategory: async (props: {
     cost_category: string;
     cost_amount: number;

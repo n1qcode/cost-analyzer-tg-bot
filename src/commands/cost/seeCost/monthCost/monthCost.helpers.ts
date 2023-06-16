@@ -12,9 +12,6 @@ const _monthCostRequest = async (year: string, month: string) => {
   const response: Array<object> = await costService
     .getMonthCost(year, month)
     .then((res) => res.data);
-  globalStore.costState.translator = await costService
-    .getTranslationCostCategory()
-    .then((res) => res.data);
 
   let costValues: string[] = [];
 

@@ -73,4 +73,7 @@ export const RU = {
   statistics_menu: "Вы вошли в меню статистики",
   statistics_menu_label: "меню статистики",
   get_translation_error: "Не удалось получить перевод для категорий затрат",
+  get_frequency_error:
+    "Не удалось получить частоту использования категорий затрат",
+  get_cost_categories_error: "Не удалось получить список категорий затрат",
 };

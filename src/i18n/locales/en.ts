@@ -73,4 +73,6 @@ export const EN = {
   statistics_menu: "You have entered the statistics menu",
   statistics_menu_label: "statistics menu",
   get_translation_error: "Failed to get translation for cost categories",
+  get_frequency_error: "Failed to get cost category usage frequency",
+  get_cost_categories_error: "Failed to get list of cost categories",
 };

@@ -23,22 +23,24 @@ const addToCostCategoryInput = async (
           cost_amount: spentAmount,
         })
         .then((res) => res.data);
-      globalStore.costState.translator = await costService
-        .getTranslationCostCategory()
-        .then((res) => res.data);
+
+      const { payload, error } = response;
+
+      if (error) throw new Error(error);
 
       await ctx.replyWithHTML(
         `<b>${t("saved")}!</b>\n<i>${t("category")}:</i> ${
-          globalStore.costState.translator[
+          globalStore.costState.translator.dictionary[
             globalStore.costState.chosenCategory
           ] ?? globalStore.costState.chosenCategory
         } <i>+ ${spentAmount} ${t("currency")}.</i>\n<i>${t(
           "amount"
-        )}:</i> <u>${+response.split(":").at(-1)}</u> ${t("currency")}.`
+        )}:</i> <u>${+(payload ?? 0)}</u> ${t("currency")}.`
       );
       globalStore.costState.isCatAdd = true;
     } catch (e) {
-      await ctx.reply(`${t("err_add_cost_req")}: ${e}`);
+      console.log(e);
+      await ctx.reply(t("err_add_cost_req"));
     }
   }
 };

@@ -1,4 +1,4 @@
-export interface IHttpResponse<T> {
-  isError?: boolean;
-  payload: T;
+export interface IHttpResponse<T = undefined> {
+  error?: string;
+  payload?: T;
 }

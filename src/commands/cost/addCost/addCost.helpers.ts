@@ -13,7 +13,8 @@ export const categoriesHandler = (bot: Telegraf<IBotContext>) => {
     globalStore.costState.chosenCategory = ctx.match.input;
     await ctx.editMessageText(
       `<i>${t("category")}:</i> <b>${
-        globalStore.costState.translator[ctx.match.input] ?? ctx.match.input
+        globalStore.costState.translator.dictionary[ctx.match.input] ??
+        ctx.match.input
       }</b>\n${t("type_amount_cost")}:`,
       { parse_mode: "HTML" }
     );
@@ -22,7 +23,7 @@ export const categoriesHandler = (bot: Telegraf<IBotContext>) => {
     const categoriesButtons = categoriesButtonsShaper(
       globalStore.costState.categoriesByFrequency,
       globalStore.costState.costCategories,
-      globalStore.costState.translator,
+      globalStore.costState.translator.dictionary,
       true
     );
 

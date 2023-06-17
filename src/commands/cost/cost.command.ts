@@ -38,7 +38,12 @@ export class CostCommand extends Command {
       );
     });
 
-    this.bot.on(message("text"), async (ctx) => {
+    const mainButtonsLabels = Object.values(MAIN_BUTTONS).map(
+      (btn) => btn.split(" ")[1]
+    );
+    const mainButtonsRegExp = new RegExp(mainButtonsLabels.join("|"), "i");
+
+    this.bot.hears(mainButtonsRegExp, async (ctx) => {
       globalStore.resetStore();
 
       await CostAssistant.getTranslation(ctx);

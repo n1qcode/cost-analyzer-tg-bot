@@ -27,7 +27,7 @@ const _monthCostRequest = async (year: string, month: string) => {
     return costValues;
   } catch (e) {
     console.log(e);
-    await ctx?.editMessageText(t("err_see_cost_req"));
+    await ctx?.editMessageText(`🚫 ${t("err_see_cost_req")}`);
     return [];
   }
 };

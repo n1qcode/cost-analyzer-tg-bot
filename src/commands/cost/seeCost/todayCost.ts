@@ -37,7 +37,7 @@ const todayCost = (bot: Telegraf<IBotContext>) => {
       } else ctx.editMessageText(t("no_cost_today"));
     } catch (e) {
       console.log(e);
-      await ctx.editMessageText(t("err_see_cost_req"));
+      await ctx.editMessageText(`🚫 ${t("err_see_cost_req")}`);
     }
   });
 };

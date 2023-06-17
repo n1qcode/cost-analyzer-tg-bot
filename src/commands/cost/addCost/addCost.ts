@@ -14,6 +14,8 @@ const addCost = async (bot: Telegraf<IBotContext>, ctx: Context) => {
     globalStore.costState.translator.dictionary
   );
 
+  if (!categoriesButtons.length) return;
+
   await ctx.reply(`<b>${t("choose_cat_to_add")}:</b>`, {
     parse_mode: "HTML",
     ...Markup.inlineKeyboard([...categoriesButtons]),

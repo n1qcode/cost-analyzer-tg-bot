@@ -38,7 +38,7 @@ const changeTranslationCostCatInput = async (
     globalStore.costState.translator.dictionary = {};
   } catch (e) {
     console.log(e);
-    await ctx.reply(t("updated_translation_error"));
+    await ctx.reply(`🚫 ${t("updated_translation_error")}`);
   }
 };
 

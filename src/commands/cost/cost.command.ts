@@ -1,5 +1,4 @@
 import { Markup, Telegraf } from "telegraf";
-import { message } from "telegraf/filters";
 
 import { IBotContext } from "../../context/context.interface";
 import { t } from "../../i18n";

@@ -68,7 +68,7 @@ export class StatisticsCommand extends Command {
         );
       } catch (e) {
         console.log(e);
-        await ctx.editMessageText(t("get_cost_categories_error"));
+        await ctx.editMessageText(`🚫 ${t("get_cost_categories_error")}`);
       }
     });
   }

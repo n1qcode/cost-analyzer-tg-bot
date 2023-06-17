@@ -51,7 +51,7 @@ const createCostCategoryInput = async (
       globalStore.costState.costCategories.categories = [];
     } catch (e) {
       console.log(e);
-      await ctx.reply(t("added_new_cost_cat_error"));
+      await ctx.reply(`🚫 ${t("added_new_cost_cat_error")}`);
     }
   }
 };

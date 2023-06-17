@@ -44,7 +44,7 @@ const addToCostCategoryInput = async (
       globalStore.costState.categoriesByFrequency.frequency = [];
     } catch (e) {
       console.log(e);
-      await ctx.reply(t("err_add_cost_req"));
+      await ctx.reply(`🚫 ${t("err_add_cost_req")}`);
     }
   }
 };

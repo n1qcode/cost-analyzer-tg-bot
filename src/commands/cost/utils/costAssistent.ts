@@ -25,7 +25,7 @@ class CostAssistant {
       globalStore.costState.translator.isValid = true;
     } catch (e) {
       console.log(e);
-      await ctx.reply(t("get_translation_error"));
+      await ctx.reply(`🚫 ${t("get_translation_error")}`);
     }
   }
 
@@ -45,7 +45,7 @@ class CostAssistant {
       globalStore.costState.categoriesByFrequency.isValid = true;
     } catch (e) {
       console.log(e);
-      await ctx.reply(t("get_frequency_error"));
+      await ctx.reply(`🚫 ${t("get_frequency_error")}`);
     }
   }
 
@@ -61,7 +61,7 @@ class CostAssistant {
       globalStore.costState.costCategories.isValid = true;
     } catch (e) {
       console.log(e);
-      await ctx.reply(t("get_cost_categories_error"));
+      await ctx.reply(`🚫 ${t("get_cost_categories_error")}`);
     }
   }
 }

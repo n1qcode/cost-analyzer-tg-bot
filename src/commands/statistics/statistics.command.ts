@@ -68,7 +68,7 @@ export class StatisticsCommand extends Command {
         );
       } catch (e) {
         console.log(e);
-        await ctx.editMessageText(`🚫 ${t("get_cost_categories_error")}`);
+        await ctx.reply(`🚫 ${t("statistics_av_cost_per_day_error")}`);
       }
     });
   }

@@ -76,4 +76,6 @@ export const RU = {
   get_frequency_error:
     "Не удалось получить частоту использования категорий затрат",
   get_cost_categories_error: "Не удалось получить список категорий затрат",
+  statistics_av_cost_per_day_error:
+    "Не удалось получить статистику для средней суммы трат в день",
 };

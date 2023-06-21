@@ -8,6 +8,8 @@ import categoriesButtonsShaper from "../../../utils/categoriesButtonsShaper";
 import { categoriesHandler } from "./addCost.helpers";
 
 const addCost = async (bot: Telegraf<IBotContext>, ctx: Context) => {
+  if (!globalStore.costState.costCategories.categories.length) return;
+
   const categoriesButtons = categoriesButtonsShaper(
     globalStore.costState.categoriesByFrequency.frequency,
     globalStore.costState.costCategories.categories,

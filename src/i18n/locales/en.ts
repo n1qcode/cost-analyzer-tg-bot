@@ -75,4 +75,6 @@ export const EN = {
   get_translation_error: "Failed to get translation for cost categories",
   get_frequency_error: "Failed to get cost category usage frequency",
   get_cost_categories_error: "Failed to get list of cost categories",
+  statistics_av_cost_per_day_error:
+    "Failed to get statistics for the average spend per day",
 };

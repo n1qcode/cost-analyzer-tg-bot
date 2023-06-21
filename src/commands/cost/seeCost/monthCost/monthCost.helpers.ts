@@ -27,8 +27,9 @@ const _monthCostRequest = async (year: string, month: string) => {
     return costValues;
   } catch (e) {
     console.log(e);
-    await ctx?.editMessageText(`🚫 ${t("err_see_cost_req")}`);
-    return [];
+    if (globalStore.seeMonthCost.isEnter)
+      await ctx?.reply(`🚫 ${t("err_see_cost_req")}`);
+    else await ctx?.editMessageText(`🚫 ${t("err_see_cost_req")}`);
   }
 };
 
@@ -39,6 +40,8 @@ export const monthCostExecutor = async () => {
       globalStore.seeMonthCost.year,
       globalStore.seeMonthCost.month
     );
+    if (!costValues) return;
+
     globalStore.seeMonthCost.costValues.push(...costValues);
 
     globalStore.seeMonthCost.costValues.unshift(

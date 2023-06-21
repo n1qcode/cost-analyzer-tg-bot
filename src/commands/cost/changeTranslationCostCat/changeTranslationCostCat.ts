@@ -9,6 +9,8 @@ const changeTranslationCostCat = async (
   bot: Telegraf<IBotContext>,
   ctx: Context
 ) => {
+  if (!globalStore.costState.costCategories.categories.length) return;
+
   await ctx.reply(`<b>${t("choose_cat_to_translate")}:</b>`, {
     parse_mode: "HTML",
     ...Markup.inlineKeyboard([

@@ -45,15 +45,15 @@ export class CostCommand extends Command {
     this.bot.hears(mainButtonsRegExp, async (ctx) => {
       globalStore.resetStore();
 
-      await CostAssistant.getTranslation(ctx);
-
       switch (ctx.message.text) {
         case MAIN_BUTTONS.add_cost:
           await CostAssistant.getCostCategories(ctx);
           await CostAssistant.getFrequency(ctx);
+          await CostAssistant.getTranslation(ctx);
           await addCost(this.bot, ctx);
           break;
         case MAIN_BUTTONS.see_cost:
+          await CostAssistant.getTranslation(ctx);
           await seeCost(this.bot, ctx);
           break;
         case MAIN_BUTTONS.create_cost_cat:
@@ -61,6 +61,7 @@ export class CostCommand extends Command {
           break;
         case MAIN_BUTTONS.change_translation_cost_cat:
           await CostAssistant.getCostCategories(ctx);
+          await CostAssistant.getTranslation(ctx);
           await changeTranslationCostCat(this.bot, ctx);
           break;
         default:

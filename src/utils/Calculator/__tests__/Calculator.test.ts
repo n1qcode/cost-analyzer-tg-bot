@@ -83,6 +83,11 @@ const subtractionData = [
     input: "123,01-24.56",
     output: 98.45,
   },
+  {
+    describe: "subtraction with negative result",
+    input: "1-2",
+    output: 0,
+  },
 ];
 const addAndSubData = [
   {
@@ -166,6 +171,11 @@ const multiplicationData = [
     describe: "multiplication with only two float numbers",
     input: "4.99*5,01",
     output: 25,
+  },
+  {
+    describe: "multiplication with too big result",
+    input: "99999999 * 99999999 * 99999999 * 99999999 * 99999999 * 99999999",
+    output: 9.999999400000016e47,
   },
 ];
 const mixOperationData = [

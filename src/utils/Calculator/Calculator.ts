@@ -40,8 +40,6 @@ class Calculator implements ICalculator {
 
   #singleReducer(value: string, operation: IMathSign[keyof IMathSign]) {
     const valuesForReduce = [...value.split(operation)];
-    if (operation === this.#MATH_SIGN.MINUS)
-      valuesForReduce.sort((a, b) => +b - +a);
     return valuesForReduce.reduce(
       (accum, curr, index) => {
         const valueForAdd = +curr;
@@ -186,11 +184,23 @@ class Calculator implements ICalculator {
       return result;
     }
 
-    result.value = this.roundHalfUp(totalSum);
-
-    if (!this.#MAX_NUM_REGEX.test(String(result.value))) {
+    if (String(totalSum).includes("e")) {
+      result.value = totalSum;
       result.info = `<b>${result.value}</b> - ${t("typed_add_cost_too_big")}`;
       result.isCorrect = false;
+    } else {
+      result.value = this.roundHalfUp(totalSum);
+
+      if (!result.value) {
+        const isSingleInput = value.split(/([-+*])/).length === 1;
+        result.info = isSingleInput
+          ? t("not_zero_add_cost")
+          : t("not_zero_add_cost_sum");
+        result.isCorrect = false;
+      } else if (!this.#MAX_NUM_REGEX.test(String(result.value))) {
+        result.info = `<b>${result.value}</b> - ${t("typed_add_cost_too_big")}`;
+        result.isCorrect = false;
+      }
     }
 
     return result;

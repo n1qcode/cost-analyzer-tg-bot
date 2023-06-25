@@ -78,4 +78,6 @@ export const RU = {
   get_cost_categories_error: "Не удалось получить список категорий затрат",
   statistics_av_cost_per_day_error:
     "Не удалось получить статистику для средней суммы трат в день",
+  not_zero_add_cost: "Чтобы записать траты, введите число больше 0",
+  not_zero_add_cost_sum: "Сумма затрат должна быть больше 0",
 };

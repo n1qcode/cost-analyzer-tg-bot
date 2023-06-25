@@ -77,4 +77,6 @@ export const EN = {
   get_cost_categories_error: "Failed to get list of cost categories",
   statistics_av_cost_per_day_error:
     "Failed to get statistics for the average spend per day",
+  not_zero_add_cost: "To add cost, enter a number greater than 0",
+  not_zero_add_cost_sum: "Cost amount must be greater than 0",
 };

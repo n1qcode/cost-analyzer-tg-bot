@@ -14,7 +14,7 @@ import addToCostCategoryInput from "./inputs/cost/addToCostCategoryInput";
 import seeChosenMonthCostInput from "./inputs/cost/seeChosenMonthCostInput";
 import createCostCategoryInput from "./inputs/cost/createCostCategoryInput";
 import changeTranslationCostCatInput from "./inputs/cost/changeTranslationCostCatInput";
-import updateInformer from "./features/updateInformer";
+import Informer from "./utils/Informer/Informer";
 
 export const globalStore = new Store();
 
@@ -35,7 +35,7 @@ class Bot {
     ];
     this.commands.forEach((command) => command.handle());
     this.bot.launch();
-    if (config.get("UPDATE_INFO")) updateInformer(this.bot);
+    if (config.get("UPDATE_INFO")) Informer.update(this.bot);
   }
 
   hear() {

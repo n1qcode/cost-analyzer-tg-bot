@@ -10,7 +10,6 @@ const _monthComparatorRequest = async (year: string, month: string) => {
       .then((res) => res.data);
     const { payload, error } = response;
 
-    console.log(" --- _monthComparatorRequest -----", payload);
     if (error) throw new Error(error);
 
     let totalSum = 0;
@@ -87,9 +86,7 @@ const monthsComparator = async (month: number) => {
       "cost_last_month_compare_info"
     ).toLowerCase()}</i> (<code>${Calculator.roundHalfUp(
       costValuesSecondMonth
-    )} ${t(
-      "currency"
-    )}.</code>)\n\n*<i>Со следующего месяца данное уведомление будет приходить каждое 1 число в 10:00 по МСК.</i>`; // TODO remove this note
+    )} ${t("currency")}.</code>)`;
   } catch (e) {
     console.log(e);
     throw new Error(`${e}`);

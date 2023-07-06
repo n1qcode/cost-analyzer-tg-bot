@@ -79,4 +79,14 @@ export const EN = {
     "Failed to get statistics for the average spend per day",
   not_zero_add_cost: "To add cost, enter a number greater than 0",
   not_zero_add_cost_sum: "Cost amount must be greater than 0",
+  err_get_cost_last_month:
+    "Error when trying to calculate cost statistics for the last two months",
+  more: "More",
+  less: "Less",
+  started_new_month: "A new month has begun",
+  cost_last_month_info: "Last month you spent",
+  cost_last_month_compare_info: "Than in the previous month",
+  cost_last_month_equal_info:
+    "You spent the same amount last month as you did last month",
+  which_is: "Which is",
 };

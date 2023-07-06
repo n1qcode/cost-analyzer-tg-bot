@@ -35,7 +35,7 @@ class Bot {
     ];
     this.commands.forEach((command) => command.handle());
     this.bot.launch();
-    if (config.get("UPDATE_INFO")) Informer.update(this.bot);
+    Informer.launch(this.bot);
   }
 
   hear() {

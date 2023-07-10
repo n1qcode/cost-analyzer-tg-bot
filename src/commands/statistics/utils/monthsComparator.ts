@@ -5,6 +5,24 @@ import Calculator from "../../../utils/Calculator/Calculator";
 const _monthComparatorRequest = async (year: string, month: string) => {
   try {
     const monthFixed = `${+month < 11 ? "0" : ""}${month}`;
+    // DEBUG FIELD
+    {
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+
+      console.log(
+        `DEBUG TG BOT::TIME ${year}.${month}.${day} ${hours}:${minutes}:${seconds}`
+      );
+      console.log("DEBUG TG BOT::_monthComparatorRequest --- ", {
+        year,
+        monthFixed,
+      });
+    }
     const response = await costService
       .getMonthCost(year, monthFixed)
       .then((res) => res.data);
@@ -19,6 +37,8 @@ const _monthComparatorRequest = async (year: string, month: string) => {
         if (/cat/.test(costKey)) totalSum += +costValue;
       }
     });
+
+    console.log("DEBUG TG BOT::_monthComparatorRequest --- ", { totalSum });
 
     return totalSum;
   } catch (e) {

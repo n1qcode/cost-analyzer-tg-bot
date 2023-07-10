@@ -4,7 +4,7 @@ import Calculator from "../../../utils/Calculator/Calculator";
 
 const _monthComparatorRequest = async (year: string, month: string) => {
   try {
-    const monthFixed = `${+month < 11 ? "0" : ""}${month}`;
+    const monthFixed = `${+month + 1 < 11 ? "0" : ""}${month + 1}`;
     // DEBUG FIELD
     {
       const currentDate = new Date();
@@ -49,18 +49,13 @@ const _monthComparatorRequest = async (year: string, month: string) => {
 
 const monthsComparator = async (month: number) => {
   try {
-    const isNewYearFirst = month - 1 === 0;
-    const isNewYearSecond = month - 2 === 0;
-    const isLastMonthSecond = month - 2 < 0;
+    const isLastYearFirst = month - 1 < 0;
+    const isLastYearSecond = month - 2 < 0;
     const currentYear = new Date().getFullYear();
-    const firstYear = isNewYearFirst ? currentYear - 1 : currentYear;
-    const secondYear = isNewYearSecond ? currentYear - 1 : currentYear;
-    const firstMonth = isNewYearFirst ? 12 : month - 1;
-    const secondMonth = isNewYearSecond
-      ? currentYear - 1
-      : isLastMonthSecond
-      ? 11
-      : month - 2;
+    const firstYear = isLastYearFirst ? currentYear - 1 : currentYear;
+    const secondYear = isLastYearSecond ? currentYear - 1 : currentYear;
+    const firstMonth = isLastYearFirst ? 11 : month - 1;
+    const secondMonth = isLastYearSecond ? firstMonth - 1 : month - 2;
     const costValuesFirstMonth = await _monthComparatorRequest(
       String(firstYear),
       String(firstMonth)

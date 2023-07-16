@@ -2,29 +2,15 @@ import { costService } from "../../../services/cost.service";
 import { t } from "../../../i18n";
 import Calculator from "../../../utils/Calculator/Calculator";
 
-const _monthComparatorRequest = async (year: string, month: string) => {
-  try {
-    const monthFixed = `${+month + 1 < 11 ? "0" : ""}${month + 1}`;
-    // DEBUG FIELD
-    {
-      const currentDate = new Date();
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
-      const day = currentDate.getDate();
-      const hours = currentDate.getHours();
-      const minutes = currentDate.getMinutes();
-      const seconds = currentDate.getSeconds();
+const _monthConvertor = (month: number) => {
+  return String(month + 1).padStart(2, "0");
+};
 
-      console.log(
-        `DEBUG TG BOT::TIME ${year}.${month}.${day} ${hours}:${minutes}:${seconds}`
-      );
-      console.log("DEBUG TG BOT::_monthComparatorRequest --- ", {
-        year,
-        monthFixed,
-      });
-    }
+const _monthComparatorRequest = async (year: number, month: number) => {
+  const monthFixed = _monthConvertor(month);
+  try {
     const response = await costService
-      .getMonthCost(year, monthFixed)
+      .getMonthCost(String(year), monthFixed)
       .then((res) => res.data);
     const { payload, error } = response;
 
@@ -37,8 +23,6 @@ const _monthComparatorRequest = async (year: string, month: string) => {
         if (/cat/.test(costKey)) totalSum += +costValue;
       }
     });
-
-    console.log("DEBUG TG BOT::_monthComparatorRequest --- ", { totalSum });
 
     return totalSum;
   } catch (e) {
@@ -57,14 +41,14 @@ const monthsComparator = async (month: number) => {
     const firstMonth = isLastYearFirst ? 11 : month - 1;
     const secondMonth = isLastYearSecond ? firstMonth - 1 : month - 2;
     const costValuesFirstMonth = await _monthComparatorRequest(
-      String(firstYear),
-      String(firstMonth)
+      firstYear,
+      firstMonth
     );
     if (!costValuesFirstMonth) return;
 
     const costValuesSecondMonth = await _monthComparatorRequest(
-      String(secondYear),
-      String(secondMonth)
+      secondYear,
+      secondMonth
     );
     if (!costValuesSecondMonth) return;
 

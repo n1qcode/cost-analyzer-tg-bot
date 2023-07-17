@@ -18,7 +18,7 @@ class Informer {
     });
   }
   static endMonth(bot: Telegraf<IBotContext>) {
-    const INFORM_DAY = 17;
+    const INFORM_DAY = 1;
     const INFORM_HOUR = 10;
     const DAY_INTERVAL = 24 * 3600 * 1000;
 

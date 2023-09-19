@@ -4,3 +4,9 @@ export enum CostTimeEnum {
   SEASON,
   YEAR,
 }
+
+export enum CurrencyEnum {
+  RUB = "rub",
+  EUR = "eur",
+  USD = "usd",
+}

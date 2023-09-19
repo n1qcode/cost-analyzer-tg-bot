@@ -6,6 +6,7 @@ export const commands = `
 /start - ${t("reboot")}
 /statistics - ${t("statistics_menu_label")}
 /cost - ${t("cost_menu_label")}
+/finance - ${t("finance_menu_label")}
 /add_cost_help - ${t("add_to_cost")}
 /help - ${t("help")}
 `;

@@ -1,0 +1,3 @@
+export enum FINANCE_INPUT_ACTIONS {
+  FINANCE = "FINANCE",
+}

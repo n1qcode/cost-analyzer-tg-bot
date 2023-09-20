@@ -3,7 +3,7 @@ import {
   ICreateCostCategory,
   ISeeMonthCost,
 } from "../commands/cost/cost.typings";
-import { IFinanceStore } from "../commands/finance/finance.typings";
+import { IFinanceStore } from "../typings/finance.typings";
 import { CurrencyEnum } from "../utils/enums";
 
 import { IStoreActiveInputAction } from "./store.interface";

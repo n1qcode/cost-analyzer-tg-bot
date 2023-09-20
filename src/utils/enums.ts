@@ -10,3 +10,9 @@ export enum CurrencyEnum {
   EUR = "eur",
   USD = "usd",
 }
+
+export enum LastPlacesEnum {
+  FINANCE = "FINANCE",
+  COST = "COST",
+  STATISTICS = "STATISTICS",
+}

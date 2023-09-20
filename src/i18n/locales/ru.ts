@@ -106,4 +106,10 @@ export const RU = {
   rub: "Рубли",
   eur: "Евро",
   usd: "Доллары",
+  money_value_too_big:
+    "значение является слишком большим!\nЧтобы посмотреть более подробную информацию, введите:\n/add_cost_help",
+  type_sum: "Введите сумму",
+  current_currency_label: "Текущая валюта",
+  currency_changed: "Валюта изменена",
+  select_currency: "Выберите валюту",
 };

@@ -17,7 +17,7 @@ export const isEmptyFinanceInspector = (elem: IFinance | undefined) => {
 export const financeAppearanceShaper = (elem: IFinance | undefined) => {
   const niceAppearance = [`<u><b>${t("finance_accumulated")}</b></u>:`];
   for (const [key, value] of Object.entries(elem ?? {})) {
-    if (key === "id") continue;
+    if (key === "id" || !+value) continue;
     let currencyValue = `${t("currency")}.`;
     if (key === CurrencyEnum.EUR) currencyValue = t("currency_short_eur");
     if (key === CurrencyEnum.USD) currencyValue = `${t("currency_short_usd")}.`;

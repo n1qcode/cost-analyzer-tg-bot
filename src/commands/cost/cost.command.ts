@@ -5,6 +5,8 @@ import { t } from "../../i18n";
 import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
 import Store from "../../store/store";
+import { usersService } from "../../services/users.service";
+import { LastPlacesEnum } from "../../utils/enums";
 
 import { MAIN_BUTTONS } from "./utils/constants";
 import addCost from "./addCost/addCost";
@@ -21,6 +23,10 @@ export class CostCommand extends Command {
   handle() {
     this.bot.command("cost", async (ctx) => {
       if (!accessProtector(ctx)) return;
+      await usersService.setLastUserPlace({
+        userId: ctx.message.from.id,
+        lastPlace: LastPlacesEnum.COST,
+      });
       return await ctx.reply(
         t("spend_carefully"),
         Markup.keyboard([

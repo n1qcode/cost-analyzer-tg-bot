@@ -104,4 +104,10 @@ export const EN = {
   rub: "Rubles",
   eur: "Euro",
   usd: "Dollars",
+  money_value_too_big:
+    "the value is too big!\nFor more information, type:\n/add_cost_help",
+  type_sum: "Type sum",
+  current_currency_label: "Current currency",
+  currency_changed: "Currency has been changed",
+  select_currency: "Select a currency",
 };

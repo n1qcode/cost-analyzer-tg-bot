@@ -1,5 +1,7 @@
 import { CurrencyEnum } from "../utils/enums";
 
+import { FINANCE_INPUT_ACTIONS } from "../commands/finance/utils/enums";
+
 export interface IFinanceBody {
   sum: number;
   currency: CurrencyEnum;
@@ -15,4 +17,15 @@ export interface IFinance {
 export interface IFinanceRotation {
   moneyBox: IFinance;
   pocketMoney: IFinance;
+}
+
+export type IFinanceInputActionVariants = keyof typeof FINANCE_INPUT_ACTIONS;
+
+export type IFinanceInputAction = Record<IFinanceInputActionVariants, boolean>;
+
+export interface IFinanceStore {
+  isEnter: boolean;
+  isTyped: boolean;
+  value: string;
+  currency: CurrencyEnum;
 }

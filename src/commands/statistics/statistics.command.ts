@@ -6,6 +6,8 @@ import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
 import { costService } from "../../services/cost.service";
 import Calculator from "../../utils/Calculator/Calculator";
+import { usersService } from "../../services/users.service";
+import { LastPlacesEnum } from "../../utils/enums";
 
 import { MAIN_BUTTONS } from "./utils/constants";
 
@@ -17,6 +19,10 @@ export class StatisticsCommand extends Command {
   handle() {
     this.bot.command("statistics", async (ctx) => {
       if (!accessProtector(ctx)) return;
+      await usersService.setLastUserPlace({
+        userId: ctx.message.from.id,
+        lastPlace: LastPlacesEnum.STATISTICS,
+      });
       return await ctx.replyWithHTML(
         `<b>${t("statistics_menu")}!</b>`,
         Markup.keyboard([[MAIN_BUTTONS.average_cost_per_day]]).resize()

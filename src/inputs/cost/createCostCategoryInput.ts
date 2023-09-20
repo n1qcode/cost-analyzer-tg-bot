@@ -2,7 +2,7 @@ import { Context } from "telegraf";
 
 import { t } from "../../i18n";
 import { costService } from "../../services/cost.service";
-import { globalStore } from "../../main";
+import Store from "../../store/store";
 
 import type { Update, Message } from "telegraf/types";
 
@@ -10,28 +10,28 @@ const createCostCategoryInput = async (
   ctx: Context<Update.MessageUpdate<Message.TextMessage>>
 ) => {
   if (
-    !globalStore.createCostCategory.isCostNameTyped &&
-    !globalStore.createCostCategory.isCostTranslationTyped
+    !Store.createCostCategory.isCostNameTyped &&
+    !Store.createCostCategory.isCostTranslationTyped
   ) {
-    globalStore.createCostCategory.cost_category = `cat_${ctx.message.text
+    Store.createCostCategory.cost_category = `cat_${ctx.message.text
       .toLowerCase()
       .split(" ")
       .join("_")}`;
-    globalStore.createCostCategory.isCostNameTyped = true;
+    Store.createCostCategory.isCostNameTyped = true;
     await ctx.reply(`${t("enter_new_cost_cat")}:`);
     return;
   }
   if (
-    globalStore.createCostCategory.isCostNameTyped &&
-    !globalStore.createCostCategory.isCostTranslationTyped
+    Store.createCostCategory.isCostNameTyped &&
+    !Store.createCostCategory.isCostTranslationTyped
   ) {
-    globalStore.createCostCategory.translation = ctx.message.text;
-    globalStore.createCostCategory.isCostTranslationTyped = true;
+    Store.createCostCategory.translation = ctx.message.text;
+    Store.createCostCategory.isCostTranslationTyped = true;
     try {
       const response = await costService
         .createCostCategory({
-          cost_category: globalStore.createCostCategory.cost_category,
-          translation: globalStore.createCostCategory.translation,
+          cost_category: Store.createCostCategory.cost_category,
+          translation: Store.createCostCategory.translation,
         })
         .then((res) => res.data);
 
@@ -41,14 +41,14 @@ const createCostCategoryInput = async (
 
       await ctx.replyWithHTML(
         `<b>${t("added_new_cost_cat")}:</b> ${
-          globalStore.createCostCategory.translation
+          Store.createCostCategory.translation
         }`
       );
 
-      globalStore.costState.translator.isValid = false;
-      globalStore.costState.translator.dictionary = {};
-      globalStore.costState.costCategories.isValid = false;
-      globalStore.costState.costCategories.categories = [];
+      Store.costState.translator.isValid = false;
+      Store.costState.translator.dictionary = {};
+      Store.costState.costCategories.isValid = false;
+      Store.costState.costCategories.categories = [];
     } catch (e) {
       console.log(e);
       await ctx.reply(`🚫 ${t("added_new_cost_cat_error")}`);

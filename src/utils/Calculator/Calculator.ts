@@ -1,4 +1,5 @@
 import { t } from "../../i18n";
+import { MAX_MONEY_REGEX, MONEY_REGEX } from "../constants";
 
 import {
   ICalcSumResult,
@@ -8,10 +9,9 @@ import {
 } from "./Calculator.interface";
 
 class Calculator implements ICalculator {
-  readonly #INPUT_REGEX =
-    /^\s*\d{1,8}(?:[.,]\d{1,2})?(?:\s*[*+-]\s*\d{1,8}(?:[.,]\d{1,2})?)*\s*$/;
+  readonly #INPUT_REGEX = MONEY_REGEX;
 
-  readonly #MAX_NUM_REGEX = /^((?!0)\d{1,8}|0|\\d{1,2})($|\.$|\.\d{1,2}$)/;
+  readonly #MAX_NUM_REGEX = MAX_MONEY_REGEX;
 
   readonly #DIVIDE_CHAR: IDivideChar = {
     DOT: ".",

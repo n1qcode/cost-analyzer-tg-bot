@@ -1,27 +1,29 @@
 import {
-  IActiveInputAction,
   ICostCommandLocalState,
   ICreateCostCategory,
   ISeeMonthCost,
 } from "../commands/cost/cost.typings";
+import { IFinanceStore } from "../commands/finance/finance.typings";
+import { CurrencyEnum } from "../utils/enums";
 
-import { IStore } from "./store.interface";
+import { IStoreActiveInputAction } from "./store.interface";
 
-export class Store implements IStore {
-  activeInputAction: IActiveInputAction = {
+export default class Store {
+  static activeInputAction: IStoreActiveInputAction = {
     ADD_COST: false,
     ADD_COST_CAT: false,
     CHOOSE_MONTH: false,
     TRANSLATE_COST: false,
+    FINANCE: false,
   };
-  costState: ICostCommandLocalState = {
+  static costState: ICostCommandLocalState = {
     categoriesByFrequency: { isValid: false, frequency: [] },
     costCategories: { isValid: false, categories: [] },
     chosenCategory: "",
     isCatAdd: false,
     translator: { isValid: false, dictionary: {} },
   };
-  seeMonthCost: ISeeMonthCost = {
+  static seeMonthCost: ISeeMonthCost = {
     costValues: [],
     isEnter: false,
     isLast: false,
@@ -31,19 +33,26 @@ export class Store implements IStore {
     year: "",
     ctx: null,
   };
-  createCostCategory: ICreateCostCategory = {
+  static createCostCategory: ICreateCostCategory = {
     isCostNameTyped: false,
     isCostTranslationTyped: false,
     cost_category: "",
     translation: "",
   };
+  static finance: IFinanceStore = {
+    isEnter: false,
+    isTyped: false,
+    value: "",
+    currency: CurrencyEnum.RUB,
+  };
 
-  resetStore() {
+  static resetStore() {
     this.activeInputAction = {
       ADD_COST: false,
       ADD_COST_CAT: false,
       CHOOSE_MONTH: false,
       TRANSLATE_COST: false,
+      FINANCE: false,
     };
     this.costState = {
       chosenCategory: "",
@@ -70,6 +79,12 @@ export class Store implements IStore {
       isCostTranslationTyped: false,
       cost_category: "",
       translation: "",
+    };
+    this.finance = {
+      isEnter: false,
+      isTyped: false,
+      value: "",
+      currency: CurrencyEnum.RUB,
     };
   }
 }

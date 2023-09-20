@@ -1,13 +1,4 @@
-import {
-  IActiveInputAction,
-  ICostCommandLocalState,
-  ICreateCostCategory,
-  ISeeMonthCost,
-} from "../commands/cost/cost.typings";
+import { IActiveInputAction } from "../commands/cost/cost.typings";
+import { IFinanceInputAction } from "../commands/finance/finance.typings";
 
-export interface IStore {
-  activeInputAction: IActiveInputAction;
-  costState: ICostCommandLocalState;
-  seeMonthCost: ISeeMonthCost;
-  createCostCategory: ICreateCostCategory;
-}
+export type IStoreActiveInputAction = IActiveInputAction & IFinanceInputAction;

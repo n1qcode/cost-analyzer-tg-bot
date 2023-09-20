@@ -4,12 +4,12 @@ import { costService } from "../../../../services/cost.service";
 import { t } from "../../../../i18n";
 import { IBotContext } from "../../../../context/context.interface";
 import { CostActionEnum } from "../../cost.enums";
-import { globalStore } from "../../../../main";
 import costAppearanceShaper from "../../../../utils/costAppearanceShaper";
 import { CostTimeEnum } from "../../../../utils/enums";
+import Store from "../../../../store/store";
 
 const _monthCostRequest = async (year: string, month: string) => {
-  const ctx = globalStore.seeMonthCost.ctx;
+  const ctx = Store.seeMonthCost.ctx;
   try {
     const response = await costService
       .getMonthCost(year, month)
@@ -27,57 +27,52 @@ const _monthCostRequest = async (year: string, month: string) => {
     return costValues;
   } catch (e) {
     console.log(e);
-    if (globalStore.seeMonthCost.isEnter)
+    if (Store.seeMonthCost.isEnter)
       await ctx?.reply(`🚫 ${t("err_see_cost_req")}`);
     else await ctx?.editMessageText(`🚫 ${t("err_see_cost_req")}`);
   }
 };
 
 export const monthCostExecutor = async () => {
-  const ctx = globalStore.seeMonthCost.ctx;
+  const ctx = Store.seeMonthCost.ctx;
   try {
     const costValues = await _monthCostRequest(
-      globalStore.seeMonthCost.year,
-      globalStore.seeMonthCost.month
+      Store.seeMonthCost.year,
+      Store.seeMonthCost.month
     );
     if (!costValues) return;
 
-    globalStore.seeMonthCost.costValues.push(...costValues);
+    Store.seeMonthCost.costValues.push(...costValues);
 
-    globalStore.seeMonthCost.costValues.unshift(
+    Store.seeMonthCost.costValues.unshift(
       `${
-        globalStore.seeMonthCost.isEnter
+        Store.seeMonthCost.isEnter
           ? `<b><u>${t("typed_month_cost")}</u>:</b> <i>${
-              globalStore.seeMonthCost.year
-            }.${globalStore.seeMonthCost.month}</i>`
+              Store.seeMonthCost.year
+            }.${Store.seeMonthCost.month}</i>`
           : `<u><b>${t(
-              globalStore.seeMonthCost.isLast
-                ? "last_month_cost"
-                : "curr_month_cost"
+              Store.seeMonthCost.isLast ? "last_month_cost" : "curr_month_cost"
             )}</b></u>`
       }:`
     );
 
-    if (globalStore.seeMonthCost.costValues.length > 1) {
-      globalStore.seeMonthCost.isEnter
-        ? await ctx?.reply(globalStore.seeMonthCost.costValues.join("\n"), {
+    if (Store.seeMonthCost.costValues.length > 1) {
+      Store.seeMonthCost.isEnter
+        ? await ctx?.reply(Store.seeMonthCost.costValues.join("\n"), {
             parse_mode: "HTML",
           })
-        : await ctx?.editMessageText(
-            globalStore.seeMonthCost.costValues.join("\n"),
-            {
-              parse_mode: "HTML",
-            }
-          );
+        : await ctx?.editMessageText(Store.seeMonthCost.costValues.join("\n"), {
+            parse_mode: "HTML",
+          });
     } else
-      globalStore.seeMonthCost.isEnter
+      Store.seeMonthCost.isEnter
         ? await ctx?.reply(
-            !globalStore.seeMonthCost.isLast
+            !Store.seeMonthCost.isLast
               ? t("no_cost_month")
               : t("no_cost_last_month")
           )
         : await ctx?.editMessageText(
-            !globalStore.seeMonthCost.isLast
+            !Store.seeMonthCost.isLast
               ? t("no_cost_month")
               : t("no_cost_last_month")
           );
@@ -88,14 +83,14 @@ export const monthCostExecutor = async () => {
 
 const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
   bot.action(trigger, async (ctx) => {
-    globalStore.seeMonthCost.ctx = ctx;
-    globalStore.seeMonthCost.isYearTyped = false;
-    globalStore.seeMonthCost.isMonthTyped = false;
-    globalStore.seeMonthCost.isEnter = trigger === "cost_choose_month";
-    globalStore.seeMonthCost.isLast = trigger === "cost_last_month";
-    globalStore.seeMonthCost.costValues = [];
+    Store.seeMonthCost.ctx = ctx;
+    Store.seeMonthCost.isYearTyped = false;
+    Store.seeMonthCost.isMonthTyped = false;
+    Store.seeMonthCost.isEnter = trigger === "cost_choose_month";
+    Store.seeMonthCost.isLast = trigger === "cost_last_month";
+    Store.seeMonthCost.costValues = [];
 
-    if (!globalStore.seeMonthCost.isEnter) {
+    if (!Store.seeMonthCost.isEnter) {
       const dateOptions = {
         timeZone: "Europe/Moscow",
         year: "numeric",
@@ -104,13 +99,13 @@ const monthCostShaper = (bot: Telegraf<IBotContext>, trigger: string) => {
       const [monthValue, yearValue] = new Date()
         .toLocaleDateString("ru-RU", dateOptions)
         .split(".");
-      globalStore.seeMonthCost.year = yearValue;
-      globalStore.seeMonthCost.month = !globalStore.seeMonthCost.isLast
+      Store.seeMonthCost.year = yearValue;
+      Store.seeMonthCost.month = !Store.seeMonthCost.isLast
         ? monthValue
         : `${+monthValue < 11 ? "0" : ""}${+monthValue - 1}`;
       await monthCostExecutor();
     } else {
-      globalStore.activeInputAction[CostActionEnum.CHOOSE_MONTH] = true;
+      Store.activeInputAction[CostActionEnum.CHOOSE_MONTH] = true;
       await ctx.editMessageText(`${t("type_year")}:`);
     }
   });

@@ -2,7 +2,7 @@ import { Context } from "telegraf";
 
 import { t } from "../../i18n";
 import { costService } from "../../services/cost.service";
-import { globalStore } from "../../main";
+import Store from "../../store/store";
 
 import type { Update, Message } from "telegraf/types";
 
@@ -10,7 +10,7 @@ const changeTranslationCostCatInput = async (
   ctx: Context<Update.MessageUpdate<Message.TextMessage>>
 ) => {
   const translation = ctx.message.text;
-  const cost_category = globalStore.costState.chosenCategory
+  const cost_category = Store.costState.chosenCategory
     .split("_")
     .splice(1)
     .join("_");
@@ -29,13 +29,12 @@ const changeTranslationCostCatInput = async (
 
     await ctx.replyWithHTML(
       `<b>${t("updated_translation")}:</b> <i>${
-        globalStore.costState.translator.dictionary[cost_category] ??
-        cost_category
+        Store.costState.translator.dictionary[cost_category] ?? cost_category
       } --> ${payload}</i>`
     );
 
-    globalStore.costState.translator.isValid = false;
-    globalStore.costState.translator.dictionary = {};
+    Store.costState.translator.isValid = false;
+    Store.costState.translator.dictionary = {};
   } catch (e) {
     console.log(e);
     await ctx.reply(`🚫 ${t("updated_translation_error")}`);

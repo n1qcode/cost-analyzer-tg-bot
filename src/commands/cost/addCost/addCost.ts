@@ -2,18 +2,18 @@ import { Context, Markup, Telegraf } from "telegraf";
 
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
-import { globalStore } from "../../../main";
 import categoriesButtonsShaper from "../../../utils/categoriesButtonsShaper";
+import Store from "../../../store/store";
 
 import { categoriesHandler } from "./addCost.helpers";
 
 const addCost = async (bot: Telegraf<IBotContext>, ctx: Context) => {
-  if (!globalStore.costState.costCategories.categories.length) return;
+  if (!Store.costState.costCategories.categories.length) return;
 
   const categoriesButtons = categoriesButtonsShaper(
-    globalStore.costState.categoriesByFrequency.frequency,
-    globalStore.costState.costCategories.categories,
-    globalStore.costState.translator.dictionary
+    Store.costState.categoriesByFrequency.frequency,
+    Store.costState.costCategories.categories,
+    Store.costState.translator.dictionary
   );
 
   if (!categoriesButtons.length) return;

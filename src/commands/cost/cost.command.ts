@@ -4,7 +4,7 @@ import { IBotContext } from "../../context/context.interface";
 import { t } from "../../i18n";
 import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
-import { globalStore } from "../../main";
+import Store from "../../store/store";
 
 import { MAIN_BUTTONS } from "./utils/constants";
 import addCost from "./addCost/addCost";
@@ -43,7 +43,7 @@ export class CostCommand extends Command {
     const mainButtonsRegExp = new RegExp(mainButtonsLabels.join("|"), "i");
 
     this.bot.hears(mainButtonsRegExp, async (ctx) => {
-      globalStore.resetStore();
+      Store.resetStore();
 
       switch (ctx.message.text) {
         case MAIN_BUTTONS.add_cost:

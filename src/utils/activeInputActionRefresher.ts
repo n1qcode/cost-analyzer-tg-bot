@@ -1,13 +1,13 @@
 import { IActiveInputActionVariants } from "../commands/cost/cost.typings";
-import { globalStore } from "../main";
+import Store from "../store/store";
 
 const activeInputActionRefresher = (
   currentAction: IActiveInputActionVariants
 ) => {
-  if (!globalStore.activeInputAction[currentAction]) {
-    for (const key in globalStore.activeInputAction)
-      globalStore.activeInputAction[key as IActiveInputActionVariants] = false;
-    globalStore.activeInputAction[currentAction] = true;
+  if (!Store.activeInputAction[currentAction]) {
+    for (const key in Store.activeInputAction)
+      Store.activeInputAction[key as IActiveInputActionVariants] = false;
+    Store.activeInputAction[currentAction] = true;
   }
 };
 

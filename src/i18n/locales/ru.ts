@@ -103,6 +103,8 @@ export const RU = {
   finance_accumulated: "Накоплено",
   money_box_empty: "Копилка пуста",
   err_money_box_look_req: "Ошибка при попытке заглянуть в копилку",
+  err_money_box_put_req: "Ошибка при попытке положить деньги в копилку",
+  err_money_box_take_req: "Ошибка при попытке взять деньги из копилку",
   rub: "Рубли",
   eur: "Евро",
   usd: "Доллары",

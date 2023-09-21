@@ -11,7 +11,7 @@ import takeMoneyToMoneyBox from "./takeMoneyToMoneyBox";
 
 const moneyBox = (bot: Telegraf<IBotContext>) => {
   bot.hears(MAIN_BUTTONS.money_box, (ctx) => {
-    Store.resetStore();
+    Store.resetStore(Store.finance.currency);
     ctx.reply(`💰 <b>${t("money_box")}</b>`, {
       parse_mode: "HTML",
       ...Markup.inlineKeyboard([

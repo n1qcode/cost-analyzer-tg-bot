@@ -46,7 +46,7 @@ export default class Store {
     currency: CurrencyEnum.RUB,
   };
 
-  static resetStore() {
+  static resetStore(currency?: CurrencyEnum) {
     this.activeInputAction = {
       ADD_COST: false,
       ADD_COST_CAT: false,
@@ -84,7 +84,7 @@ export default class Store {
       isEnter: false,
       isTyped: false,
       value: "",
-      currency: CurrencyEnum.RUB,
+      currency: currency ? currency : CurrencyEnum.RUB,
     };
   }
 }

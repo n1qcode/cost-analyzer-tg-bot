@@ -101,6 +101,8 @@ export const EN = {
   finance_accumulated: "Accumulated",
   money_box_empty: "The piggy bank is empty",
   err_money_box_look_req: "Error when trying to look into the piggy bank",
+  err_money_box_put_req: "Error when trying to put money into the piggy bank",
+  err_money_box_take_req: "Error when trying to take money from the piggy bank",
   rub: "Rubles",
   eur: "Euro",
   usd: "Dollars",

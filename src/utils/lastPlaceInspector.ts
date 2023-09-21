@@ -1,30 +1,29 @@
-import { Markup, Telegraf } from "telegraf";
+import { Telegraf } from "telegraf";
+import config from "config";
 
 import { usersService } from "../services/users.service";
 import { IBotContext } from "../context/context.interface";
-import { MAIN_BUTTONS } from "../commands/finance/utils/constants";
-
-import { CurrencyEnum, LastPlacesEnum } from "./enums";
+import { t } from "../i18n";
+import { currencyUpdater } from "../commands/finance/utils/helpers";
 
 export const lastPlaceInspector = async (bot: Telegraf<IBotContext>) => {
-  const places =
-    (await usersService.getUsersCurrencies().then((res) => res.data.payload)) ??
-    [];
-  for (const { user_id, last_place, currency } of places) {
-    if (
-      last_place === LastPlacesEnum.FINANCE &&
-      currency !== null &&
-      currency !== CurrencyEnum.RUB
-    ) {
-      await bot.telegram.sendMessage(
-        user_id,
-        "Текущая валюта обновлена!",
-        Markup.keyboard([
-          [MAIN_BUTTONS.money_box],
-          [MAIN_BUTTONS.pocket_money],
-          [MAIN_BUTTONS.currency],
-        ]).resize()
-      );
+  try {
+    const places =
+      (await usersService.getUsersInfo().then((res) => res.data.payload)) ?? [];
+    for (const place of places) {
+      await currencyUpdater(bot, place);
     }
+  } catch (e) {
+    console.log(e);
+    const users: number[] = config.get("USERS_ACCESS") ?? [];
+    users.forEach((user) => {
+      bot.telegram.sendMessage(
+        user,
+        `🚫 ${t("user_info_error")}!\n${t("not_actual_info")}`,
+        {
+          parse_mode: "HTML",
+        }
+      );
+    });
   }
 };

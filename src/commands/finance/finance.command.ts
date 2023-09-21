@@ -5,7 +5,7 @@ import { t } from "../../i18n";
 import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
 import { usersService } from "../../services/users.service";
-import { CurrencyEnum, LastPlacesEnum } from "../../utils/enums";
+import { LastPlacesEnum } from "../../utils/enums";
 import Store from "../../store/store";
 
 import { MAIN_BUTTONS } from "./utils/constants";
@@ -20,13 +20,10 @@ export class FinanceCommand extends Command {
   handle() {
     this.bot.command("finance", async (ctx) => {
       if (!accessProtector(ctx)) return;
-      await usersService.setLastUserPlace({
+      await usersService.setUserFinanceInfo({
         userId: ctx.message.from.id,
         lastPlace: LastPlacesEnum.FINANCE,
-      });
-      await usersService.setUserCurrency({
-        userId: ctx.message.from.id,
-        currency: CurrencyEnum.RUB,
+        currency: Store.finance.currency,
       });
       return await ctx.replyWithHTML(
         `<b>${t("finance_menu")}!</b>`,

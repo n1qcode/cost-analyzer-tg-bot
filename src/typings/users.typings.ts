@@ -10,6 +10,9 @@ export interface IUsersSetCurrencyBody {
   currency: CurrencyEnum;
 }
 
+export type IUsersSetFinanceBody = IUsersSetPlaceBody &
+  Pick<IUsersSetCurrencyBody, "currency">;
+
 export interface IUsersLastPlaces {
   user_id: string;
   last_place: LastPlacesEnum | null;

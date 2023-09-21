@@ -112,4 +112,9 @@ export const RU = {
   current_currency_label: "Текущая валюта",
   currency_changed: "Валюта изменена",
   select_currency: "Выберите валюту",
+  currency_updated: "Текущая валюта обновлена на",
+  user_info_error: "Произошла ошибка при получении информации о пользователях",
+  not_actual_info:
+    "Следующая информация может быть не актуальна:\n1. Текущая валюта в меню Финансы\n",
+  update_currency_remote_error: "Ошибка обновления валюты на сервере",
 };

@@ -1,6 +1,13 @@
+import { Markup, Telegraf } from "telegraf";
+
 import { IFinance } from "../../../typings/finance.typings";
 import { t } from "../../../i18n";
-import { CurrencyEnum } from "../../../utils/enums";
+import { CurrencyEnum, LastPlacesEnum } from "../../../utils/enums";
+import { IUsersCurrencies } from "../../../typings/users.typings";
+import { usersService } from "../../../services/users.service";
+import { IBotContext } from "../../../context/context.interface";
+
+import { MAIN_BUTTONS } from "./constants";
 
 export const isEmptyFinanceInspector = (elem: IFinance | undefined) => {
   let isEmpty = true;
@@ -24,4 +31,40 @@ export const financeAppearanceShaper = (elem: IFinance | undefined) => {
     niceAppearance.push(`<code>${t(key)}: ${+value} ${currencyValue}</code>`);
   }
   return niceAppearance;
+};
+
+export const currencyUpdater = async (
+  bot: Telegraf<IBotContext>,
+  userInfo: IUsersCurrencies
+) => {
+  const { user_id, last_place, currency } = userInfo;
+  if (
+    last_place === LastPlacesEnum.FINANCE &&
+    currency !== null &&
+    currency !== CurrencyEnum.RUB
+  ) {
+    try {
+      await usersService.setUserCurrency({
+        userId: +user_id,
+        currency: CurrencyEnum.RUB,
+      });
+    } catch (e) {
+      await bot.telegram.sendMessage(
+        user_id,
+        `🚫 ${t("update_currency_remote_error")}`,
+        {
+          parse_mode: "HTML",
+        }
+      );
+    }
+    await bot.telegram.sendMessage(
+      user_id,
+      `${t("currency_updated")}: ${t(CurrencyEnum.RUB)}`,
+      Markup.keyboard([
+        [MAIN_BUTTONS.money_box],
+        [MAIN_BUTTONS.pocket_money],
+        [MAIN_BUTTONS.currency],
+      ]).resize()
+    );
+  }
 };

@@ -110,4 +110,9 @@ export const EN = {
   current_currency_label: "Current currency",
   currency_changed: "Currency has been changed",
   select_currency: "Select a currency",
+  currency_updated: "Current currency updated to",
+  user_info_error: "An error occurred while retrieving user information",
+  not_actual_info:
+    "The following information may not be current:\n1. Current currency in the Finance menu",
+  update_currency_remote_error: "Error updating currency on server",
 };

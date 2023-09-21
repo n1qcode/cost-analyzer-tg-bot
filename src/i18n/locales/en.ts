@@ -117,4 +117,5 @@ export const EN = {
   not_actual_info:
     "The following information may not be current:\n1. Current currency in the Finance menu",
   update_currency_remote_error: "Error updating currency on server",
+  has_taken: "Taken",
 };

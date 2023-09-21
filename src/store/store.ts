@@ -5,6 +5,7 @@ import {
 } from "../commands/cost/cost.typings";
 import { IFinanceStore } from "../typings/finance.typings";
 import { CurrencyEnum } from "../utils/enums";
+import { FINANCE_ACTIONS_TYPES } from "../commands/finance/utils/enums";
 
 import { IStoreActiveInputAction } from "./store.interface";
 
@@ -44,6 +45,7 @@ export default class Store {
     isTyped: false,
     value: "",
     currency: CurrencyEnum.RUB,
+    actionType: FINANCE_ACTIONS_TYPES.PUT,
   };
 
   static resetStore(currency?: CurrencyEnum) {
@@ -85,6 +87,7 @@ export default class Store {
       isTyped: false,
       value: "",
       currency: this.finance.currency,
+      actionType: FINANCE_ACTIONS_TYPES.PUT,
     };
   }
 }

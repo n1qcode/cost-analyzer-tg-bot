@@ -84,7 +84,7 @@ export default class Store {
       isEnter: false,
       isTyped: false,
       value: "",
-      currency: currency ? currency : CurrencyEnum.RUB,
+      currency: this.finance.currency,
     };
   }
 }

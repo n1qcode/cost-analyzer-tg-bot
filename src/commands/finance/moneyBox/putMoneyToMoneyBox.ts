@@ -9,7 +9,9 @@ import Store from "../../../store/store";
 const putMoneyToMoneyBox = (bot: Telegraf<IBotContext>) => {
   bot.action(MONEY_BOX_BUTTONS.put, async (ctx) => {
     Store.activeInputAction[FINANCE_INPUT_ACTIONS.FINANCE] = true;
-    await ctx.editMessageText(`${t("type_sum")}:`);
+    await ctx.editMessageText(
+      `${t("type_sum")} (${t(Store.finance.currency)}):`
+    );
   });
 };
 

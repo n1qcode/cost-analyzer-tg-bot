@@ -1,0 +1,66 @@
+import { financeService } from "../../../services/finance.service";
+import Store from "../../../store/Store";
+import { financeAppearanceShaper } from "../../../commands/finance/utils/helpers";
+import { t } from "../../../i18n";
+import { CurrencyEnum } from "../../../utils/enums";
+import { ContextExt } from "../../../typings/utility.typings";
+
+export default class PocketMoneyRequests {
+  static async put(ctx: ContextExt) {
+    try {
+      const response = await financeService
+        .putMoneyToPocketMoney({
+          sum: +Store.finance.value,
+          currency: Store.finance.currency,
+        })
+        .then((res) => res.data);
+      const { payload, error } = response;
+
+      if (error) throw new Error(error);
+
+      const values = financeAppearanceShaper(payload, true);
+      let currencyValue = `${t("currency")}.`;
+      if (Store.finance.currency === CurrencyEnum.EUR)
+        currencyValue = t("currency_short_eur");
+      if (Store.finance.currency === CurrencyEnum.USD)
+        currencyValue = `${t("currency_short_usd")}.`;
+      values.unshift(
+        `<b>${t("saved")}!</b> <i>+ ${Store.finance.value} ${currencyValue}</i>`
+      );
+      await ctx.replyWithHTML(values.join("\n"));
+    } catch (e) {
+      console.log(e);
+      await ctx.reply(`🚫 ${t("err_pocket_money_put_req")}`);
+    }
+  }
+
+  static async take(ctx: ContextExt) {
+    try {
+      const response = await financeService
+        .takeMoneyFromPocketMoney({
+          sum: +Store.finance.value,
+          currency: Store.finance.currency,
+        })
+        .then((res) => res.data);
+      const { payload, error } = response;
+
+      if (error) throw new Error(error);
+
+      const values = financeAppearanceShaper(payload, true);
+      let currencyValue = `${t("currency")}.`;
+      if (Store.finance.currency === CurrencyEnum.EUR)
+        currencyValue = t("currency_short_eur");
+      if (Store.finance.currency === CurrencyEnum.USD)
+        currencyValue = `${t("currency_short_usd")}.`;
+      values.unshift(
+        `<b>${t("has_taken")}!</b> <i>- ${
+          Store.finance.value
+        } ${currencyValue}</i>`
+      );
+      await ctx.replyWithHTML(values.join("\n"));
+    } catch (e) {
+      console.log(e);
+      await ctx.reply(`🚫 ${t("err_pocket_money_take_req")}`);
+    }
+  }
+}

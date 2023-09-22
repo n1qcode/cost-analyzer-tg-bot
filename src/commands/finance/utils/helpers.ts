@@ -21,8 +21,15 @@ export const isEmptyFinanceInspector = (elem: IFinance | undefined) => {
   return isEmpty;
 };
 
-export const financeAppearanceShaper = (elem: IFinance | undefined) => {
-  const niceAppearance = [`<u><b>${t("finance_accumulated")}</b></u>:`];
+export const financeAppearanceShaper = (
+  elem?: IFinance,
+  isPocketMoney?: boolean
+) => {
+  const niceAppearance = [
+    `<u><b>${t(
+      !isPocketMoney ? "finance_accumulated" : "left_money"
+    )}</b></u>:`,
+  ];
   for (const [key, value] of Object.entries(elem ?? {})) {
     if (key === "id" || !+value) continue;
     let currencyValue = `${t("currency")}.`;

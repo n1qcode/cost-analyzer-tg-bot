@@ -17,6 +17,8 @@ export const financeService = {
     $api.get<IHttpResponse<IFinance>>("/finance/pocket_money"),
   putMoneyToPocketMoney: async (body: IFinanceBody) =>
     $api.put<IHttpResponse<IFinance>>("/finance/pocket_money/put", body),
+  takeMoneyFromPocketMoney: async (body: IFinanceBody) =>
+    $api.put<IHttpResponse<IFinance>>("/finance/pocket_money/take", body),
   rotateFromMoneyBoxToPocketMoney: async (body: IFinanceBody) =>
     $api.put<IHttpResponse<IFinanceRotation>>(
       "/finance/money_rotation/from_money_box_to_pocket_money",

@@ -1,6 +1,7 @@
 import { CurrencyEnum } from "../utils/enums";
 import {
   FINANCE_ACTIONS_TYPES,
+  FINANCE_BOXES_ENUM,
   FINANCE_INPUT_ACTIONS,
 } from "../commands/finance/utils/enums";
 
@@ -31,4 +32,5 @@ export interface IFinanceStore {
   value: string;
   currency: CurrencyEnum;
   actionType: FINANCE_ACTIONS_TYPES;
+  boxType: FINANCE_BOXES_ENUM;
 }

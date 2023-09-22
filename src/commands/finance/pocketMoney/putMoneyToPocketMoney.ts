@@ -2,7 +2,7 @@ import { Telegraf } from "telegraf";
 
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
-import { MONEY_BOX_BUTTONS } from "../utils/constants";
+import { POCKET_MONEY_BUTTONS } from "../utils/constants";
 import {
   FINANCE_ACTIONS_TYPES,
   FINANCE_BOXES_ENUM,
@@ -10,15 +10,15 @@ import {
 } from "../utils/enums";
 import Store from "../../../store/Store";
 
-const putMoneyToMoneyBox = (bot: Telegraf<IBotContext>) => {
-  bot.action(MONEY_BOX_BUTTONS.put, async (ctx) => {
+const putMoneyToPocketMoney = (bot: Telegraf<IBotContext>) => {
+  bot.action(POCKET_MONEY_BUTTONS.put, async (ctx) => {
     Store.activeInputAction[FINANCE_INPUT_ACTIONS.FINANCE] = true;
     Store.finance.actionType = FINANCE_ACTIONS_TYPES.PUT;
-    Store.finance.boxType = FINANCE_BOXES_ENUM.ACCUM;
+    Store.finance.boxType = FINANCE_BOXES_ENUM.POCKET;
     await ctx.editMessageText(
       `${t("type_sum")} (${t(Store.finance.currency)}):`
     );
   });
 };
 
-export default putMoneyToMoneyBox;
+export default putMoneyToPocketMoney;

@@ -118,4 +118,11 @@ export const EN = {
     "The following information may not be current:\n1. Current currency in the Finance menu",
   update_currency_remote_error: "Error updating currency on server",
   has_taken: "Taken",
+  finance_left: "Money left",
+  pocket_money_empty: "Pocket money has run out",
+  err_pocket_money_look_req:
+    "Error when trying to view the pocket money balance,",
+  err_pocket_money_put_req: "Error when trying to add pocket money",
+  err_pocket_money_take_req: "Error when trying to take pocket money",
+  left_money: "Balance",
 };

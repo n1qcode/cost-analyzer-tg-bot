@@ -6,11 +6,12 @@ import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
 import { usersService } from "../../services/users.service";
 import { LastPlacesEnum } from "../../utils/enums";
-import Store from "../../store/store";
+import Store from "../../store/Store";
 
 import { MAIN_BUTTONS } from "./utils/constants";
 import moneyBox from "./moneyBox/moneyBox";
 import currency from "./currency/currency";
+import pocketMoney from "./pocketMoney/pocketMoney";
 
 export class FinanceCommand extends Command {
   constructor(bot: Telegraf<IBotContext>) {
@@ -35,6 +36,7 @@ export class FinanceCommand extends Command {
       );
     });
     moneyBox(this.bot);
+    pocketMoney(this.bot);
     currency(this.bot);
   }
 }

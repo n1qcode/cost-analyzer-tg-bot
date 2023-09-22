@@ -4,7 +4,7 @@ import { IBotContext } from "../../../context/context.interface";
 import { costService } from "../../../services/cost.service";
 import { t } from "../../../i18n";
 import { frequencyService } from "../../../services/frequency.service";
-import Store from "../../../store/store";
+import Store from "../../../store/Store";
 
 class CostAssistant {
   private readonly bot: Telegraf<IBotContext>;

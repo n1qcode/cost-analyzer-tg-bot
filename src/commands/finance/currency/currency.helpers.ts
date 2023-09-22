@@ -2,7 +2,7 @@ import { Context, Markup } from "telegraf";
 
 import { t } from "../../../i18n";
 import { MAIN_BUTTONS } from "../utils/constants";
-import Store from "../../../store/store";
+import Store from "../../../store/Store";
 
 export const currencyRefresher = async (ctx: Context) => {
   await ctx.editMessageText(`<b>${t("currency_changed")}!</b>`, {

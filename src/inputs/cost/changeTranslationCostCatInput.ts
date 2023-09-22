@@ -2,7 +2,7 @@ import { Context } from "telegraf";
 
 import { t } from "../../i18n";
 import { costService } from "../../services/cost.service";
-import Store from "../../store/store";
+import Store from "../../store/Store";
 
 import type { Update, Message } from "telegraf/types";
 

@@ -1,5 +1,5 @@
 import { IActiveInputActionVariants } from "../commands/cost/cost.typings";
-import Store from "../store/store";
+import Store from "../store/Store";
 
 const activeInputActionRefresher = (
   currentAction: IActiveInputActionVariants

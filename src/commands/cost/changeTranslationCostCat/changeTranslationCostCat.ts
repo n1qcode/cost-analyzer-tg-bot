@@ -3,7 +3,7 @@ import { Context, Markup, Telegraf } from "telegraf";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { CostActionEnum } from "../cost.enums";
-import Store from "../../../store/store";
+import Store from "../../../store/Store";
 
 const changeTranslationCostCat = async (
   bot: Telegraf<IBotContext>,

@@ -3,7 +3,7 @@ import { Context, Markup, Telegraf } from "telegraf";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import categoriesButtonsShaper from "../../../utils/categoriesButtonsShaper";
-import Store from "../../../store/store";
+import Store from "../../../store/Store";
 
 import { categoriesHandler } from "./addCost.helpers";
 

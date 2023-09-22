@@ -4,7 +4,7 @@ import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { CostActionEnum } from "../cost.enums";
 import categoriesButtonsShaper from "../../../utils/categoriesButtonsShaper";
-import Store from "../../../store/store";
+import Store from "../../../store/Store";
 
 export const categoriesHandler = (bot: Telegraf<IBotContext>) => {
   bot.action(/^cat/, async (ctx) => {

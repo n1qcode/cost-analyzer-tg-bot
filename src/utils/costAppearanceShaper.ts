@@ -1,5 +1,5 @@
 import { t } from "../i18n";
-import Store from "../store/store";
+import Store from "../store/Store";
 
 import { CostTimeEnum } from "./enums";
 

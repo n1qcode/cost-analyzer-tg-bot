@@ -9,7 +9,7 @@ import { HelpCommand } from "./commands/help.command";
 import { CostCommand } from "./commands/cost/cost.command";
 import { StatisticsCommand } from "./commands/statistics/statistics.command";
 import { FinanceCommand } from "./commands/finance/finance.command";
-import Store from "./store/store";
+import Store from "./store/Store";
 import { CostActionEnum } from "./commands/cost/cost.enums";
 import addToCostCategoryInput from "./inputs/cost/addToCostCategoryInput";
 import seeChosenMonthCostInput from "./inputs/cost/seeChosenMonthCostInput";

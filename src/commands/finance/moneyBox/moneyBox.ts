@@ -3,7 +3,7 @@ import { Markup, Telegraf } from "telegraf";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { MAIN_BUTTONS, MONEY_BOX_BUTTONS } from "../utils/constants";
-import Store from "../../../store/store";
+import Store from "../../../store/Store";
 
 import getInfoOfMoneyBox from "./getInfoOfMoneyBox";
 import putMoneyToMoneyBox from "./putMoneyToMoneyBox";

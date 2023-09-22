@@ -5,9 +5,12 @@ import {
 } from "../commands/cost/cost.typings";
 import { IFinanceStore } from "../typings/finance.typings";
 import { CurrencyEnum } from "../utils/enums";
-import { FINANCE_ACTIONS_TYPES } from "../commands/finance/utils/enums";
+import {
+  FINANCE_ACTIONS_TYPES,
+  FINANCE_BOXES_ENUM,
+} from "../commands/finance/utils/enums";
 
-import { IStoreActiveInputAction } from "./store.interface";
+import { IStoreActiveInputAction } from "./Store.typings";
 
 export default class Store {
   static activeInputAction: IStoreActiveInputAction = {
@@ -46,6 +49,7 @@ export default class Store {
     value: "",
     currency: CurrencyEnum.RUB,
     actionType: FINANCE_ACTIONS_TYPES.PUT,
+    boxType: FINANCE_BOXES_ENUM.ACCUM,
   };
 
   static resetStore(currency?: CurrencyEnum) {
@@ -88,6 +92,7 @@ export default class Store {
       value: "",
       currency: this.finance.currency,
       actionType: FINANCE_ACTIONS_TYPES.PUT,
+      boxType: FINANCE_BOXES_ENUM.ACCUM,
     };
   }
 }

@@ -6,7 +6,7 @@ import { IBotContext } from "../../../../context/context.interface";
 import { CostActionEnum } from "../../cost.enums";
 import costAppearanceShaper from "../../../../utils/costAppearanceShaper";
 import { CostTimeEnum } from "../../../../utils/enums";
-import Store from "../../../../store/store";
+import Store from "../../../../store/Store";
 
 const _monthCostRequest = async (year: string, month: string) => {
   const ctx = Store.seeMonthCost.ctx;

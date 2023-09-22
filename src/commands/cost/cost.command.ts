@@ -4,7 +4,7 @@ import { IBotContext } from "../../context/context.interface";
 import { t } from "../../i18n";
 import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
-import Store from "../../store/store";
+import Store from "../../store/Store";
 import { usersService } from "../../services/users.service";
 import { LastPlacesEnum } from "../../utils/enums";
 

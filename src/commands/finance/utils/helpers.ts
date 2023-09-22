@@ -26,7 +26,9 @@ export const financeAppearanceShaper = (
   isPocketMoney?: boolean
 ) => {
   const niceAppearance = [
-    `<u><b>${t(
+    `${
+      !isPocketMoney ? `💰 ${t("money_box")}` : `💵 🫰 ${t("pocket_money")}`
+    }\n<u><b>${t(
       !isPocketMoney ? "finance_accumulated" : "left_money"
     )}</b></u>:`,
   ];

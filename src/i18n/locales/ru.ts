@@ -104,7 +104,7 @@ export const RU = {
   money_box_empty: "Копилка пуста",
   err_money_box_look_req: "Ошибка при попытке заглянуть в копилку",
   err_money_box_put_req: "Ошибка при попытке положить деньги в копилку",
-  err_money_box_take_req: "Ошибка при попытке взять деньги из копилку",
+  err_money_box_take_req: "Ошибка при попытке взять деньги из копилки",
   rub: "Рубли",
   eur: "Евро",
   usd: "Доллары",
@@ -129,4 +129,5 @@ export const RU = {
   err_pocket_money_take_req:
     "Ошибка при попытке взять деньги из карманных расходов",
   left_money: "Остаток",
+  take_zero_money_balance: "Вы пытаетесь взять больше денег, чем осталось",
 };

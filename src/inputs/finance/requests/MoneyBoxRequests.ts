@@ -60,7 +60,12 @@ export default class MoneyBoxRequests {
       await ctx.replyWithHTML(values.join("\n"));
     } catch (e) {
       console.log(e);
-      await ctx.reply(`🚫 ${t("err_money_box_take_req")}`);
+      const isZero = String(e).split(" ").at(-1) === "ZERO";
+      if (isZero) {
+        await ctx.reply(
+          `🚫 ${t("err_money_box_take_req")}\n${t("take_zero_money_balance")}`
+        );
+      } else await ctx.reply(`🚫 ${t("err_money_box_take_req")}`);
     }
   }
 }

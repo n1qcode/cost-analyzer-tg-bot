@@ -125,4 +125,6 @@ export const EN = {
   err_pocket_money_put_req: "Error when trying to add pocket money",
   err_pocket_money_take_req: "Error when trying to take pocket money",
   left_money: "Balance",
+  take_zero_money_balance:
+    "You are trying to take more money than you have left",
 };

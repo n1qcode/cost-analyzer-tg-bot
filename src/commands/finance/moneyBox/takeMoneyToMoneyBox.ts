@@ -16,7 +16,10 @@ const takeMoneyToMoneyBox = (bot: Telegraf<IBotContext>) => {
     Store.finance.actionType = FINANCE_ACTIONS_TYPES.TAKE;
     Store.finance.boxType = FINANCE_BOXES_ENUM.ACCUM;
     await ctx.editMessageText(
-      `${t("type_sum")} (${t(Store.finance.currency)}):`
+      `💰 ${t("money_box")}\n<b>${t("type_sum")} (${t(
+        Store.finance.currency
+      )}):</b>`,
+      { parse_mode: "HTML" }
     );
   });
 };

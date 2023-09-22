@@ -37,9 +37,9 @@ class Bot {
       new FinanceCommand(this.bot),
     ];
     this.commands.forEach((command) => command.handle());
+    Informer.launch(this.bot);
     await lastPlaceInspector(this.bot);
     await this.bot.launch();
-    Informer.launch(this.bot);
   }
 
   hear() {

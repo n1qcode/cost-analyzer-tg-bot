@@ -3,8 +3,9 @@ import { Telegraf } from "telegraf";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { costService } from "../../../services/cost.service";
-import costAppearanceShaper from "../../../utils/costAppearanceShaper";
 import { CostTimeEnum } from "../../../utils/enums";
+
+import costAppearanceShaper from "./utils/costAppearanceShaper";
 
 const todayCost = (bot: Telegraf<IBotContext>) => {
   bot.action("today_cost", async (ctx) => {

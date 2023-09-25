@@ -1,7 +1,6 @@
-import { t } from "../i18n";
-import Store from "../store/Store";
-
-import { CostTimeEnum } from "./enums";
+import { t } from "../../../../i18n";
+import Store from "../../../../store/Store";
+import { CostTimeEnum } from "../../../../utils/enums";
 
 const costAppearanceShaper = (data: Array<object>, costTime: CostTimeEnum) => {
   const costNiceAppearance: string[] = [];

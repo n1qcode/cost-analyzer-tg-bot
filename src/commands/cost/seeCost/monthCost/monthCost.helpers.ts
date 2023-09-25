@@ -4,7 +4,7 @@ import { costService } from "../../../../services/cost.service";
 import { t } from "../../../../i18n";
 import { IBotContext } from "../../../../context/context.interface";
 import { CostActionEnum } from "../../cost.enums";
-import costAppearanceShaper from "../../../../utils/costAppearanceShaper";
+import costAppearanceShaper from "../utils/costAppearanceShaper";
 import { CostTimeEnum } from "../../../../utils/enums";
 import Store from "../../../../store/Store";
 

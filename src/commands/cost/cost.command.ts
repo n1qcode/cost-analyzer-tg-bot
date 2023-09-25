@@ -36,7 +36,7 @@ export class CostCommand extends Command {
         ]).resize()
       );
     });
-    this.bot.command("add_cost_help", (ctx) => {
+    this.bot.command("cost_help", (ctx) => {
       if (!accessProtector(ctx)) return;
       return ctx.replyWithHTML(
         `<b>${t("add_to_cost")}</b>\n${t("add_to_cost_help_info")}`

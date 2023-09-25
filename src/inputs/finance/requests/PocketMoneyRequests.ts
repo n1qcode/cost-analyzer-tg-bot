@@ -30,7 +30,13 @@ export default class PocketMoneyRequests {
       await ctx.replyWithHTML(values.join("\n"));
     } catch (e) {
       console.log(e);
-      await ctx.reply(`🚫 ${t("err_pocket_money_put_req")}`);
+      const lastWord = String(e).split(" ").at(-1);
+      const isOverflow = lastWord === "overflow";
+      if (isOverflow) {
+        await ctx.reply(
+          `🚫 ${t("err_pocket_money_put_req")}\n${t("err_money_value_too_big")}`
+        );
+      } else await ctx.reply(`🚫 ${t("err_pocket_money_put_req")}`);
     }
   }
 
@@ -63,7 +69,9 @@ export default class PocketMoneyRequests {
       const isZero = String(e).split(" ").at(-1) === "ZERO";
       if (isZero) {
         await ctx.reply(
-          `🚫 ${t("err_money_box_take_req")}\n${t("take_zero_money_balance")}`
+          `🚫 ${t("err_pocket_money_take_req")}\n${t(
+            "take_zero_money_balance"
+          )}`
         );
       } else await ctx.reply(`🚫 ${t("err_pocket_money_take_req")}`);
     }

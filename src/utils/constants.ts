@@ -7,7 +7,8 @@ export const commands = `
 /statistics - ${t("statistics_menu_label")}
 /cost - ${t("cost_menu_label")}
 /finance - ${t("finance_menu_label")}
-/add_cost_help - ${t("add_to_cost")}
+/cost_help - ${t("add_to_cost")}
+/finance_help -  ${t("finance_help")}
 /help - ${t("help")}
 `;
 

@@ -35,6 +35,12 @@ export class FinanceCommand extends Command {
         ]).resize()
       );
     });
+    this.bot.command("finance_help", (ctx) => {
+      if (!accessProtector(ctx)) return;
+      return ctx.replyWithHTML(
+        `<b>${t("finance_help")}</b>\n${t("finance_help_info")}`
+      );
+    });
     moneyBox(this.bot);
     pocketMoney(this.bot);
     currency(this.bot);

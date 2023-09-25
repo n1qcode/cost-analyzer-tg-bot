@@ -15,27 +15,25 @@ const financeInput = async (ctx: ContextExt) => {
   const value = ctx.message.text;
 
   if (+value <= 0 || MONEY_REGEX.test(value)) {
-    if (MONEY_REGEX.test(value)) {
-      Store.finance.value = value;
-      Store.finance.isTyped = true;
+    Store.finance.value = value;
+    Store.finance.isTyped = true;
 
-      if (Store.finance.boxType === FINANCE_BOXES_ENUM.ACCUM) {
-        if (Store.finance.actionType === FINANCE_ACTIONS_TYPES.PUT) {
-          await MoneyBoxRequests.put(ctx);
-        }
-        if (Store.finance.actionType === FINANCE_ACTIONS_TYPES.TAKE) {
-          await MoneyBoxRequests.take(ctx);
-        }
+    if (Store.finance.boxType === FINANCE_BOXES_ENUM.ACCUM) {
+      if (Store.finance.actionType === FINANCE_ACTIONS_TYPES.PUT) {
+        await MoneyBoxRequests.put(ctx);
       }
-      if (Store.finance.boxType === FINANCE_BOXES_ENUM.POCKET) {
-        if (Store.finance.actionType === FINANCE_ACTIONS_TYPES.PUT) {
-          await PocketMoneyRequests.put(ctx);
-        }
-        if (Store.finance.actionType === FINANCE_ACTIONS_TYPES.TAKE) {
-          await PocketMoneyRequests.take(ctx);
-        }
+      if (Store.finance.actionType === FINANCE_ACTIONS_TYPES.TAKE) {
+        await MoneyBoxRequests.take(ctx);
       }
-    } else await ctx.reply(t("money_value_too_big"));
+    }
+    if (Store.finance.boxType === FINANCE_BOXES_ENUM.POCKET) {
+      if (Store.finance.actionType === FINANCE_ACTIONS_TYPES.PUT) {
+        await PocketMoneyRequests.put(ctx);
+      }
+      if (Store.finance.actionType === FINANCE_ACTIONS_TYPES.TAKE) {
+        await PocketMoneyRequests.take(ctx);
+      }
+    }
   } else await ctx.reply(t("typed_add_cost_incorrect"));
 };
 

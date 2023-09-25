@@ -106,8 +106,8 @@ export const EN = {
   rub: "Rubles",
   eur: "Euro",
   usd: "Dollars",
-  money_value_too_big:
-    "the value is too big!\nFor more information, type:\n/add_cost_help",
+  err_money_value_too_big:
+    "The entered amount does not fit!\nTo view more detailed information, enter:\n/finance_help",
   type_sum: "Type sum",
   current_currency_label: "Current currency",
   currency_changed: "Currency has been changed",
@@ -127,4 +127,11 @@ export const EN = {
   left_money: "Balance",
   take_zero_money_balance:
     "You are trying to take more money than you have left",
+  finance_help: "Detailed information on financial records",
+  finance_help_info:
+    "<b>1.</b> Valid values are numbers with a total complexity of 10 characters, 8 characters before the decimal point and 2 after, are valid\n" +
+    "<i>For example:</i> <code>12345678.99</code>\n" +
+    "<b>2.</b> You can use both a dot <code>.</code> and a comma <code>,</code> as a separator of the integer and fractional parts of numbers.\n" +
+    "<i>For example:</i> <code>123.45</code> or <code>123.45</code>\n" +
+    "<b>3.</b> The maximum number that can be written should not exceed 99999999.99 (including the amount that has already been written)\n",
 };

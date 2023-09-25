@@ -30,7 +30,13 @@ export default class MoneyBoxRequests {
       await ctx.replyWithHTML(values.join("\n"));
     } catch (e) {
       console.log(e);
-      await ctx.reply(`🚫 ${t("err_money_box_put_req")}`);
+      const lastWord = String(e).split(" ").at(-1);
+      const isOverflow = lastWord === "overflow";
+      if (isOverflow) {
+        await ctx.reply(
+          `🚫 ${t("err_money_box_put_req")}\n${t("err_money_value_too_big")}`
+        );
+      } else await ctx.reply(`🚫 ${t("err_money_box_put_req")}`);
     }
   }
 

@@ -1,6 +1,6 @@
-import { costService } from "../../../services/cost.service";
-import { t } from "../../../i18n";
-import Calculator from "../../../utils/Calculator/Calculator";
+import { costService } from "../../services/cost.service";
+import { t } from "../../i18n";
+import Calculator from "../Calculator/Calculator";
 
 const _monthConvertor = (month: number) => {
   return String(month + 1).padStart(2, "0");

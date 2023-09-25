@@ -16,3 +16,8 @@ export enum LastPlacesEnum {
   COST = "COST",
   STATISTICS = "STATISTICS",
 }
+
+export enum FinanceActionsEnum {
+  PUT = "PUT",
+  TAKE = "TAKE",
+}

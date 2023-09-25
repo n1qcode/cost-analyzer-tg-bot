@@ -16,7 +16,7 @@ import seeChosenMonthCostInput from "./inputs/cost/seeChosenMonthCostInput";
 import createCostCategoryInput from "./inputs/cost/createCostCategoryInput";
 import changeTranslationCostCatInput from "./inputs/cost/changeTranslationCostCatInput";
 import Informer from "./utils/Informer/Informer";
-import { FINANCE_INPUT_ACTIONS } from "./commands/finance/utils/enums";
+import { FinanceInputActionsEnum } from "./commands/finance/utils/enums";
 import financeInput from "./inputs/finance/financeInput";
 import { lastPlaceInspector } from "./utils/lastPlaceInspector";
 
@@ -52,7 +52,7 @@ class Bot {
         await createCostCategoryInput(ctx);
       if (Store.activeInputAction[CostActionEnum.TRANSLATE_COST])
         await changeTranslationCostCatInput(ctx);
-      if (Store.activeInputAction[FINANCE_INPUT_ACTIONS.FINANCE])
+      if (Store.activeInputAction[FinanceInputActionsEnum.FINANCE])
         await financeInput(ctx);
     });
   }

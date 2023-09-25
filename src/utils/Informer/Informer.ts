@@ -2,7 +2,7 @@ import { Telegraf } from "telegraf";
 import config from "config";
 
 import { IBotContext } from "../../context/context.interface";
-import monthsComparator from "../../commands/statistics/utils/monthsComparator";
+import monthsComparator from "../statistics/monthsComparator";
 import { t } from "../../i18n";
 
 class Informer {

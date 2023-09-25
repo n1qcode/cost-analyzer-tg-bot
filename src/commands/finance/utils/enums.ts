@@ -1,13 +1,8 @@
-export enum FINANCE_INPUT_ACTIONS {
+export enum FinanceInputActionsEnum {
   FINANCE = "FINANCE",
 }
 
-export enum FINANCE_ACTIONS_TYPES {
-  PUT = "PUT",
-  TAKE = "TAKE",
-}
-
-export enum FINANCE_BOXES_ENUM {
+export enum FinanceBoxesEnum {
   ACCUM = "ACCUM",
   POCKET = "POCKET",
 }

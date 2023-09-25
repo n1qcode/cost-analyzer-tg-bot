@@ -4,11 +4,8 @@ import {
   ISeeMonthCost,
 } from "../commands/cost/cost.typings";
 import { IFinanceStore } from "../typings/finance.typings";
-import { CurrencyEnum } from "../utils/enums";
-import {
-  FINANCE_ACTIONS_TYPES,
-  FINANCE_BOXES_ENUM,
-} from "../commands/finance/utils/enums";
+import { CurrencyEnum, FinanceActionsEnum } from "../utils/enums";
+import { FinanceBoxesEnum } from "../commands/finance/utils/enums";
 
 import { IStoreActiveInputAction } from "./Store.typings";
 
@@ -48,8 +45,8 @@ export default class Store {
     isTyped: false,
     value: "",
     currency: CurrencyEnum.RUB,
-    actionType: FINANCE_ACTIONS_TYPES.PUT,
-    boxType: FINANCE_BOXES_ENUM.ACCUM,
+    actionType: FinanceActionsEnum.PUT,
+    boxType: FinanceBoxesEnum.ACCUM,
   };
 
   static resetStore(currency?: CurrencyEnum) {
@@ -91,8 +88,8 @@ export default class Store {
       isTyped: false,
       value: "",
       currency: this.finance.currency,
-      actionType: FINANCE_ACTIONS_TYPES.PUT,
-      boxType: FINANCE_BOXES_ENUM.ACCUM,
+      actionType: FinanceActionsEnum.PUT,
+      boxType: FinanceBoxesEnum.ACCUM,
     };
   }
 }

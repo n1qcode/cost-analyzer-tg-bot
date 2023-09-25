@@ -7,10 +7,15 @@ import { ContextExt } from "../../../typings/utility.typings";
 
 export default class PocketMoneyRequests {
   static async put(ctx: ContextExt) {
+    const sumValue = Number(
+      Store.finance.value.includes(",")
+        ? Store.finance.value.split(",").join(".")
+        : Store.finance.value
+    );
     try {
       const response = await financeService
         .putMoneyToPocketMoney({
-          sum: +Store.finance.value,
+          sum: sumValue,
           currency: Store.finance.currency,
         })
         .then((res) => res.data);
@@ -41,10 +46,15 @@ export default class PocketMoneyRequests {
   }
 
   static async take(ctx: ContextExt) {
+    const sumValue = Number(
+      Store.finance.value.includes(",")
+        ? Store.finance.value.split(",").join(".")
+        : Store.finance.value
+    );
     try {
       const response = await financeService
         .takeMoneyFromPocketMoney({
-          sum: +Store.finance.value,
+          sum: sumValue,
           currency: Store.finance.currency,
         })
         .then((res) => res.data);

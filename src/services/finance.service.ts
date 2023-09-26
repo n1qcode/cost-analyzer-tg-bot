@@ -4,11 +4,16 @@ import {
   IFinance,
   IFinanceBody,
   IFinanceRotation,
+  IMoneyBoxTransaction,
 } from "../typings/finance.typings";
 
 export const financeService = {
   getInfoOfMoneyBox: async () =>
     $api.get<IHttpResponse<IFinance>>("/finance/money_box"),
+  getTransactionsFromPeriod: async (year: string, month: string) =>
+    $api.get<IHttpResponse<IMoneyBoxTransaction[]>>(
+      `/finance/money_box_transactions/${year}/${month}`
+    ),
   putMoneyToMoneyBox: async (body: IFinanceBody) =>
     $api.put<IHttpResponse<IFinance>>("/finance/money_box/put", body),
   takeMoneyFromMoneyBox: async (body: IFinanceBody) =>

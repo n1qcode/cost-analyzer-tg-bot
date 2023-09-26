@@ -1,16 +1,12 @@
 import { costService } from "../../services/cost.service";
 import { t } from "../../i18n";
 import Calculator from "../Calculator/Calculator";
+import datesForCompareShaper from "../dateForCompareShaper";
 
-const _monthConvertor = (month: number) => {
-  return String(month + 1).padStart(2, "0");
-};
-
-const _monthComparatorRequest = async (year: number, month: number) => {
-  const monthFixed = _monthConvertor(month);
+const _monthComparatorRequest = async (year: number, month: string) => {
   try {
     const response = await costService
-      .getMonthCost(String(year), monthFixed)
+      .getMonthCost(String(year), month)
       .then((res) => res.data);
     const { payload, error } = response;
 
@@ -33,13 +29,8 @@ const _monthComparatorRequest = async (year: number, month: number) => {
 
 const monthsComparator = async (month: number) => {
   try {
-    const isLastYearFirst = month - 1 < 0;
-    const isLastYearSecond = month - 2 < 0;
-    const currentYear = new Date().getFullYear();
-    const firstYear = isLastYearFirst ? currentYear - 1 : currentYear;
-    const secondYear = isLastYearSecond ? currentYear - 1 : currentYear;
-    const firstMonth = isLastYearFirst ? 11 : month - 1;
-    const secondMonth = isLastYearSecond ? firstMonth - 1 : month - 2;
+    const { firstYear, firstMonth, secondYear, secondMonth } =
+      datesForCompareShaper(month);
     const costValuesFirstMonth = await _monthComparatorRequest(
       firstYear,
       firstMonth
@@ -65,24 +56,22 @@ const monthsComparator = async (month: number) => {
       percentage = (diffValue / costValuesFirstMonth) * 100;
     }
     if (costValuesFirstMonth === costValuesSecondMonth)
-      return `ℹ️ <b><u>${t("started_new_month")}</u>!</b>\n\n<i>${t(
+      return `<b>${t(
         "cost_last_month_equal_info"
-      )}</i>: <code>${Calculator.roundHalfUp(costValuesFirstMonth)} ${t(
+      )}</b>: <code>${Calculator.roundHalfUp(costValuesFirstMonth)} ${t(
         "currency"
       )}.</code>`;
 
-    return `ℹ️ <b><u>${t("started_new_month")}</u>!</b>\n\n<i>${t(
-      "cost_last_month_info"
-    )}</i>: <code>${Calculator.roundHalfUp(costValuesFirstMonth)} ${t(
-      "currency"
-    )}.</code>,\n<i>${t(
+    return `<b>${t("cost_last_month_info")}</b>: <code>${Calculator.roundHalfUp(
+      costValuesFirstMonth
+    )} ${t("currency")}.</code>,\n<i>${t(
       "which_is"
     ).toLowerCase()}</i> <code>${Calculator.roundHalfUp(
       percentage
     )}% (${Calculator.roundHalfUp(diffValue)} ${t(
       "currency"
     )}.)</code> <b>${diffInfo}</b>,\n<i>${t(
-      "cost_last_month_compare_info"
+      "last_month_compare_info"
     ).toLowerCase()}</i> (<code>${Calculator.roundHalfUp(
       costValuesSecondMonth
     )} ${t("currency")}.</code>)`;

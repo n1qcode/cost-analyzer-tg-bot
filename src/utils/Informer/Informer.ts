@@ -4,6 +4,7 @@ import config from "config";
 import { IBotContext } from "../../context/context.interface";
 import monthsComparator from "../statistics/monthsComparator";
 import { t } from "../../i18n";
+import moneyBoxComparator from "../statistics/moneyBoxComparator";
 
 class Informer {
   static offsetGenerator(timeZone: number) {
@@ -48,12 +49,22 @@ class Informer {
 
       timeout = setTimeout(async () => {
         const users: number[] = config.get("USERS_ACCESS") ?? [];
-        let informMessage = "";
+        let informMessage = `ℹ️ <b><u>${t("started_new_month")}</u>!</b>\n\n`;
         try {
-          informMessage = (await monthsComparator(new Date().getMonth())) ?? "";
+          informMessage +=
+            (await monthsComparator(new Date().getMonth())) ?? "";
+          informMessage += "\n";
         } catch (e) {
           console.log(e);
-          informMessage = t("err_get_cost_last_month");
+          informMessage += t("err_get_cost_last_month");
+        }
+
+        try {
+          informMessage +=
+            (await moneyBoxComparator(new Date().getMonth())) ?? "";
+        } catch (e) {
+          console.log(e);
+          informMessage += t("err_money_box_last_month");
         }
 
         if (informMessage)

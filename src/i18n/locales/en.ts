@@ -87,7 +87,7 @@ export const EN = {
   less: "Less",
   started_new_month: "A new month has begun",
   cost_last_month_info: "Last month you spent",
-  cost_last_month_compare_info: "Than in the previous month",
+  last_month_compare_info: "Than in the previous month",
   cost_last_month_equal_info:
     "You spent the same amount last month as you did last month",
   which_is: "Which is",
@@ -134,4 +134,13 @@ export const EN = {
     "<b>2.</b> You can use both a dot <code>.</code> and a comma <code>,</code> as a separator of the integer and fractional parts of numbers.\n" +
     "<i>For example:</i> <code>123.45</code> or <code>123.45</code>\n" +
     "<b>3.</b> The maximum number that can be written should not exceed 99999999.99 (including the amount that has already been written)\n",
+  accumulated_finance: "Accumulated",
+  finance_last_month_equal_info:
+    "Last month you accumulated the same amount as in the previous month",
+  no_cur_month_accum: "You have not accumulated anything this month",
+  put_to_money_box: "Put into the moneybox",
+  taken_from_money_box: "Took from the money box",
+  reduce_money_box: "on the contrary, reduced the balance of the piggy bank by",
+  err_money_box_last_month:
+    "Error when trying to calculate accumulated funds statistics",
 };

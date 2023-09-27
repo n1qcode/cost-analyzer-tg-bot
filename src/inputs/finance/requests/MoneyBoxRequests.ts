@@ -4,6 +4,7 @@ import { financeAppearanceShaper } from "../../../commands/finance/utils/helpers
 import { t } from "../../../i18n";
 import { CurrencyEnum } from "../../../utils/enums";
 import { ContextExt } from "../../../typings/utility.typings";
+import sumSpaceDivider from "../../../utils/sumSpaceDivider";
 
 export default class MoneyBoxRequests {
   static async put(ctx: ContextExt) {
@@ -30,7 +31,9 @@ export default class MoneyBoxRequests {
       if (Store.finance.currency === CurrencyEnum.USD)
         currencyValue = `${t("currency_short_usd")}.`;
       values.unshift(
-        `<b>${t("saved")}!</b> <i>+ ${Store.finance.value} ${currencyValue}</i>`
+        `<b>${t("saved")}!</b> <i>+ ${sumSpaceDivider(
+          String(Store.finance.value)
+        )} ${currencyValue}</i>`
       );
       await ctx.replyWithHTML(values.join("\n"));
     } catch (e) {
@@ -69,9 +72,9 @@ export default class MoneyBoxRequests {
       if (Store.finance.currency === CurrencyEnum.USD)
         currencyValue = `${t("currency_short_usd")}.`;
       values.unshift(
-        `<b>${t("has_taken")}!</b> <i>- ${
-          Store.finance.value
-        } ${currencyValue}</i>`
+        `<b>${t("has_taken")}!</b> <i>- ${sumSpaceDivider(
+          String(Store.finance.value)
+        )} ${currencyValue}</i>`
       );
       await ctx.replyWithHTML(values.join("\n"));
     } catch (e) {

@@ -4,6 +4,7 @@ import { t } from "../../i18n";
 import { costService } from "../../services/cost.service";
 import Calculator from "../../utils/Calculator/Calculator";
 import Store from "../../store/Store";
+import sumSpaceDivider from "../../utils/sumSpaceDivider";
 
 import type { Update, Message } from "telegraf/types";
 
@@ -33,9 +34,11 @@ const addToCostCategoryInput = async (
           Store.costState.translator.dictionary[
             Store.costState.chosenCategory
           ] ?? Store.costState.chosenCategory
-        } <i>+ ${spentAmount} ${t("currency")}.</i>\n<i>${t(
-          "amount"
-        )}:</i> <u>${+(payload ?? 0)}</u> ${t("currency")}.`
+        } <i>+ ${sumSpaceDivider(String(spentAmount))} ${t(
+          "currency"
+        )}.</i>\n<i>${t("amount")}:</i> <u>${sumSpaceDivider(
+          String(payload ?? 0)
+        )}</u> ${t("currency")}.`
       );
 
       Store.costState.isCatAdd = true;

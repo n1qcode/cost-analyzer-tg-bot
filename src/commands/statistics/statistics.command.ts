@@ -8,6 +8,7 @@ import { costService } from "../../services/cost.service";
 import Calculator from "../../utils/Calculator/Calculator";
 import { usersService } from "../../services/users.service";
 import { LastPlacesEnum } from "../../utils/enums";
+import sumSpaceDivider from "../../utils/sumSpaceDivider";
 
 import { MAIN_BUTTONS } from "./utils/constants";
 
@@ -68,9 +69,9 @@ export class StatisticsCommand extends Command {
         const avSpendPerDay = Calculator.roundHalfUp(totalCost / costLength);
 
         await ctx.replyWithHTML(
-          `<i>${t(
-            "statistics_av_cost_per_day"
-          )}</i>: <u><b>${avSpendPerDay}</b></u> ${t("currency")}.`
+          `<i>${t("statistics_av_cost_per_day")}</i>: <u><b>${sumSpaceDivider(
+            String(avSpendPerDay)
+          )}</b></u> ${t("currency")}.`
         );
       } catch (e) {
         console.log(e);

@@ -6,6 +6,7 @@ import { CurrencyEnum, LastPlacesEnum } from "../../../utils/enums";
 import { IUsersCurrencies } from "../../../typings/users.typings";
 import { usersService } from "../../../services/users.service";
 import { IBotContext } from "../../../context/context.interface";
+import sumSpaceDivider from "../../../utils/sumSpaceDivider";
 
 import { MAIN_BUTTONS } from "./constants";
 
@@ -37,7 +38,11 @@ export const financeAppearanceShaper = (
     let currencyValue = `${t("currency")}.`;
     if (key === CurrencyEnum.EUR) currencyValue = t("currency_short_eur");
     if (key === CurrencyEnum.USD) currencyValue = `${t("currency_short_usd")}.`;
-    niceAppearance.push(`<code>${t(key)}: ${+value} ${currencyValue}</code>`);
+    niceAppearance.push(
+      `<code>${t(key)}: ${sumSpaceDivider(
+        String(value)
+      )} ${currencyValue}</code>`
+    );
   }
   return niceAppearance;
 };

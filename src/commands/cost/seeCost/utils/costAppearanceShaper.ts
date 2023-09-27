@@ -1,6 +1,7 @@
 import { t } from "../../../../i18n";
 import Store from "../../../../store/Store";
 import { CostTimeEnum } from "../../../../utils/enums";
+import sumSpaceDivider from "../../../../utils/sumSpaceDivider";
 
 const costAppearanceShaper = (data: Array<object>, costTime: CostTimeEnum) => {
   const costNiceAppearance: string[] = [];
@@ -27,16 +28,16 @@ const costAppearanceShaper = (data: Array<object>, costTime: CostTimeEnum) => {
       costNiceAppearance.push(
         `<code>${
           Store.costState.translator.dictionary[costKey] ?? costKey
-        }: ${+costValue} ${t("currency")}.</code>`
+        }: ${sumSpaceDivider(String(costValue))} ${t("currency")}.</code>`
       );
       amount += +costValue;
     }
   }
 
   costNiceAppearance.push(
-    `<i>${t("total_spent")}</i>: <u><b>${+amount.toFixed(2)}</b></u> ${t(
-      "currency"
-    )}.`
+    `<i>${t("total_spent")}</i>: <u><b>${sumSpaceDivider(
+      amount.toFixed(2)
+    )}</b></u> ${t("currency")}.`
   );
 
   return costNiceAppearance;

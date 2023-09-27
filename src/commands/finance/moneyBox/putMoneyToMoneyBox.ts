@@ -13,9 +13,9 @@ const putMoneyToMoneyBox = (bot: Telegraf<IBotContext>) => {
     Store.finance.actionType = FinanceActionsEnum.PUT;
     Store.finance.boxType = FinanceBoxesEnum.ACCUM;
     await ctx.editMessageText(
-      `💰 ${t("money_box")}\n<b>${t("type_sum")} (${t(
-        Store.finance.currency
-      )}):</b>`,
+      `💰 ${t("money_box")}\n<i><u>${t("put_money")}</u></i>\n<b>${t(
+        "type_sum"
+      )} (${t(Store.finance.currency)}):</b>`,
       { parse_mode: "HTML" }
     );
   });

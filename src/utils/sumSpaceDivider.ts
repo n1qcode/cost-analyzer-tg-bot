@@ -10,7 +10,13 @@ const sumSpaceDivider = (sum: string) => {
     "8": [2, 6],
   };
 
-  const value = sum.includes(".") ? sum.split(".")[0].split("") : sum.split("");
+  const transformedSum = String(+sum);
+  const preparedValue = transformedSum.includes(".")
+    ? transformedSum.split(".")
+    : transformedSum;
+  const isArray = Array.isArray(preparedValue);
+
+  const value = isArray ? preparedValue[0].split("") : preparedValue.split("");
 
   if (value.length >= 7) {
     const idx = String(value.length);
@@ -18,7 +24,7 @@ const sumSpaceDivider = (sum: string) => {
     value.splice(spliceIdxComplex[idx][1], 0, " ");
   } else value.splice(spliceIdx[String(value.length)], 0, " ");
 
-  return value.join("");
+  return `${value.join("")}${isArray ? `.${preparedValue[1]}` : ""}`;
 };
 
 export default sumSpaceDivider;

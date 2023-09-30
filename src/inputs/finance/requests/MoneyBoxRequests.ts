@@ -31,8 +31,8 @@ export default class MoneyBoxRequests {
       if (Store.finance.currency === CurrencyEnum.USD)
         currencyValue = `${t("currency_short_usd")}.`;
       values.unshift(
-        `<b>${t("saved")}!</b> <i>+ ${sumSpaceDivider(
-          String(Store.finance.value)
+        `<b>${t("saved")}!</b>  <i>+ ${sumSpaceDivider(
+          String(sumValue)
         )} ${currencyValue}</i>`
       );
       await ctx.replyWithHTML(values.join("\n"));
@@ -72,8 +72,8 @@ export default class MoneyBoxRequests {
       if (Store.finance.currency === CurrencyEnum.USD)
         currencyValue = `${t("currency_short_usd")}.`;
       values.unshift(
-        `<b>${t("has_taken")}!</b> <i>- ${sumSpaceDivider(
-          String(Store.finance.value)
+        `<b>${t("has_taken")}!</b>  <i>- ${sumSpaceDivider(
+          String(sumValue)
         )} ${currencyValue}</i>`
       );
       await ctx.replyWithHTML(values.join("\n"));

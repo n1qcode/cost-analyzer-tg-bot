@@ -5,6 +5,7 @@ import { t } from "../../../i18n";
 import { CurrencyEnum } from "../../../utils/enums";
 import { ContextExt } from "../../../typings/utility.typings";
 import sumSpaceDivider from "../../../utils/sumSpaceDivider";
+import { SPACE } from "../../../utils/constants";
 
 export default class PocketMoneyRequests {
   static async put(ctx: ContextExt) {
@@ -33,7 +34,7 @@ export default class PocketMoneyRequests {
       values.unshift(
         `<b>${t("saved")}!</b>  <i>+ ${sumSpaceDivider(
           String(sumValue)
-        )} ${currencyValue}</i>`
+        )}${SPACE}${currencyValue}</i>`
       );
       await ctx.replyWithHTML(values.join("\n"));
     } catch (e) {
@@ -74,7 +75,7 @@ export default class PocketMoneyRequests {
       values.unshift(
         `<b>${t("has_taken")}!</b>  <i>- ${sumSpaceDivider(
           String(sumValue)
-        )} ${currencyValue}</i>`
+        )}${SPACE}${currencyValue}</i>`
       );
       await ctx.replyWithHTML(values.join("\n"));
     } catch (e) {

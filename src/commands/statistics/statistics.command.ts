@@ -9,6 +9,7 @@ import Calculator from "../../utils/Calculator/Calculator";
 import { usersService } from "../../services/users.service";
 import { LastPlacesEnum } from "../../utils/enums";
 import sumSpaceDivider from "../../utils/sumSpaceDivider";
+import { SPACE } from "../../utils/constants";
 
 import { MAIN_BUTTONS } from "./utils/constants";
 
@@ -71,7 +72,7 @@ export class StatisticsCommand extends Command {
         await ctx.replyWithHTML(
           `<i>${t("statistics_av_cost_per_day")}</i>: <u><b>${sumSpaceDivider(
             String(avSpendPerDay)
-          )}</b></u> ${t("currency")}.`
+          )}</b></u>${SPACE}${t("currency")}.`
         );
       } catch (e) {
         console.log(e);

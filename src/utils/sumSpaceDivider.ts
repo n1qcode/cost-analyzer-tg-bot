@@ -1,3 +1,5 @@
+import { SPACE } from "./constants";
+
 const sumSpaceDivider = (sum: string) => {
   const spliceIdx: Record<string, number> = {
     "4": 1,
@@ -20,9 +22,9 @@ const sumSpaceDivider = (sum: string) => {
 
   if (value.length >= 7) {
     const idx = String(value.length);
-    value.splice(spliceIdxComplex[idx][0], 0, " ");
-    value.splice(spliceIdxComplex[idx][1], 0, " ");
-  } else value.splice(spliceIdx[String(value.length)], 0, " ");
+    value.splice(spliceIdxComplex[idx][0], 0, SPACE);
+    value.splice(spliceIdxComplex[idx][1], 0, SPACE);
+  } else value.splice(spliceIdx[String(value.length)], 0, SPACE);
 
   return `${value.join("")}${isArray ? `.${preparedValue[1]}` : ""}`;
 };

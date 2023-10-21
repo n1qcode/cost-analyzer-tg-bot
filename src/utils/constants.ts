@@ -22,3 +22,5 @@ export const MONEY_REGEX =
   /^\s*\d{1,8}(?:[.,]\d{1,2})?(?:\s*[*+-]\s*\d{1,8}(?:[.,]\d{1,2})?)*\s*$/;
 
 export const MAX_MONEY_REGEX = /^((?!0)\d{1,8}|0|\\d{1,2})($|\.$|\.\d{1,2}$)/;
+
+export const SPACE = "\u00A0";

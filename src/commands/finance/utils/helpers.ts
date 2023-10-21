@@ -7,6 +7,7 @@ import { IUsersCurrencies } from "../../../typings/users.typings";
 import { usersService } from "../../../services/users.service";
 import { IBotContext } from "../../../context/context.interface";
 import sumSpaceDivider from "../../../utils/sumSpaceDivider";
+import { SPACE } from "../../../utils/constants";
 
 import { MAIN_BUTTONS } from "./constants";
 
@@ -41,7 +42,7 @@ export const financeAppearanceShaper = (
     niceAppearance.push(
       `<code>${t(key)}: ${sumSpaceDivider(
         String(value)
-      )} ${currencyValue}</code>`
+      )}${SPACE}${currencyValue}</code>`
     );
   }
   return niceAppearance;

@@ -20,11 +20,12 @@ const sumSpaceDivider = (sum: string) => {
 
   const value = isArray ? preparedValue[0].split("") : preparedValue.split("");
 
-  if (value.length >= 7) {
+  if (value.length >= 7 && value.length <= 8) {
     const idx = String(value.length);
     value.splice(spliceIdxComplex[idx][0], 0, SPACE);
     value.splice(spliceIdxComplex[idx][1], 0, SPACE);
-  } else value.splice(spliceIdx[String(value.length)], 0, SPACE);
+  } else if (value.length >= 4 && value.length <= 6)
+    value.splice(spliceIdx[String(value.length)], 0, SPACE);
 
   return `${value.join("")}${isArray ? `.${preparedValue[1]}` : ""}`;
 };

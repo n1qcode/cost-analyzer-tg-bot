@@ -39,8 +39,8 @@ const moneyBoxComparator = async (month: number) => {
 
     const {
       totalSum: transactionsFirstMonth,
-      takeValue: takeValueFirstMonth,
-      putValue: putValueFirstMonth,
+      // takeValue: takeValueFirstMonth,
+      // putValue: putValueFirstMonth,
     } = await _moneyBoxComparatorRequest(firstYear, firstMonth);
 
     const { totalSum: transactionsSecondMonth } =
@@ -67,15 +67,7 @@ const moneyBoxComparator = async (month: number) => {
         "accumulated_finance"
       )}</b>: <code>${Calculator.roundHalfUp(transactionsFirstMonth)} ${t(
         "currency"
-      )}.</code> ✅\n<i>${t(
-        "put_to_money_box"
-      )}</i>: <code>${Calculator.roundHalfUp(putValueFirstMonth)} ${t(
-        "currency"
-      )}.</code>\n<i>${t(
-        "taken_from_money_box"
-      )}</i>: <code>${Calculator.roundHalfUp(takeValueFirstMonth)} ${t(
-        "currency"
-      )}.</code>`;
+      )}.</code> ✅`;
     }
 
     if (transactionsFirstMonth < transactionsSecondMonth) {
@@ -91,15 +83,8 @@ const moneyBoxComparator = async (month: number) => {
         "finance_last_month_equal_info"
       )}</b>: <code>${Calculator.roundHalfUp(transactionsFirstMonth)} ${t(
         "currency"
-      )}.</code> 💤\n<i>${t(
-        "put_to_money_box"
-      )}</i>: <code>${Calculator.roundHalfUp(putValueFirstMonth)} ${t(
-        "currency"
-      )}.</code>\n<i>${t(
-        "taken_from_money_box"
-      )}</i>: <code>${Calculator.roundHalfUp(takeValueFirstMonth)} ${t(
-        "currency"
-      )}.</code>`;
+      )}.</code> 💤
+     }.</code>`;
 
     return `<b>${t("accumulated_finance")}</b>: <code>${Calculator.roundHalfUp(
       transactionsFirstMonth
@@ -113,15 +98,8 @@ const moneyBoxComparator = async (month: number) => {
       "last_month_compare_info"
     ).toLowerCase()}</i> (<code>${Calculator.roundHalfUp(
       transactionsSecondMonth
-    )} ${t("currency")}.</code>)\n<i>${t(
-      "put_to_money_box"
-    )}</i>: <code>${Calculator.roundHalfUp(putValueFirstMonth)} ${t(
-      "currency"
-    )}.</code>\n<i>${t(
-      "taken_from_money_box"
-    )}</i>: <code>${Calculator.roundHalfUp(takeValueFirstMonth)} ${t(
-      "currency"
-    )}.</code>`;
+    )} ${t("currency")}.</code>)
+    `;
   } catch (e) {
     console.log(e);
     throw new Error(`${e}`);

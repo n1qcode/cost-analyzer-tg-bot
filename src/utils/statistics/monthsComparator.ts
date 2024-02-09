@@ -1,7 +1,10 @@
 import { costService } from "../../services/cost.service";
-import { t } from "../../i18n";
 import Calculator from "../Calculator/Calculator";
 import datesForCompareShaper from "../dateForCompareShaper";
+import CommonMessages from "../../messages/common.messages";
+import MonthsMessages from "../../messages/month.messages";
+
+import percentageDiff from "./percentageDiff";
 
 const _monthComparatorRequest = async (year: number, month: string) => {
   try {
@@ -20,6 +23,8 @@ const _monthComparatorRequest = async (year: number, month: string) => {
       }
     });
 
+    totalSum = Calculator.roundHalfUp(totalSum);
+
     return totalSum;
   } catch (e) {
     console.log(e);
@@ -35,46 +40,39 @@ const monthsComparator = async (month: number) => {
       firstYear,
       firstMonth
     );
-    if (!costValuesFirstMonth) return;
 
     const costValuesSecondMonth = await _monthComparatorRequest(
       secondYear,
       secondMonth
     );
-    if (!costValuesSecondMonth) return;
 
-    const diffValue = Math.abs(costValuesFirstMonth - costValuesSecondMonth);
+    const diffValue = Calculator.roundHalfUp(
+      Math.abs(costValuesFirstMonth - costValuesSecondMonth)
+    );
     let diffInfo = "";
-    let percentage = 0;
 
     if (costValuesFirstMonth < costValuesSecondMonth) {
-      diffInfo = `<u>${t("less").toLowerCase()}</u> ✅`;
-      percentage = (diffValue / costValuesSecondMonth) * 100;
+      diffInfo = `${CommonMessages.less} ✅`;
     }
     if (costValuesFirstMonth > costValuesSecondMonth) {
-      diffInfo = `<u>${t("more").toLowerCase()}</u>❗️️`;
-      percentage = (diffValue / costValuesFirstMonth) * 100;
+      diffInfo = `${CommonMessages.more} ❗️️`;
     }
-    if (costValuesFirstMonth === costValuesSecondMonth)
-      return `<b>${t(
-        "cost_last_month_equal_info"
-      )}</b>: <code>${Calculator.roundHalfUp(costValuesFirstMonth)} ${t(
-        "currency"
-      )}.</code>`;
 
-    return `<b>${t("cost_last_month_info")}</b>: <code>${Calculator.roundHalfUp(
-      costValuesFirstMonth
-    )} ${t("currency")}.</code>,\n<i>${t(
-      "which_is"
-    ).toLowerCase()}</i> <code>${Calculator.roundHalfUp(
-      percentage
-    )}% (${Calculator.roundHalfUp(diffValue)} ${t(
-      "currency"
-    )}.)</code> <b>${diffInfo}</b>,\n<i>${t(
-      "last_month_compare_info"
-    ).toLowerCase()}</i> (<code>${Calculator.roundHalfUp(
-      costValuesSecondMonth
-    )} ${t("currency")}.</code>)`;
+    if (costValuesFirstMonth === costValuesSecondMonth) {
+      return MonthsMessages.equaleMessage(costValuesFirstMonth);
+    }
+
+    const percentage = Calculator.roundHalfUp(
+      percentageDiff(costValuesFirstMonth, costValuesSecondMonth)
+    );
+
+    return MonthsMessages.release(
+      costValuesFirstMonth,
+      costValuesSecondMonth,
+      percentage,
+      diffValue,
+      diffInfo
+    );
   } catch (e) {
     console.log(e);
     throw new Error(`${e}`);

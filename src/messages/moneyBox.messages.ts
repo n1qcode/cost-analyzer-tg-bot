@@ -17,8 +17,8 @@ const MoneyBoxMessages = {
   notAccum: `<b>${NOT_ACCUM}</b> ⚠️`,
   notAccumAndReduce: `<b>${NOT_ACCUM}, ${t("reduce_money_box")}</b>`,
   equal: `<b>${t("finance_last_month_equal_info")}</b>`,
-  whichIs: `<i>${t("which_is").toLowerCase()}</i>`,
-  thanLastMonth: `<i>${t("last_month_compare_info").toLowerCase()}</i>`,
+  whichIs: CommonMessages.whichIs,
+  thanLastMonth: CommonMessages.thanLastMonth,
 
   accumMessage(value: number) {
     return `${this.accum}: ${valWithCurrCode(value)} ✅`;

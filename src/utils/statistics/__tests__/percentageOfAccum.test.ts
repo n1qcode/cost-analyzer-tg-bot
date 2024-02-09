@@ -1,4 +1,4 @@
-import percentageOfAccum from "../percentageOfAccum";
+import percentageOfAccum from "../percentageDiff";
 
 const data = [
   {

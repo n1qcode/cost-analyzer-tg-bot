@@ -3,8 +3,8 @@ import config from "config";
 
 import { IBotContext } from "../../context/context.interface";
 import monthsComparator from "../statistics/monthsComparator";
-import { t } from "../../i18n";
 import moneyBoxComparator from "../statistics/moneyBoxComparator";
+import InformerMessages from "../../messages/informer.messages";
 
 class Informer {
   static offsetGenerator(timeZone: number) {
@@ -49,14 +49,14 @@ class Informer {
 
       timeout = setTimeout(async () => {
         const users: number[] = config.get("USERS_ACCESS") ?? [];
-        let informMessage = `ℹ️ <b><u>${t("started_new_month")}</u>!</b>\n\n`;
+        let informMessage = InformerMessages.startMonth;
         try {
           informMessage +=
             (await monthsComparator(new Date().getMonth())) ?? "";
-          informMessage += "\n";
+          informMessage += "\n\n";
         } catch (e) {
           console.log(e);
-          informMessage += t("err_get_cost_last_month");
+          informMessage += InformerMessages.errGetLastMonth;
         }
 
         try {
@@ -64,15 +64,16 @@ class Informer {
             (await moneyBoxComparator(new Date().getMonth())) ?? "";
         } catch (e) {
           console.log(e);
-          informMessage += t("err_money_box_last_month");
+          informMessage += InformerMessages.errGetMoneyBoxLastMonth;
         }
 
-        if (informMessage)
+        if (informMessage) {
           users.forEach((user) => {
             bot.telegram.sendMessage(user, informMessage, {
               parse_mode: "HTML",
             });
           });
+        }
 
         if (timeout) clearTimeout(timeout);
       }, timeoutMs);

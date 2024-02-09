@@ -5,7 +5,7 @@ import { FinanceActionsEnum } from "../enums";
 import MoneyBoxMessages from "../../messages/moneyBox.messages";
 import CommonMessages from "../../messages/common.messages";
 
-import percentageOfAccum from "./percentageOfAccum";
+import percentageDiff from "./percentageDiff";
 
 const _moneyBoxComparatorRequest = async (year: number, month: string) => {
   try {
@@ -50,7 +50,6 @@ const moneyBoxComparator = async (month: number) => {
       Math.abs(totalAccumSumFirstMonth - totalAccumSumSecondMonth)
     );
     let diffInfo = "";
-    let percentage = 0;
 
     if (totalAccumSumFirstMonth === 0) {
       return MoneyBoxMessages.notAccum;
@@ -75,8 +74,8 @@ const moneyBoxComparator = async (month: number) => {
       diffInfo = `${CommonMessages.more} ✅️`;
     }
 
-    percentage = Calculator.roundHalfUp(
-      percentageOfAccum(totalAccumSumFirstMonth, totalAccumSumSecondMonth)
+    const percentage = Calculator.roundHalfUp(
+      percentageDiff(totalAccumSumFirstMonth, totalAccumSumSecondMonth)
     );
 
     return MoneyBoxMessages.release(

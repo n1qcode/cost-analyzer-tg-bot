@@ -1,8 +1,11 @@
-import { t } from "../../i18n";
 import Calculator from "../Calculator/Calculator";
 import datesForCompareShaper from "../dateForCompareShaper";
 import { financeService } from "../../services/finance.service";
 import { FinanceActionsEnum } from "../enums";
+import MoneyBoxMessages from "../../messages/moneyBox.messages";
+import CommonMessages from "../../messages/common.messages";
+
+import percentageOfAccum from "./percentageOfAccum";
 
 const _moneyBoxComparatorRequest = async (year: number, month: string) => {
   try {
@@ -14,18 +17,18 @@ const _moneyBoxComparatorRequest = async (year: number, month: string) => {
     if (error) throw new Error(error);
 
     let putValue = 0;
-    let takeValue = 0;
+    let takenValue = 0;
 
     for (const transaction of payload ?? []) {
       if (transaction.action === FinanceActionsEnum.PUT)
         putValue += +transaction.sum;
       if (transaction.action === FinanceActionsEnum.TAKE)
-        takeValue += +transaction.sum;
+        takenValue += +transaction.sum;
     }
 
-    const totalSum = putValue - takeValue;
+    const totalAccumSum = Calculator.roundHalfUp(putValue - takenValue);
 
-    return { totalSum, putValue, takeValue };
+    return { totalAccumSum, putValue, takenValue };
   } catch (e) {
     console.log(e);
     throw new Error(`${e}`);
@@ -37,69 +40,52 @@ const moneyBoxComparator = async (month: number) => {
     const { firstYear, firstMonth, secondYear, secondMonth } =
       datesForCompareShaper(month);
 
-    const {
-      totalSum: transactionsFirstMonth,
-      // takeValue: takeValueFirstMonth,
-      // putValue: putValueFirstMonth,
-    } = await _moneyBoxComparatorRequest(firstYear, firstMonth);
+    const { totalAccumSum: totalAccumSumFirstMonth } =
+      await _moneyBoxComparatorRequest(firstYear, firstMonth);
 
-    const { totalSum: transactionsSecondMonth } =
+    const { totalAccumSum: totalAccumSumSecondMonth } =
       await _moneyBoxComparatorRequest(secondYear, secondMonth);
 
-    const diffValue = transactionsFirstMonth - transactionsSecondMonth;
+    const diffValue = Calculator.roundHalfUp(
+      Math.abs(totalAccumSumFirstMonth - totalAccumSumSecondMonth)
+    );
     let diffInfo = "";
     let percentage = 0;
 
-    if (transactionsFirstMonth === 0) {
-      return `<b>${t("no_cur_month_accum")}</b> ⚠️`;
+    if (totalAccumSumFirstMonth === 0) {
+      return MoneyBoxMessages.notAccum;
     }
 
-    if (transactionsFirstMonth < 0) {
-      return `<b>${t("no_cur_month_accum")}, ${t(
-        "reduce_money_box"
-      )}</b>: <code>${Calculator.roundHalfUp(transactionsFirstMonth)} ${t(
-        "currency"
-      )}.</code> ❗️`;
+    if (totalAccumSumFirstMonth < 0) {
+      return MoneyBoxMessages.notAccumAndReduceMessage(totalAccumSumFirstMonth);
     }
 
-    if (transactionsSecondMonth <= 0) {
-      return `<b>${t(
-        "accumulated_finance"
-      )}</b>: <code>${Calculator.roundHalfUp(transactionsFirstMonth)} ${t(
-        "currency"
-      )}.</code> ✅`;
+    if (totalAccumSumSecondMonth <= 0) {
+      return MoneyBoxMessages.accumMessage(totalAccumSumFirstMonth);
     }
 
-    if (transactionsFirstMonth < transactionsSecondMonth) {
-      diffInfo = `<u>${t("less").toLowerCase()}</u> ❗`;
-      percentage = (diffValue / transactionsSecondMonth) * 100;
+    if (totalAccumSumFirstMonth === totalAccumSumSecondMonth) {
+      return MoneyBoxMessages.equaleMessage(totalAccumSumFirstMonth);
     }
-    if (transactionsFirstMonth > transactionsSecondMonth) {
-      diffInfo = `<u>${t("more").toLowerCase()}</u> ✅️`;
-      percentage = (diffValue / transactionsFirstMonth) * 100;
-    }
-    if (transactionsFirstMonth === transactionsSecondMonth)
-      return `<b>${t(
-        "finance_last_month_equal_info"
-      )}</b>: <code>${Calculator.roundHalfUp(transactionsFirstMonth)} ${t(
-        "currency"
-      )}.</code> 💤
-     }.</code>`;
 
-    return `<b>${t("accumulated_finance")}</b>: <code>${Calculator.roundHalfUp(
-      transactionsFirstMonth
-    )} ${t("currency")}.</code>,\n<i>${t(
-      "which_is"
-    ).toLowerCase()}</i> <code>${Calculator.roundHalfUp(
-      percentage
-    )}% (${Calculator.roundHalfUp(diffValue)} ${t(
-      "currency"
-    )}.)</code> <b>${diffInfo}</b>,\n<i>${t(
-      "last_month_compare_info"
-    ).toLowerCase()}</i> (<code>${Calculator.roundHalfUp(
-      transactionsSecondMonth
-    )} ${t("currency")}.</code>)
-    `;
+    if (totalAccumSumFirstMonth < totalAccumSumSecondMonth) {
+      diffInfo = `${CommonMessages.less} ❗`;
+    }
+    if (totalAccumSumFirstMonth > totalAccumSumSecondMonth) {
+      diffInfo = `${CommonMessages.more} ✅️`;
+    }
+
+    percentage = Calculator.roundHalfUp(
+      percentageOfAccum(totalAccumSumFirstMonth, totalAccumSumSecondMonth)
+    );
+
+    return MoneyBoxMessages.release(
+      totalAccumSumFirstMonth,
+      totalAccumSumSecondMonth,
+      percentage,
+      diffValue,
+      diffInfo
+    );
   } catch (e) {
     console.log(e);
     throw new Error(`${e}`);

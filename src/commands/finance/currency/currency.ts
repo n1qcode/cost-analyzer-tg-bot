@@ -3,7 +3,7 @@ import { Markup, Telegraf } from "telegraf";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { CURRENCY_REGEXP } from "../utils/constants";
-import Store from "../../../store/Store";
+import Stores from "../../../store/Store";
 import { CurrencyEnum } from "../../../utils/enums";
 import { usersService } from "../../../services/users.service";
 
@@ -12,6 +12,7 @@ import { currencyRefresher } from "./currency.helpers";
 const currency = (bot: Telegraf<IBotContext>) => {
   bot.hears(CURRENCY_REGEXP, (ctx) => {
     const userId = ctx.message?.from.id;
+    const Store = Stores.get(userId);
     Store.resetStore();
     ctx.reply(`<b>${t("select_currency")}:</b>`, {
       parse_mode: "HTML",

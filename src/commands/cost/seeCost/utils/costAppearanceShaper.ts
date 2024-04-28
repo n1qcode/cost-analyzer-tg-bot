@@ -1,10 +1,15 @@
 import { t } from "../../../../i18n";
-import Store from "../../../../store/Store";
+import Stores from "../../../../store/Store";
 import { CostTimeEnum } from "../../../../utils/enums";
 import sumSpaceDivider from "../../../../utils/sumSpaceDivider";
 import { SPACE } from "../../../../utils/constants";
 
-const costAppearanceShaper = (data: Array<object>, costTime: CostTimeEnum) => {
+const costAppearanceShaper = (
+  data: Array<object>,
+  costTime: CostTimeEnum,
+  userId: number
+) => {
+  const Store = Stores.get(userId);
   const costNiceAppearance: string[] = [];
   let dataForAnalyze = data[0];
   let amount = 0;

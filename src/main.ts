@@ -9,7 +9,6 @@ import { HelpCommand } from "./commands/help.command";
 import { CostCommand } from "./commands/cost/cost.command";
 import { StatisticsCommand } from "./commands/statistics/statistics.command";
 import { FinanceCommand } from "./commands/finance/finance.command";
-import Store from "./store/Store";
 import { CostActionEnum } from "./commands/cost/cost.enums";
 import addToCostCategoryInput from "./inputs/cost/addToCostCategoryInput";
 import seeChosenMonthCostInput from "./inputs/cost/seeChosenMonthCostInput";
@@ -19,6 +18,7 @@ import Informer from "./utils/Informer/Informer";
 import { FinanceInputActionsEnum } from "./commands/finance/utils/enums";
 import financeInput from "./inputs/finance/financeInput";
 import { lastPlaceInspector } from "./utils/lastPlaceInspector";
+import Stores from "./store/Store";
 
 class Bot {
   bot: Telegraf<IBotContext>;
@@ -44,6 +44,8 @@ class Bot {
 
   hear() {
     this.bot.on(message("text"), async (ctx) => {
+      const Store = Stores.get(ctx.from.id);
+      console.log("DEBUG::", JSON.stringify(Store, null, 2));
       if (Store.activeInputAction[CostActionEnum.ADD_COST])
         await addToCostCategoryInput(ctx);
       if (Store.activeInputAction[CostActionEnum.CHOOSE_MONTH])

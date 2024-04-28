@@ -30,7 +30,15 @@ const todayCost = (bot: Telegraf<IBotContext>) => {
       if (error) throw new Error(error);
 
       if (payload?.length) {
-        const costValues = costAppearanceShaper(payload, CostTimeEnum.DAY);
+        if (!ctx.from) {
+          await ctx?.reply("🚫 Error: userId is not specified");
+          return;
+        }
+        const costValues = costAppearanceShaper(
+          payload,
+          CostTimeEnum.DAY,
+          ctx.from.id
+        );
         costValues.unshift(`<u><b>${t("today_cost")}</b></u>:`);
         await ctx.editMessageText(costValues.join("\n"), {
           parse_mode: "HTML",

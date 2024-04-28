@@ -1,5 +1,5 @@
 import { financeService } from "../../../services/finance.service";
-import Store from "../../../store/Store";
+import Stores from "../../../store/Store";
 import { financeAppearanceShaper } from "../../../commands/finance/utils/helpers";
 import { t } from "../../../i18n";
 import { CurrencyEnum } from "../../../utils/enums";
@@ -9,6 +9,7 @@ import { SPACE } from "../../../utils/constants";
 
 export default class MoneyBoxRequests {
   static async put(ctx: ContextExt) {
+    const Store = Stores.get(ctx.from.id);
     const sumValue = Number(
       Store.finance.value.includes(",")
         ? Store.finance.value.split(",").join(".")
@@ -50,6 +51,7 @@ export default class MoneyBoxRequests {
   }
 
   static async take(ctx: ContextExt) {
+    const Store = Stores.get(ctx.from.id);
     const sumValue = Number(
       Store.finance.value.includes(",")
         ? Store.finance.value.split(",").join(".")

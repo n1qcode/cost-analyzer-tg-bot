@@ -4,7 +4,7 @@ import { IBotContext } from "../../../context/context.interface";
 import { costService } from "../../../services/cost.service";
 import { t } from "../../../i18n";
 import { frequencyService } from "../../../services/frequency.service";
-import Store from "../../../store/Store";
+import Stores from "../../../store/Store";
 
 class CostAssistant {
   private readonly bot: Telegraf<IBotContext>;
@@ -14,6 +14,11 @@ class CostAssistant {
   }
 
   static async getTranslation(ctx: Context) {
+    if (!ctx.from) {
+      await ctx?.reply("🚫 Error: userId is not specified");
+      return;
+    }
+    const Store = Stores.get(ctx.from.id);
     if (Store.costState.translator.isValid) return;
     try {
       const response = await costService
@@ -30,6 +35,11 @@ class CostAssistant {
   }
 
   static async getFrequency(ctx: Context) {
+    if (!ctx.from) {
+      await ctx?.reply("🚫 Error: userId is not specified");
+      return;
+    }
+    const Store = Stores.get(ctx.from.id);
     if (Store.costState.categoriesByFrequency.isValid) return;
     try {
       const response = await frequencyService
@@ -50,6 +60,11 @@ class CostAssistant {
   }
 
   static async getCostCategories(ctx: Context) {
+    if (!ctx.from) {
+      await ctx?.reply("🚫 Error: userId is not specified");
+      return;
+    }
+    const Store = Stores.get(ctx.from.id);
     if (Store.costState.costCategories.isValid) return;
     try {
       const response = await costService

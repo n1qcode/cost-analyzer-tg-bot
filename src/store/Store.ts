@@ -9,22 +9,22 @@ import { FinanceBoxesEnum } from "../commands/finance/utils/enums";
 
 import { IStoreActiveInputAction } from "./Store.typings";
 
-export default class Store {
-  static activeInputAction: IStoreActiveInputAction = {
+class Store {
+  public activeInputAction: IStoreActiveInputAction = {
     ADD_COST: false,
     ADD_COST_CAT: false,
     CHOOSE_MONTH: false,
     TRANSLATE_COST: false,
     FINANCE: false,
   };
-  static costState: ICostCommandLocalState = {
+  public costState: ICostCommandLocalState = {
     categoriesByFrequency: { isValid: false, frequency: [] },
     costCategories: { isValid: false, categories: [] },
     chosenCategory: "",
     isCatAdd: false,
     translator: { isValid: false, dictionary: {} },
   };
-  static seeMonthCost: ISeeMonthCost = {
+  public seeMonthCost: ISeeMonthCost = {
     costValues: [],
     isEnter: false,
     isLast: false,
@@ -34,13 +34,13 @@ export default class Store {
     year: "",
     ctx: null,
   };
-  static createCostCategory: ICreateCostCategory = {
+  public createCostCategory: ICreateCostCategory = {
     isCostNameTyped: false,
     isCostTranslationTyped: false,
     cost_category: "",
     translation: "",
   };
-  static finance: IFinanceStore = {
+  public finance: IFinanceStore = {
     isEnter: false,
     isTyped: false,
     value: "",
@@ -49,7 +49,7 @@ export default class Store {
     boxType: FinanceBoxesEnum.ACCUM,
   };
 
-  static resetStore(currency?: CurrencyEnum) {
+  public resetStore(currency?: CurrencyEnum) {
     this.activeInputAction = {
       ADD_COST: false,
       ADD_COST_CAT: false,
@@ -92,4 +92,20 @@ export default class Store {
       boxType: FinanceBoxesEnum.ACCUM,
     };
   }
+}
+
+export default class Stores {
+  static add(userId: number) {
+    this.stores.set(userId, new Store());
+  }
+
+  static get(userId: number) {
+    if (!userId) return;
+    if (!Stores.stores.has(userId)) {
+      Stores.add(userId);
+    }
+    return Stores.stores.get(userId);
+  }
+
+  private static stores = new Map();
 }

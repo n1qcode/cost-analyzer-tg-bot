@@ -3,7 +3,7 @@ import { Markup, Telegraf } from "telegraf";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { MAIN_BUTTONS, POCKET_MONEY_BUTTONS } from "../utils/constants";
-import Store from "../../../store/Store";
+import Stores from "../../../store/Store";
 
 import getInfoOfPocketMoney from "./getInfoOfPocketMoney";
 import putMoneyToPocketMoney from "./putMoneyToPocketMoney";
@@ -11,6 +11,7 @@ import takeMoneyToPocketMoney from "./takeMoneyToPocketMoney";
 
 const pocketMoney = (bot: Telegraf<IBotContext>) => {
   bot.hears(MAIN_BUTTONS.pocket_money, (ctx) => {
+    const Store = Stores.get(ctx.from.id);
     Store.resetStore();
     ctx.reply(`💵 🫰 <b>${t("pocket_money")}</b>`, {
       parse_mode: "HTML",

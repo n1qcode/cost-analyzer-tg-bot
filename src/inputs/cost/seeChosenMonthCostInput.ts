@@ -2,13 +2,14 @@ import { Context } from "telegraf";
 
 import { t } from "../../i18n";
 import { monthCostExecutor } from "../../commands/cost/seeCost/monthCost/monthCost.helpers";
-import Store from "../../store/Store";
+import Stores from "../../store/Store";
 
 import type { Update, Message } from "telegraf/types";
 
 const seeChosenMonthCostInput = async (
   ctx: Context<Update.MessageUpdate<Message.TextMessage>>
 ) => {
+  const Store = Stores.get(ctx.from.id);
   if (Store.seeMonthCost.isYearTyped && Store.seeMonthCost.isMonthTyped) return;
   const isYearValid = /^\d{4}$/;
   const isMonthValid = /^(0?[1-9]|1[0-2])$/;
@@ -26,7 +27,7 @@ const seeChosenMonthCostInput = async (
     if (isMonthValid.test(value)) {
       Store.seeMonthCost.month = value.length === 1 ? "0" + value : value;
       Store.seeMonthCost.isMonthTyped = true;
-      await monthCostExecutor();
+      await monthCostExecutor(ctx.from.id);
     } else await ctx.reply(t("month_valid"));
   }
 };

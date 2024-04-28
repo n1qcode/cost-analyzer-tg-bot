@@ -6,7 +6,7 @@ import accessProtector from "../../utils/accessProtector";
 import { Command } from "../command.class";
 import { usersService } from "../../services/users.service";
 import { LastPlacesEnum } from "../../utils/enums";
-import Store from "../../store/Store";
+import Stores from "../../store/Store";
 
 import { MAIN_BUTTONS } from "./utils/constants";
 import moneyBox from "./moneyBox/moneyBox";
@@ -21,6 +21,7 @@ export class FinanceCommand extends Command {
   handle() {
     this.bot.command("finance", async (ctx) => {
       if (!accessProtector(ctx)) return;
+      const Store = Stores.get(ctx.from.id);
       await usersService.setUserFinanceInfo({
         userId: ctx.message.from.id,
         lastPlace: LastPlacesEnum.FINANCE,
@@ -31,7 +32,7 @@ export class FinanceCommand extends Command {
         Markup.keyboard([
           [MAIN_BUTTONS.money_box],
           [MAIN_BUTTONS.pocket_money],
-          [MAIN_BUTTONS.currency],
+          [MAIN_BUTTONS.currency(ctx.from.id)],
         ]).resize()
       );
     });

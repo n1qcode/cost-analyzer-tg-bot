@@ -1,6 +1,6 @@
 import { t } from "../../i18n";
 import { MONEY_REGEX } from "../../utils/constants";
-import Store from "../../store/Store";
+import Stores from "../../store/Store";
 import { FinanceBoxesEnum } from "../../commands/finance/utils/enums";
 import { ContextExt } from "../../typings/utility.typings";
 import { FinanceActionsEnum } from "../../utils/enums";
@@ -9,6 +9,7 @@ import MoneyBoxRequests from "./requests/MoneyBoxRequests";
 import PocketMoneyRequests from "./requests/PocketMoneyRequests";
 
 const financeInput = async (ctx: ContextExt) => {
+  const Store = Stores.get(ctx.from.id);
   if (Store.finance.isTyped) return;
   const value = ctx.message.text;
 

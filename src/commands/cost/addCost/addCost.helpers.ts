@@ -3,7 +3,7 @@ import { Markup, Telegraf } from "telegraf";
 import { IBotContext } from "../../../context/context.interface";
 import { t } from "../../../i18n";
 import { CostActionEnum } from "../cost.enums";
-import Store from "../../../store/Store";
+import Stores from "../../../store/Store";
 import { MAX_HEIGHT_CAT_BUTTONS } from "../../../utils/constants";
 import { HideableIKBtn } from "../../../typings/markup";
 
@@ -56,6 +56,11 @@ export const categoriesButtonsShaper = (
 
 export const categoriesHandler = (bot: Telegraf<IBotContext>) => {
   bot.action(/^cat/, async (ctx) => {
+    if (!ctx.from) {
+      await ctx?.reply("🚫 Error: userId is not specified");
+      return;
+    }
+    const Store = Stores.get(ctx?.from?.id);
     Store.activeInputAction[CostActionEnum.ADD_COST] = true;
     Store.costState.isCatAdd = false;
     Store.costState.chosenCategory = ctx.match.input;
@@ -68,6 +73,11 @@ export const categoriesHandler = (bot: Telegraf<IBotContext>) => {
     );
   });
   bot.action("show_all_categories", async (ctx) => {
+    if (!ctx.from) {
+      await ctx?.reply("🚫 Error: userId is not specified");
+      return;
+    }
+    const Store = Stores.get(ctx.from.id);
     const categoriesButtons = categoriesButtonsShaper(
       Store.costState.categoriesByFrequency.frequency,
       Store.costState.costCategories.categories,

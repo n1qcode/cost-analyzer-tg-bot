@@ -1,10 +1,13 @@
 import { t } from "../../../i18n";
-import Store from "../../../store/Store";
+import Stores from "../../../store/Store";
 
 export const MAIN_BUTTONS = {
   money_box: `💰  ${t("money_box")}`,
   pocket_money: `💵 🫰 ${t("pocket_money")}`,
-  currency: `🪙 ${t("current_currency_label")} (${t(Store.finance.currency)})`,
+  currency: (userId: number) => {
+    const Store = Stores.get(userId);
+    return `🪙 ${t("current_currency_label")} (${t(Store.finance.currency)})`;
+  },
 };
 
 export const CURRENCY_REGEXP = new RegExp(`🪙 ${t("current_currency_label")}`);

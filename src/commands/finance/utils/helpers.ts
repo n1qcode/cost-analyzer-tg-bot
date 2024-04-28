@@ -78,7 +78,7 @@ export const currencyUpdater = async (
       Markup.keyboard([
         [MAIN_BUTTONS.money_box],
         [MAIN_BUTTONS.pocket_money],
-        [MAIN_BUTTONS.currency],
+        [MAIN_BUTTONS.currency(+user_id)],
       ]).resize()
     );
   }

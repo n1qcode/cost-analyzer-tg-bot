@@ -3,7 +3,7 @@ import { Context } from "telegraf";
 import { t } from "../../i18n";
 import { costService } from "../../services/cost.service";
 import Calculator from "../../utils/Calculator/Calculator";
-import Store from "../../store/Store";
+import Stores from "../../store/Store";
 import sumSpaceDivider from "../../utils/sumSpaceDivider";
 import { SPACE } from "../../utils/constants";
 
@@ -12,6 +12,7 @@ import type { Update, Message } from "telegraf/types";
 const addToCostCategoryInput = async (
   ctx: Context<Update.MessageUpdate<Message.TextMessage>>
 ) => {
+  const Store = Stores.get(ctx.from.id);
   if (Store.costState.isCatAdd) return;
   const sumResult = Calculator.sum(ctx.message.text);
   const { isCorrect, value: spentAmount, info } = sumResult;

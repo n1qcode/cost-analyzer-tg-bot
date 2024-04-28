@@ -2,13 +2,14 @@ import { Context } from "telegraf";
 
 import { t } from "../../i18n";
 import { costService } from "../../services/cost.service";
-import Store from "../../store/Store";
+import Stores from "../../store/Store";
 
 import type { Update, Message } from "telegraf/types";
 
 const createCostCategoryInput = async (
   ctx: Context<Update.MessageUpdate<Message.TextMessage>>
 ) => {
+  const Store = Stores.get(ctx.from.id);
   if (
     !Store.createCostCategory.isCostNameTyped &&
     !Store.createCostCategory.isCostTranslationTyped

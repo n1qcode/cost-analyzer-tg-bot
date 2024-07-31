@@ -14,7 +14,7 @@ const CommonMessages = {
   },
 
   numWithCurrencyCode(value: number) {
-    return `<code>${this.numWithCurrencyRaw(value)}.</code>`;
+    return `<code>${this.numWithCurrencyRaw(value)}</code>`;
   },
 } as const;
 

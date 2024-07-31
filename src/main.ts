@@ -45,7 +45,7 @@ class Bot {
   hear() {
     this.bot.on(message("text"), async (ctx) => {
       const Store = Stores.get(ctx.from.id);
-      console.log("DEBUG::", JSON.stringify(Store, null, 2));
+      // console.log("DEBUG::", JSON.stringify(Store, null, 2));
       if (Store.activeInputAction[CostActionEnum.ADD_COST])
         await addToCostCategoryInput(ctx);
       if (Store.activeInputAction[CostActionEnum.CHOOSE_MONTH])

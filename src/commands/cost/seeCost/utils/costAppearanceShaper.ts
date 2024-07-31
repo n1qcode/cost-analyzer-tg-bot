@@ -29,7 +29,9 @@ const costAppearanceShaper = (
     }, {});
   }
 
-  for (const [costKey, costValue] of Object.entries(dataForAnalyze)) {
+  for (const [costKey, costValue] of Object.entries(dataForAnalyze).sort(
+    ([, a], [, b]) => b - a
+  )) {
     if (/cat/.test(costKey) && +costValue) {
       costNiceAppearance.push(
         `<code>${
